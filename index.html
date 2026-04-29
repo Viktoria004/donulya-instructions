@@ -2052,12 +2052,12 @@ section#quiz{
       <!-- Q1 -->
       <div class="q-card active" data-q="1">
         <div class="q-num">Вопрос 01 из 05 · правило №1</div>
-        <h3 class="q-text">Ты завершил звонок с клиентом — он сказал «готов к договору». Что <em>делаешь дальше</em>?</h3>
+        <h3 class="q-text">Ты провёл встречу — клиент сказал «готов к договору». Какой <em>результат задачи</em> ты выбираешь?</h3>
         <div class="q-answers">
           <button class="q-answer" data-letter="A" data-correct="false">Перетаскиваю сделку на этап «Счёт выставлен» вручную в CRM</button>
-          <button class="q-answer" data-letter="B" data-correct="true">Закрываю задачу с результатом «готов к договору» — Pipeline сам передвинет сделку</button>
-          <button class="q-answer" data-letter="C" data-correct="false">Создаю новую задачу «выставить счёт» и оставляю сделку на месте</button>
-          <button class="q-answer" data-letter="D" data-correct="false">Пишу РОПу в чат, что клиент готов</button>
+          <button class="q-answer" data-letter="B" data-correct="true">Выбираю результат задачи «выставить счёт» — Pipeline сам передвинет сделку на этап 04</button>
+          <button class="q-answer" data-letter="C" data-correct="false">Создаю новую задачу «выставить счёт» и оставляю сделку на этапе 01</button>
+          <button class="q-answer" data-letter="D" data-correct="false">Пишу РОПу в чат, что клиент готов, и жду указаний</button>
         </div>
         <div class="q-feedback"></div>
         <button class="q-next" disabled>Следующий вопрос →</button>
@@ -2148,6 +2148,12 @@ section#quiz{
 </main>
 
 <script>
+// Always start at the top on fresh visits (ignore browser scroll restore)
+if('scrollRestoration' in history) history.scrollRestoration = 'manual';
+window.addEventListener('load', ()=>{
+  if(!location.hash) window.scrollTo(0,0);
+});
+
 const io = new IntersectionObserver((entries)=>{
   entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
 },{threshold:.12});
@@ -2184,8 +2190,8 @@ if(quizWrap){
 
   const feedbacks = {
     1:{
-      correct:'Главное правило: задача → результат → CRM сама двигает. Перетаскивать руками — убивать аналитику и автоматизации.',
-      wrong:'Правильно — закрыть задачу с правильным результатом. Pipeline сам передвинет сделку. Руками не таскаем.'
+      correct:'Точно. Выбираешь результат задачи — Pipeline сам передвинет сделку. Перетаскивать руками = убивать аналитику и автоматизации.',
+      wrong:'Правильно — выбрать результат задачи «выставить счёт». Pipeline сам передвинет сделку на этап 04. Руками не таскаем.'
     },
     2:{
       correct:'Точно. Час — золотое окно: клиент ещё в эмоциях, помнит встречу, готов к диалогу.',
