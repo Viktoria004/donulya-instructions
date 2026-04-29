@@ -291,6 +291,55 @@ section.alt-bg{
   font-size:1.6rem;color:var(--gold);opacity:.5;
 }
 
+/* common pool block */
+.pool{
+  margin-top:36px;
+  background:linear-gradient(135deg,var(--burgundy) 0%,var(--burgundy-deep) 100%);
+  color:var(--paper-light);
+  padding:38px 42px;
+  display:grid;grid-template-columns:auto 1fr auto;gap:32px;align-items:center;
+  position:relative;overflow:hidden;
+  border-left:6px solid var(--gold);
+}
+.pool::before{
+  content:"⏱";position:absolute;right:30px;top:-30px;
+  font-size:14rem;color:var(--gold);opacity:.07;
+  pointer-events:none;line-height:1;
+}
+.pool-icon{
+  width:84px;height:84px;border:2px solid var(--gold);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  background:rgba(0,0,0,.2);position:relative;z-index:1;
+}
+.pool-icon svg{width:42px;height:42px;stroke:var(--gold);fill:none;stroke-width:1.5}
+.pool-text{position:relative;z-index:1}
+.pool-text .upper{color:var(--gold);font-size:.72rem;margin-bottom:10px;display:block}
+.pool-text h3{
+  font-family:var(--font-display);font-weight:500;
+  font-size:clamp(1.5rem,3vw,1.95rem);
+  line-height:1.1;letter-spacing:-.018em;margin-bottom:12px;
+}
+.pool-text p{font-size:1rem;line-height:1.55;color:#E8D9D5;margin-bottom:8px}
+.pool-text p:last-child{margin-bottom:0}
+.pool-text strong{color:var(--paper-light);font-weight:700}
+.pool-text em{font-style:normal;background:rgba(216,162,44,.18);padding:2px 7px;border-radius:2px;color:var(--gold);font-weight:600}
+.pool-counter{
+  font-family:var(--font-display);font-weight:200;font-size:7rem;line-height:.85;
+  color:var(--gold);letter-spacing:-.06em;
+  font-variation-settings:"opsz" 144,"SOFT" 100;
+  position:relative;z-index:1;
+}
+.pool-counter small{display:block;font-family:var(--font-mono);font-size:.7rem;
+  letter-spacing:.2em;color:var(--gold);text-transform:uppercase;font-weight:700;margin-top:6px;
+}
+
+@media (max-width:980px){
+  .pool{grid-template-columns:1fr;text-align:center;padding:28px 22px}
+  .pool-icon{margin:0 auto}
+  .pool-counter{font-size:5rem}
+  .pool::before{font-size:9rem}
+}
+
 /* terms / mini glossary in section 02 */
 .terms{
   background:var(--paper-light);border:1px solid var(--line);
@@ -1242,7 +1291,7 @@ section#quiz{
 <!-- ─────────────── HERO ─────────────── -->
 <header class="hero">
   <div class="hero-inner">
-    <div class="ribbon">внутренний документ · v 1.4</div>
+    <div class="ribbon">внутренний документ · v 1.5</div>
 
     <div class="hero-top">
       <div class="brandmark">
@@ -1338,8 +1387,8 @@ section#quiz{
       </article>
       <article class="rule reveal" data-delay="2">
         <div class="rule-num">03</div>
-        <h3 class="rule-title">Касание не реже раза в 3 рабочих дня.</h3>
-        <p class="rule-body">На любом активном этапе если касаний нет <strong>3+ рабочих дня</strong> — РОПу прилетает алерт. РОП вправе <strong>забрать клиента и передать другому клоузеру</strong>. Этап 6 (Отложен) — исключение: пауза до названной даты.</p>
+        <h3 class="rule-title">72 часа без касания — сделка уходит в «Общий котёл».</h3>
+        <p class="rule-body">На активных этапах (Догрев, Счёт, Дожим) если <strong>подтверждённого касания нет более 72 часов</strong> — ответственный <strong>автоматически снимается</strong>, сделка уходит в воронку «Общий котёл» со статусом «Свободна». Её может забрать любой клоузер. Этап 6 (Отложен) — исключение: пауза до названной даты.</p>
       </article>
       <article class="rule invert reveal" data-delay="3">
         <div class="rule-num">04</div>
@@ -1363,6 +1412,20 @@ section#quiz{
         <p>За <strong>15 минут до конца смены</strong> (у кого 18:00, у кого 21:00) открываешь воронку, фильтруешь по своим сделкам, делаешь скрин: <strong>ни одной красной задачи</strong>. Скидываешь в группу с РОПом. Если есть просрочки — закрываешь, потом скрин. Без чистого дашборда рабочий день не считается закрытым.</p>
       </div>
       <div class="zd-zero">0</div>
+    </div>
+
+    <div class="pool reveal">
+      <div class="pool-icon">
+        <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><path d="M24 14 V24 L31 28"/><path d="M14 8 L8 14"/><path d="M34 8 L40 14"/></svg>
+      </div>
+      <div class="pool-text">
+        <span class="upper">общий котёл · автоматическое снятие сделки</span>
+        <h3>72 часа тишины — и сделка больше не твоя.</h3>
+        <p>Если по сделке в активных статусах (<strong>Догрев, Счёт, Дожим</strong>) нет подтверждённого касания <em>более 72 часов</em> — система автоматически:</p>
+        <p>① снимает тебя с ответственности · ② перекидывает сделку в воронку <strong>«Общий котёл»</strong> со статусом <strong>«Свободна»</strong> · ③ её может забрать <strong>любой клоузер</strong>, который её увидит первым.</p>
+        <p>Если ты хочешь её вернуть — придётся <strong>перехватить из общего котла наравне с другими</strong>. Поэтому правило простое: коснулся клиента в эфире <em>каждые 72 часа</em> — сделка остаётся твоей.</p>
+      </div>
+      <div class="pool-counter">72<small>часа</small></div>
     </div>
   </div>
 </section>
@@ -1403,7 +1466,7 @@ section#quiz{
       </div>
       <div class="terms-foot">
         <span class="upper">как читать сроки</span>
-        <p><strong>SLA</strong> = срок реакции на этапе. <em>«SLA · 24 часа»</em> = 24 календарных часа с момента входа на этап. <em>«SLA · 14 дней»</em> = 14 календарных дней. Правило <em>«не реже 3 рабочих дней»</em> считает только пн–пт. Часы — всегда календарные.</p>
+        <p><strong>SLA</strong> = срок реакции на этапе. <em>«SLA · 24 часа»</em> = 24 календарных часа с момента входа на этап. <em>«SLA · 14 дней»</em> = 14 календарных дней. Правило <em>«72 часа без касания»</em> — это <strong>календарные 72 часа</strong>, выходные считаются. Часы — всегда календарные.</p>
       </div>
     </div>
 
@@ -1600,7 +1663,7 @@ section#quiz{
             <li>Заполни поле <strong>«Причина не готов»</strong> — без этого CRM не передвинет сделку.</li>
             <li><em>Через 2 часа</em> после встречи — обязательный звонок. Клиент ещё «горячий», это лучшее окно дожать.</li>
             <li>Дальше клоузер сам выбирает день и время следующего касания, ориентируясь на пожелание клиента.</li>
-            <li><strong>Касание не реже раза в 3 рабочих дня</strong> — иначе РОП заберёт клиента.</li>
+            <li><strong>Касание не реже чем каждые 72 часа</strong> — иначе сделка уходит в «Общий котёл».</li>
             <li>Если не дозвон — система переставит задачу автоматически (см. график ниже).</li>
             <li>День 7 — задача упадёт старшему клоузеру: «Попробуй вывести клиента на диалог».</li>
             <li>День 14 — финальная попытка. Без результата — автозакрытие с пометкой «неактивен».</li>
@@ -1823,13 +1886,13 @@ section#quiz{
           <ol>
             <li><strong>Как только пришла предоплата</strong> — сразу позвони, поздравь клиента и сверь дату полной доплаты. Звонок через час здесь не нужен — ты уже сделал главный звонок.</li>
             <li>Дальше клоузер сам выбирает день и время касаний, ориентируясь на пожелание клиента.</li>
-            <li><strong>Касание не реже раза в 3 рабочих дня</strong> — иначе РОП заберёт клиента.</li>
+            <li><strong>Касание не реже чем каждые 72 часа</strong> — иначе сделка уходит в «Общий котёл».</li>
             <li>Параллельно работает <strong>авторассылка</strong> в MaxBot — ты её не пишешь, она идёт по графику.</li>
           </ol>
         </div>
 
         <div class="block">
-          <div class="block-label">Цикл касаний — каждые 3 рабочих дня</div>
+          <div class="block-label">Цикл касаний — каждые 72 часа</div>
           <div class="timeline">
             <div class="t-row">
               <div class="t-when">сразу при входе</div>
@@ -2146,7 +2209,7 @@ section#quiz{
           <li>На +72 ч на этапе «Счёт» звонить самому — нужен <strong>свежий голос</strong> (старший / другой клоузер).</li>
           <li>Писать тексты для MaxBot/VK самому — их готовит копирайтер.</li>
           <li>Третий перенос встречи на этапе 01 без эскалации РОПу.</li>
-          <li>Тишина 3+ рабочих дня на активных этапах. РОП заберёт клиента.</li>
+          <li><strong>Тишина более 72 часов на активных этапах (Догрев, Счёт, Дожим)</strong> — сделка автоматически снимается с тебя и уходит в воронку «Общий котёл». Заберёт первый, кто увидит.</li>
           <li>Зависать на этапе 07 больше 3 часов без передачи документов.</li>
           <li>Закрыть рабочий день без чистого дашборда в чате с РОПом.</li>
           <li>Пропустить звонок через 2 часа на этапе 03 (Догрев) и 04 (Счёт).</li>
@@ -2162,7 +2225,7 @@ section#quiz{
           <li>Если клиент пишет/звонит на личный канал — переключать: «давайте перейдём на другой телефон, я сейчас перезвоню».</li>
           <li>Закрывать каждую задачу с правильным результатом — CRM сама двигает сделку.</li>
           <li>Заполнять обязательные поля до перехода: причина «не готов», дата возврата, сумма предоплаты.</li>
-          <li>Касаться клиента не реже раза в 3 рабочих дня на активных этапах.</li>
+          <li>Касаться клиента <strong>не реже чем каждые 72 часа</strong> на активных этапах — иначе сделка уходит в «Общий котёл».</li>
           <li>Звонить через 2 часа после встречи (Догрев) и после выставления счёта.</li>
           <li>На этапе 04 идти по протоколу <strong>2 — 24 — 72</strong>: горячо → рассрочка → дедлайн от свежего голоса.</li>
           <li>На +72 ч (день 3 после счёта) звонит <strong>другой клоузер или старший</strong>, не ты.</li>
@@ -2226,12 +2289,12 @@ section#quiz{
       <!-- Q3 -->
       <div class="q-card" data-q="3">
         <div class="q-num">Вопрос 03 из 05 · правило №3</div>
-        <h3 class="q-text">Что произойдёт, если ты <em>не касался клиента 3 рабочих дня</em> на активном этапе?</h3>
+        <h3 class="q-text">Что произойдёт, если по сделке в активном статусе <em>нет подтверждённого касания более 72 часов</em>?</h3>
         <div class="q-answers">
           <button class="q-answer" data-letter="A" data-correct="false">Ничего, можно продолжать работать</button>
-          <button class="q-answer" data-letter="B" data-correct="false">Сделка автоматически закроется</button>
-          <button class="q-answer" data-letter="C" data-correct="true">РОПу прилетит алерт, и он вправе забрать клиента и передать другому клоузеру</button>
-          <button class="q-answer" data-letter="D" data-correct="false">Получу предупреждение по почте</button>
+          <button class="q-answer" data-letter="B" data-correct="false">Сделка автоматически закроется со статусом «не реализовано»</button>
+          <button class="q-answer" data-letter="C" data-correct="true">Меня снимут с ответственности, сделка уйдёт в воронку «Общий котёл» со статусом «Свободна» — её заберёт любой клоузер</button>
+          <button class="q-answer" data-letter="D" data-correct="false">Получу предупреждение по почте от РОПа</button>
         </div>
         <div class="q-feedback"></div>
         <button class="q-next" disabled>Следующий вопрос →</button>
@@ -2282,7 +2345,7 @@ section#quiz{
   <div class="footer-inner">
     <div class="footer-mark">Дону<span>ля</span> · отдел продаж</div>
     <div class="footer-meta">
-      <div>версия 1.4 · апрель 2026</div>
+      <div>версия 1.5 · апрель 2026</div>
       <div>воронка МПП2 · amocrm</div>
       <div>вопросы по инструкции — РОПу МПП2</div>
     </div>
@@ -2344,8 +2407,8 @@ if(quizWrap){
       wrong:'Через 2 часа. В Догреве это обязательное правило — попытка дожать в горячем состоянии.'
     },
     3:{
-      correct:'Да. 3 дня тишины = РОП может забрать клиента и отдать другому. Это правило №3.',
-      wrong:'РОП заберёт клиента. Тишина 3+ рабочих дня на активном этапе = алерт + переназначение.'
+      correct:'Точно. 72 часа без касания — система сама снимает тебя и кидает сделку в «Общий котёл». Кто перехватит первым — у того и деньги.',
+      wrong:'Сделка уходит в воронку «Общий котёл» со статусом «Свободна». Любой клоузер может её забрать. Не давай тишины 72+ часа — потеряешь клиента и бонус.'
     },
     4:{
       correct:'Так и есть. К концу смены — ноль просрочек, скрин в чат с РОПом, день закрыт.',
