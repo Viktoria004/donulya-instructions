@@ -760,6 +760,210 @@ footer::before{
 .toc a span{color:var(--ink-mute);font-size:.7rem;letter-spacing:.1em;font-weight:700}
 .toc a:hover span{color:var(--copper)}
 
+/* ──────── stage navigation buttons ──────── */
+.stage-nav{
+  display:flex;justify-content:space-between;gap:10px;
+  margin-top:36px;padding-top:24px;border-top:1px dashed var(--line);
+}
+.stage-nav a{
+  flex:1;text-decoration:none;color:var(--ink);
+  background:var(--paper-light);border:1.5px solid var(--ink);
+  padding:14px 18px;display:flex;flex-direction:column;gap:3px;
+  font-family:var(--font-mono);font-size:.7rem;letter-spacing:.18em;
+  text-transform:uppercase;font-weight:700;
+  transition:all .25s ease;
+  min-height:60px;
+}
+.stage-nav a:hover{background:var(--ink);color:var(--paper-light);transform:translateY(-2px)}
+.stage-nav a.next{align-items:flex-end;text-align:right}
+.stage-nav a span{font-family:var(--font-display);font-size:1.1rem;
+  font-weight:500;letter-spacing:-.01em;text-transform:none;
+  font-style:italic;color:var(--copper);transition:color .25s ease}
+.stage-nav a:hover span{color:var(--gold)}
+.stage-nav a.disabled{opacity:.35;pointer-events:none}
+
+/* ──────── back to top ──────── */
+.totop{
+  position:fixed;bottom:24px;right:24px;z-index:50;
+  width:52px;height:52px;border-radius:50%;
+  background:var(--ink);color:var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  text-decoration:none;font-size:1.4rem;font-weight:700;
+  box-shadow:0 12px 30px -10px rgba(0,0,0,.4);
+  opacity:0;transform:translateY(20px);pointer-events:none;
+  transition:opacity .3s ease,transform .3s ease,background .25s ease;
+}
+.totop.show{opacity:1;transform:none;pointer-events:auto}
+.totop:hover{background:var(--gold);color:var(--ink)}
+
+/* ──────── QUIZ ──────── */
+section#quiz{
+  background:linear-gradient(180deg,var(--paper-warm) 0%,var(--paper) 100%);
+}
+.quiz-wrap{
+  background:var(--paper-light);
+  border:2px solid var(--ink);
+  padding:clamp(28px,5vw,56px);
+  position:relative;overflow:hidden;
+  box-shadow:0 30px 60px -36px rgba(20,16,12,.35);
+}
+.quiz-wrap::before{
+  content:"";position:absolute;left:0;top:0;height:5px;width:0%;
+  background:linear-gradient(90deg,var(--sage) 0%,var(--gold) 100%);
+  transition:width .5s ease;
+}
+.quiz-wrap[data-progress="1"]::before{width:20%}
+.quiz-wrap[data-progress="2"]::before{width:40%}
+.quiz-wrap[data-progress="3"]::before{width:60%}
+.quiz-wrap[data-progress="4"]::before{width:80%}
+.quiz-wrap[data-progress="5"]::before{width:100%}
+.quiz-wrap[data-progress="done"]::before{width:100%}
+
+.quiz-dots{
+  display:flex;gap:10px;margin-bottom:36px;
+}
+.quiz-dot{
+  flex:1;height:5px;background:var(--line);border-radius:3px;
+  transition:background .35s ease;
+}
+.quiz-dot.active{background:var(--copper)}
+.quiz-dot.done{background:var(--sage)}
+.quiz-dot.wrong{background:var(--burgundy)}
+
+.q-card{
+  display:none;
+}
+.q-card.active{
+  display:block;
+  animation:slidein .5s cubic-bezier(.2,.7,.3,1);
+}
+@keyframes slidein{
+  from{opacity:0;transform:translateX(20px)}
+  to{opacity:1;transform:none}
+}
+.q-num{
+  font-family:var(--font-mono);font-size:.74rem;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--copper);font-weight:700;
+  margin-bottom:14px;
+}
+.q-text{
+  font-family:var(--font-display);font-weight:400;
+  font-size:clamp(1.4rem,3.2vw,2.2rem);line-height:1.15;letter-spacing:-.018em;
+  margin-bottom:32px;
+}
+.q-text em{font-style:italic;color:var(--sage-deep)}
+.q-answers{
+  display:flex;flex-direction:column;gap:10px;margin-bottom:24px;
+}
+.q-answer{
+  width:100%;text-align:left;cursor:pointer;
+  padding:18px 22px 18px 60px;
+  background:var(--paper);border:1.5px solid var(--line);
+  font-family:var(--font-body);font-size:1rem;line-height:1.4;font-weight:500;
+  color:var(--ink);
+  position:relative;
+  transition:all .2s ease;
+  min-height:60px;
+}
+.q-answer::before{
+  content:attr(data-letter);
+  position:absolute;left:18px;top:50%;transform:translateY(-50%);
+  width:30px;height:30px;border-radius:50%;
+  background:var(--paper-warm);border:1.5px solid var(--ink);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-size:.95rem;font-weight:600;
+  transition:all .25s ease;
+}
+.q-answer:hover:not(:disabled){
+  background:var(--paper-warm);border-color:var(--copper);
+  transform:translateY(-1px);
+}
+.q-answer:hover:not(:disabled)::before{
+  background:var(--copper);color:var(--paper-light);border-color:var(--copper);
+}
+.q-answer:disabled{cursor:not-allowed}
+.q-answer.correct{
+  background:var(--sage);color:var(--paper-light);border-color:var(--sage-deep);
+}
+.q-answer.correct::before{
+  content:"✓";background:var(--paper-light);color:var(--sage);border-color:var(--paper-light);
+}
+.q-answer.wrong{
+  background:var(--burgundy-tint);color:var(--burgundy-deep);border-color:var(--burgundy);
+}
+.q-answer.wrong::before{
+  content:"×";background:var(--burgundy);color:var(--paper-light);border-color:var(--burgundy);
+}
+.q-answer.show-correct{
+  background:var(--sage-tint);color:var(--sage-deep);border-color:var(--sage);
+  border-style:dashed;
+}
+.q-answer.show-correct::before{
+  content:"✓";background:var(--sage);color:var(--paper-light);border-color:var(--sage);
+}
+
+.q-feedback{
+  background:var(--paper);border-left:4px solid var(--copper);
+  padding:14px 18px;font-size:.95rem;line-height:1.5;
+  color:var(--ink-soft);margin-bottom:24px;
+  display:none;animation:slidein .4s ease;
+}
+.q-feedback.show{display:block}
+.q-feedback strong{color:var(--ink);font-weight:700}
+.q-feedback.correct{border-color:var(--sage);background:var(--sage-tint)}
+.q-feedback.wrong{border-color:var(--burgundy);background:var(--burgundy-tint)}
+
+.q-next{
+  cursor:pointer;
+  font-family:var(--font-mono);font-size:.78rem;letter-spacing:.2em;
+  text-transform:uppercase;font-weight:700;
+  background:var(--ink);color:var(--paper-light);
+  padding:16px 32px;border:none;
+  transition:all .25s ease;
+  min-height:54px;
+}
+.q-next:hover:not(:disabled){background:var(--gold);color:var(--ink);transform:translateX(4px)}
+.q-next:disabled{opacity:.3;cursor:not-allowed}
+
+/* result */
+.q-result{display:none;text-align:center;padding:30px 10px}
+.q-result.active{display:block;animation:slidein .6s ease}
+.q-result-mark{
+  width:140px;height:140px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 24px;font-family:var(--font-display);font-size:5rem;
+  font-weight:300;letter-spacing:-.04em;
+  font-variation-settings:"opsz" 144,"SOFT" 100;
+}
+.q-result.pass .q-result-mark{
+  background:var(--sage);color:var(--paper-light);
+  box-shadow:0 0 0 8px var(--sage-tint);
+}
+.q-result.fail .q-result-mark{
+  background:var(--burgundy);color:var(--paper-light);
+  box-shadow:0 0 0 8px var(--burgundy-tint);
+}
+.q-result h3{
+  font-family:var(--font-display);font-weight:400;
+  font-size:clamp(1.8rem,4vw,2.8rem);line-height:1;letter-spacing:-.02em;
+  margin-bottom:14px;
+}
+.q-result p{font-size:1.08rem;color:var(--ink-soft);max-width:520px;margin:0 auto 28px;line-height:1.55}
+.q-result-score{
+  font-family:var(--font-mono);font-size:.85rem;letter-spacing:.3em;
+  text-transform:uppercase;color:var(--ink-mute);font-weight:700;
+  margin-bottom:8px;
+}
+.q-restart{
+  cursor:pointer;
+  font-family:var(--font-mono);font-size:.78rem;letter-spacing:.2em;
+  text-transform:uppercase;font-weight:700;
+  background:transparent;color:var(--ink);
+  padding:16px 32px;border:1.5px solid var(--ink);
+  transition:all .25s ease;
+}
+.q-restart:hover{background:var(--ink);color:var(--paper-light)}
+
 /* responsive */
 @media (max-width:980px){
   .hero-ledes{grid-template-columns:1fr 1fr}
@@ -781,10 +985,139 @@ footer::before{
   .zd-icon{margin:0 auto}
   .zd::before{font-size:10rem}
 }
-@media (max-width:560px){
-  .pipeline-row{grid-template-columns:repeat(2,1fr)}
-  .hero-ledes{grid-template-columns:1fr}
-  .section-head{grid-template-columns:1fr;gap:10px}
+@media (max-width:680px){
+  body{font-size:15px}
+  :root{--gutter:18px}
+
+  /* hero */
+  header.hero{padding:32px 18px 36px}
+  .hero-top{margin-bottom:42px;flex-direction:column;align-items:flex-start;gap:14px}
+  .hero-meta{text-align:left}
+  .hero-title{font-size:3rem;line-height:.95}
+  .hero-sub{font-size:1.08rem}
+  .hero-divider{margin:28px 0 22px}
+  .hero-eyebrow{font-size:.7rem;letter-spacing:.24em}
+  .hero-ledes{grid-template-columns:1fr;gap:18px;margin-top:18px}
+  .hero-lede strong{font-size:1.18rem}
+  .ribbon{font-size:.6rem;padding:6px 14px;letter-spacing:.18em}
+
+  /* TOC: horizontal scrollable strip */
+  .toc{
+    grid-template-columns:none;display:flex;
+    overflow-x:auto;gap:8px;padding:14px 16px;
+    scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+    margin-top:24px;
+  }
+  .toc::-webkit-scrollbar{display:none}
+  .toc a{
+    flex:0 0 auto;scroll-snap-align:start;white-space:nowrap;
+    padding:10px 14px;border:1px solid var(--line);background:var(--paper);
+    font-size:.74rem;
+  }
+  .toc a:hover{padding-left:14px}
+
+  /* sections */
+  section{padding:48px 18px}
+  .section-head{grid-template-columns:1fr;gap:12px;margin-bottom:30px;padding-bottom:22px}
+  .section-num{font-size:3rem}
+  .section-num small{font-size:.6rem;letter-spacing:.22em}
+  .section-title{font-size:1.7rem;line-height:1.1}
+  .section-kicker{font-size:.95rem}
+
+  /* rules */
+  .rule{padding:24px 22px;min-height:auto}
+  .rule-num{font-size:3.6rem;margin-bottom:14px}
+  .rule-title{font-size:1.2rem}
+  .rule-body{font-size:.92rem}
+  .glossary{padding:22px 22px;margin-top:24px}
+  .glossary p{font-size:.95rem}
+  .zd{padding:28px 22px;gap:18px}
+  .zd-zero{font-size:5rem}
+  .zd-text h3{font-size:1.4rem}
+  .zd-text p{font-size:.92rem}
+  .zd::before{display:none}
+  .zd-icon{width:64px;height:64px}
+  .zd-icon svg{width:32px;height:32px}
+
+  /* pipeline */
+  .pipeline-wrap{padding:22px 18px}
+  .pipeline-row{grid-template-columns:repeat(2,1fr);gap:8px}
+  .pip{padding:14px 12px 16px}
+  .pip-num{font-size:.62rem;margin-bottom:6px}
+  .pip-title{font-size:.92rem;min-height:auto}
+  .pip-sla{font-size:.6rem;margin-top:10px;padding-top:8px}
+  .flow-caption{flex-direction:column;gap:6px;text-align:center;font-size:.62rem}
+  .pipeline-legend{font-size:.62rem;gap:10px 14px}
+
+  /* stages */
+  .stage{padding:36px 0;gap:20px}
+  .stage[data-accent="key"],.stage[data-accent="gold"],.stage[data-accent="bad"]{
+    margin:0 -18px;padding-left:18px;padding-right:18px;
+  }
+  .stage-num{font-size:7.5rem;margin-bottom:14px}
+  .stage-icon{width:64px;height:64px;margin-bottom:18px}
+  .stage-icon svg{width:30px;height:30px}
+  .stage-tag{font-size:.6rem;padding:5px 10px;letter-spacing:.18em}
+  .stage-name{font-size:1.85rem!important;line-height:1.05!important}
+  .stage-headline{font-size:1.05rem;margin-bottom:24px}
+  .stage-meta{gap:5px;margin-bottom:24px}
+  .meta-pill{font-size:.62rem;padding:5px 10px;letter-spacing:.1em}
+
+  .block{margin-bottom:24px}
+  .block-label{font-size:.62rem;letter-spacing:.18em}
+  .block ol li{padding:11px 0 11px 42px;font-size:.95rem}
+  .block ol li::before{font-size:.72rem;padding:2px 6px}
+  .block ul li{font-size:.95rem}
+  .timeline{margin-left:8px}
+  .t-row{padding:14px 0 14px 22px}
+  .t-row::before{width:11px;height:11px;left:-6.5px}
+  .t-when{font-size:.7rem}
+  .t-channel{font-size:.62rem}
+  .t-text{font-size:.92rem}
+
+  .results-row{padding:14px 16px;gap:12px}
+  .results-text{font-size:.94rem}
+  .results-target{font-size:.7rem}
+  .results-target span{padding:5px 10px}
+  .escalation{padding:20px 22px;gap:14px}
+  .escalation p{font-size:.94rem}
+  .escalation-mark{width:38px;height:38px;font-size:1.2rem}
+
+  /* fields */
+  .fields-table{font-size:.85rem;display:block;overflow-x:auto;white-space:nowrap}
+  .fields-table th,.fields-table td{padding:12px 14px}
+  .fields-table td.field-name{font-size:1rem}
+
+  /* cheat */
+  .cheat-col{padding:28px 22px}
+  .cheat-mark{width:46px;height:46px;font-size:1.4rem}
+  .cheat-col h3{font-size:1.4rem}
+  .cheat-list li{font-size:.94rem;padding:11px 0 11px 28px}
+
+  /* stage nav */
+  .stage-nav{flex-direction:column;gap:8px}
+  .stage-nav a{padding:12px 16px;min-height:54px}
+
+  /* quiz */
+  .quiz-wrap{padding:24px 20px}
+  .q-text{font-size:1.3rem}
+  .q-answer{padding:14px 16px 14px 52px;font-size:.95rem;min-height:54px}
+  .q-answer::before{width:26px;height:26px;left:14px;font-size:.85rem}
+  .q-result-mark{width:110px;height:110px;font-size:3.6rem}
+  .q-result h3{font-size:1.6rem}
+  .q-result p{font-size:1rem}
+
+  /* totop */
+  .totop{width:48px;height:48px;bottom:18px;right:18px}
+
+  /* footer */
+  footer{padding:36px 18px 28px}
+  .footer-mark{font-size:1.6rem}
+  .footer-meta{font-size:.65rem}
+}
+@media (max-width:380px){
+  .hero-title{font-size:2.5rem}
+  .stage-num{font-size:6rem}
 }
 
 /* PRINT */
@@ -867,6 +1200,7 @@ footer::before{
       <a href="#s8"><span>10</span> возврат</a>
       <a href="#fields"><span>11</span> поля сделки</a>
       <a href="#cheat"><span>12</span> шпаргалка</a>
+      <a href="#quiz"><span>13</span> экзамен 5/5</a>
     </nav>
   </div>
 </header>
@@ -1695,6 +2029,108 @@ footer::before{
   </div>
 </section>
 
+<!-- ─────────────── 6. QUIZ ─────────────── -->
+<section id="quiz">
+  <div class="shell">
+    <div class="section-head">
+      <div class="section-num">06<small>экзамен</small></div>
+      <div>
+        <h2 class="section-title">Тест на знание <em>воронки</em>.</h2>
+        <p class="section-kicker">5 вопросов по самым важным правилам. Сдашь (4+ из 5) — можно работать. Ниже 4 — перечитай инструкцию и пройди заново.</p>
+      </div>
+    </div>
+
+    <div class="quiz-wrap" data-progress="1">
+      <div class="quiz-dots">
+        <div class="quiz-dot active"></div>
+        <div class="quiz-dot"></div>
+        <div class="quiz-dot"></div>
+        <div class="quiz-dot"></div>
+        <div class="quiz-dot"></div>
+      </div>
+
+      <!-- Q1 -->
+      <div class="q-card active" data-q="1">
+        <div class="q-num">Вопрос 01 из 05 · правило №1</div>
+        <h3 class="q-text">Ты завершил звонок с клиентом — он сказал «готов к договору». Что <em>делаешь дальше</em>?</h3>
+        <div class="q-answers">
+          <button class="q-answer" data-letter="A" data-correct="false">Перетаскиваю сделку на этап «Счёт выставлен» вручную в CRM</button>
+          <button class="q-answer" data-letter="B" data-correct="true">Закрываю задачу с результатом «готов к договору» — Pipeline сам передвинет сделку</button>
+          <button class="q-answer" data-letter="C" data-correct="false">Создаю новую задачу «выставить счёт» и оставляю сделку на месте</button>
+          <button class="q-answer" data-letter="D" data-correct="false">Пишу РОПу в чат, что клиент готов</button>
+        </div>
+        <div class="q-feedback"></div>
+        <button class="q-next" disabled>Следующий вопрос →</button>
+      </div>
+
+      <!-- Q2 -->
+      <div class="q-card" data-q="2">
+        <div class="q-num">Вопрос 02 из 05 · этап «Догрев»</div>
+        <h3 class="q-text">Через сколько времени после встречи на этапе <em>Догрев</em> обязателен звонок клиенту?</h3>
+        <div class="q-answers">
+          <button class="q-answer" data-letter="A" data-correct="false">Сразу после встречи, в ту же минуту</button>
+          <button class="q-answer" data-letter="B" data-correct="true">Через 1 час — клиент ещё «горячий», лучшее окно дожать</button>
+          <button class="q-answer" data-letter="C" data-correct="false">На следующий день утром</button>
+          <button class="q-answer" data-letter="D" data-correct="false">Когда клиент сам перезвонит</button>
+        </div>
+        <div class="q-feedback"></div>
+        <button class="q-next" disabled>Следующий вопрос →</button>
+      </div>
+
+      <!-- Q3 -->
+      <div class="q-card" data-q="3">
+        <div class="q-num">Вопрос 03 из 05 · правило №3</div>
+        <h3 class="q-text">Что произойдёт, если ты <em>не касался клиента 3 рабочих дня</em> на активном этапе?</h3>
+        <div class="q-answers">
+          <button class="q-answer" data-letter="A" data-correct="false">Ничего, можно продолжать работать</button>
+          <button class="q-answer" data-letter="B" data-correct="false">Сделка автоматически закроется</button>
+          <button class="q-answer" data-letter="C" data-correct="true">РОПу прилетит алерт, и он вправе забрать клиента и передать другому клоузеру</button>
+          <button class="q-answer" data-letter="D" data-correct="false">Получу предупреждение по почте</button>
+        </div>
+        <div class="q-feedback"></div>
+        <button class="q-next" disabled>Следующий вопрос →</button>
+      </div>
+
+      <!-- Q4 -->
+      <div class="q-card" data-q="4">
+        <div class="q-num">Вопрос 04 из 05 · конец дня</div>
+        <h3 class="q-text">Что такое <em>Zero Dashboard</em> и зачем он нужен?</h3>
+        <div class="q-answers">
+          <button class="q-answer" data-letter="A" data-correct="false">Аналитический дашборд с KPI клоузеров</button>
+          <button class="q-answer" data-letter="B" data-correct="false">Бот для авторассылки сообщений в MaxBot</button>
+          <button class="q-answer" data-letter="C" data-correct="true">Скрин воронки без просроченных задач, который клоузер шлёт РОПу к концу рабочего дня</button>
+          <button class="q-answer" data-letter="D" data-correct="false">Список новых лидов с МПП1 на сегодня</button>
+        </div>
+        <div class="q-feedback"></div>
+        <button class="q-next" disabled>Следующий вопрос →</button>
+      </div>
+
+      <!-- Q5 -->
+      <div class="q-card" data-q="5">
+        <div class="q-num">Вопрос 05 из 05 · этап «Дожим»</div>
+        <h3 class="q-text">Какая <em>минимальная сумма предоплаты</em> для перехода с «Счёт выставлен» на «Дожим»?</h3>
+        <div class="q-answers">
+          <button class="q-answer" data-letter="A" data-correct="false">Минимум 50% от стоимости договора</button>
+          <button class="q-answer" data-letter="B" data-correct="false">Не менее 10 000 ₽</button>
+          <button class="q-answer" data-letter="C" data-correct="true">Любая сумма — даже минимальная переводит сделку на «Дожим»</button>
+          <button class="q-answer" data-letter="D" data-correct="false">Полная сумма договора</button>
+        </div>
+        <div class="q-feedback"></div>
+        <button class="q-next q-final" disabled>Узнать результат →</button>
+      </div>
+
+      <!-- Result -->
+      <div class="q-result">
+        <div class="q-result-mark"></div>
+        <div class="q-result-score"></div>
+        <h3 class="q-result-title"></h3>
+        <p class="q-result-text"></p>
+        <button class="q-restart">Пройти заново</button>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ─────────────── FOOTER ─────────────── -->
 <footer>
   <div class="footer-inner">
@@ -1707,13 +2143,15 @@ footer::before{
   </div>
 </footer>
 
+<a href="#" class="totop" aria-label="Наверх">↑</a>
+
 </main>
 
 <script>
 const io = new IntersectionObserver((entries)=>{
   entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
 },{threshold:.12});
-document.querySelectorAll('.reveal,.rule,.stage,.pip,.zd,.glossary,.escalation,.fields-table,.cheat').forEach(el=>{el.classList.add('reveal');io.observe(el)});
+document.querySelectorAll('.reveal,.rule,.stage,.pip,.zd,.glossary,.escalation,.fields-table,.cheat,.quiz-wrap').forEach(el=>{el.classList.add('reveal');io.observe(el)});
 
 // subtle parallax on hero blobs
 const hero = document.querySelector('.hero');
@@ -1722,6 +2160,134 @@ if(hero){
     const x=(e.clientX/window.innerWidth-.5);
     const y=(e.clientY/window.innerHeight-.5);
     hero.style.setProperty('--mx',x);hero.style.setProperty('--my',y);
+  });
+}
+
+// back to top
+const totop = document.querySelector('.totop');
+if(totop){
+  window.addEventListener('scroll',()=>{
+    if(window.scrollY > 800){ totop.classList.add('show'); }
+    else{ totop.classList.remove('show'); }
+  },{passive:true});
+  totop.addEventListener('click',(e)=>{
+    e.preventDefault();
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+}
+
+// ─────────── QUIZ ───────────
+const quizWrap = document.querySelector('.quiz-wrap');
+if(quizWrap){
+  let score = 0;
+  let answered = {};
+
+  const feedbacks = {
+    1:{
+      correct:'Главное правило: задача → результат → CRM сама двигает. Перетаскивать руками — убивать аналитику и автоматизации.',
+      wrong:'Правильно — закрыть задачу с правильным результатом. Pipeline сам передвинет сделку. Руками не таскаем.'
+    },
+    2:{
+      correct:'Точно. Час — золотое окно: клиент ещё в эмоциях, помнит встречу, готов к диалогу.',
+      wrong:'Через 1 час. В Догреве это обязательное правило — попытка дожать в горячем состоянии.'
+    },
+    3:{
+      correct:'Да. 3 дня тишины = РОП может забрать клиента и отдать другому. Это правило №3.',
+      wrong:'РОП заберёт клиента. Тишина 3+ рабочих дня на активном этапе = алерт + переназначение.'
+    },
+    4:{
+      correct:'Так и есть. К 18:00 — ноль просрочек, скрин в чат с РОПом, день закрыт.',
+      wrong:'Zero Dashboard — это скриншот чистой воронки без просрочек. Без него рабочий день не закрыт.'
+    },
+    5:{
+      correct:'Верно. Любая сумма открывает Дожим — даже символическая. Главное, что барьер снят.',
+      wrong:'Любая сумма. Минимума нет — даже частичная предоплата переводит сделку на этап «Дожим».'
+    }
+  };
+
+  quizWrap.querySelectorAll('.q-answer').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const card = btn.closest('.q-card');
+      const qNum = parseInt(card.dataset.q);
+      if(answered[qNum]) return;
+      answered[qNum] = true;
+
+      const correct = btn.dataset.correct === 'true';
+
+      card.querySelectorAll('.q-answer').forEach(b=>b.disabled = true);
+      btn.classList.add(correct ? 'correct' : 'wrong');
+      if(!correct){
+        card.querySelector('.q-answer[data-correct="true"]').classList.add('show-correct');
+      }
+
+      if(correct) score++;
+
+      const fb = card.querySelector('.q-feedback');
+      fb.innerHTML = '<strong>'+(correct?'✓ Верно. ':'× Неверно. ')+'</strong>'+feedbacks[qNum][correct?'correct':'wrong'];
+      fb.classList.add('show', correct ? 'correct' : 'wrong');
+
+      const dots = quizWrap.querySelectorAll('.quiz-dot');
+      dots[qNum-1].classList.remove('active');
+      dots[qNum-1].classList.add(correct ? 'done' : 'wrong');
+
+      card.querySelector('.q-next').disabled = false;
+    });
+  });
+
+  quizWrap.querySelectorAll('.q-next').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const card = btn.closest('.q-card');
+      const qNum = parseInt(card.dataset.q);
+      card.classList.remove('active');
+
+      if(qNum < 5){
+        const nextCard = quizWrap.querySelector('.q-card[data-q="'+(qNum+1)+'"]');
+        nextCard.classList.add('active');
+        const dots = quizWrap.querySelectorAll('.quiz-dot');
+        dots[qNum].classList.add('active');
+        quizWrap.dataset.progress = qNum+1;
+        quizWrap.scrollIntoView({behavior:'smooth',block:'start'});
+      } else {
+        const result = quizWrap.querySelector('.q-result');
+        const passed = score >= 4;
+        result.classList.add('active', passed ? 'pass' : 'fail');
+        result.querySelector('.q-result-mark').textContent = passed ? '✓' : '×';
+        result.querySelector('.q-result-score').textContent = 'Результат: '+score+' / 5';
+        result.querySelector('.q-result-title').textContent = passed
+          ? (score === 5 ? 'Идеально. Экзамен сдан.' : 'Экзамен сдан!')
+          : 'Не сдан. Перечитай инструкцию.';
+        result.querySelector('.q-result-text').textContent = passed
+          ? (score === 5
+              ? 'Знаешь воронку наизусть — можно работать.'
+              : 'Можно работать в воронке. Сомневаешься в одном вопросе — перечитай нужный этап.')
+          : 'Меньше 4 правильных — ты ещё не готов. Вернись наверх, перечитай и попробуй заново.';
+        quizWrap.dataset.progress = 'done';
+        quizWrap.scrollIntoView({behavior:'smooth',block:'start'});
+      }
+    });
+  });
+
+  quizWrap.querySelector('.q-restart').addEventListener('click',()=>{
+    score = 0;
+    answered = {};
+    quizWrap.querySelectorAll('.q-answer').forEach(b=>{
+      b.disabled = false;
+      b.classList.remove('correct','wrong','show-correct');
+    });
+    quizWrap.querySelectorAll('.q-feedback').forEach(f=>{
+      f.innerHTML='';f.classList.remove('show','correct','wrong');
+    });
+    quizWrap.querySelectorAll('.q-next').forEach(b=>b.disabled = true);
+    quizWrap.querySelectorAll('.q-card').forEach(c=>c.classList.remove('active'));
+    quizWrap.querySelector('.q-card[data-q="1"]').classList.add('active');
+    const result = quizWrap.querySelector('.q-result');
+    result.classList.remove('active','pass','fail');
+    quizWrap.querySelectorAll('.quiz-dot').forEach((d,i)=>{
+      d.classList.remove('done','wrong','active');
+      if(i === 0) d.classList.add('active');
+    });
+    quizWrap.dataset.progress = '1';
+    quizWrap.scrollIntoView({behavior:'smooth',block:'start'});
   });
 }
 </script>
