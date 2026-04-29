@@ -291,6 +291,102 @@ section.alt-bg{
   font-size:1.6rem;color:var(--gold);opacity:.5;
 }
 
+/* terms / mini glossary in section 02 */
+.terms{
+  background:var(--paper-light);border:1px solid var(--line);
+  padding:32px 36px;margin-bottom:32px;
+  border-left:4px solid var(--copper);
+}
+.terms-head{margin-bottom:22px}
+.terms-head .upper{color:var(--copper);font-size:.7rem;display:block;margin-bottom:6px}
+.terms-head h3{
+  font-family:var(--font-display);font-weight:400;
+  font-size:1.4rem;letter-spacing:-.012em;line-height:1.15;
+}
+.terms-grid{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:18px;
+}
+.term{
+  background:var(--paper);border:1px solid var(--line-soft);
+  padding:18px 18px;
+  transition:transform .25s ease,border-color .25s ease;
+}
+.term:hover{transform:translateY(-3px);border-color:var(--copper)}
+.term-label{
+  font-family:var(--font-display);font-weight:500;
+  font-size:1.2rem;letter-spacing:-.012em;
+  color:var(--sage-deep);margin-bottom:8px;
+  border-bottom:2px solid var(--gold);
+  padding-bottom:6px;display:inline-block;
+}
+.term p{font-size:.92rem;line-height:1.5;color:var(--ink-soft)}
+.term strong{color:var(--ink);font-weight:700}
+.terms-foot{
+  margin-top:22px;padding-top:18px;border-top:1px dashed var(--line);
+}
+.terms-foot .upper{color:var(--ink-mute);font-size:.66rem;display:block;margin-bottom:6px}
+.terms-foot p{font-size:.92rem;line-height:1.55;color:var(--ink-soft)}
+.terms-foot strong{color:var(--ink);font-weight:700}
+.terms-foot em{font-style:normal;background:var(--gold-tint);padding:1px 6px;border-radius:2px;font-weight:600}
+
+@media (max-width:980px){
+  .terms-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:680px){
+  .terms{padding:22px 22px}
+  .terms-grid{grid-template-columns:1fr;gap:12px}
+  .terms-head h3{font-size:1.15rem}
+  .term-label{font-size:1.05rem}
+}
+
+/* iron rule (recording) — top of rules section */
+.iron-rule{
+  background:linear-gradient(135deg,#1a0608 0%,var(--ink) 100%);
+  color:var(--paper-light);
+  padding:42px 44px;
+  margin-bottom:32px;
+  display:grid;grid-template-columns:auto 1fr;gap:30px;align-items:start;
+  border-left:8px solid var(--burgundy);
+  position:relative;overflow:hidden;
+}
+.iron-rule::before{
+  content:"";position:absolute;right:-60px;top:-60px;
+  width:280px;height:280px;border-radius:50%;
+  background:radial-gradient(circle,var(--burgundy) 0%,transparent 60%);
+  opacity:.3;
+}
+.iron-rule::after{
+  content:"⛓";position:absolute;right:30px;bottom:-30px;
+  font-size:11rem;color:var(--burgundy);opacity:.12;
+  pointer-events:none;line-height:1;
+}
+.iron-mark{
+  width:80px;height:80px;background:var(--burgundy);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  font-family:var(--font-display);font-weight:700;font-size:2.6rem;
+  color:var(--paper-light);
+  box-shadow:0 0 0 4px var(--ink),0 0 0 6px var(--burgundy),0 16px 40px -10px rgba(168,42,64,.6);
+  position:relative;z-index:1;
+}
+.iron-content{position:relative;z-index:1}
+.iron-content .upper{color:var(--burgundy);font-size:.74rem;font-weight:700;letter-spacing:.28em;display:block;margin-bottom:10px}
+.iron-content h3{
+  font-family:var(--font-display);font-weight:500;
+  font-size:clamp(1.7rem,3.6vw,2.4rem);line-height:1.05;letter-spacing:-.018em;
+  color:var(--paper-light);margin-bottom:14px;
+}
+.iron-content h3 em{font-style:italic;color:var(--gold)}
+.iron-content p{font-size:1.02rem;line-height:1.55;color:var(--sand);margin-bottom:10px}
+.iron-content p:last-child{margin-bottom:0}
+.iron-content strong{color:var(--paper-light);font-weight:700}
+.iron-script{
+  background:rgba(255,255,255,.05);border-left:3px solid var(--gold);
+  padding:14px 18px;margin-top:14px;
+  font-family:var(--font-display);font-style:italic;font-weight:300;
+  font-size:1.02rem;line-height:1.5;color:var(--paper-light);
+}
+
 /* glossary block under rules */
 .glossary{
   margin-top:36px;
@@ -1146,7 +1242,7 @@ section#quiz{
 <!-- ─────────────── HERO ─────────────── -->
 <header class="hero">
   <div class="hero-inner">
-    <div class="ribbon">внутренний документ · v 1.1</div>
+    <div class="ribbon">внутренний документ · v 1.4</div>
 
     <div class="hero-top">
       <div class="brandmark">
@@ -1211,8 +1307,21 @@ section#quiz{
     <div class="section-head">
       <div class="section-num">01<small>правила</small></div>
       <div>
-        <h2 class="section-title">Четыре правила, которые <em>нельзя</em> нарушать.</h2>
-        <p class="section-kicker">Если хоть одно сломалось — ты уже не клоузер, а курьер сделок. Бизнес теряет деньги. Сначала эти четыре, потом всё остальное.</p>
+        <h2 class="section-title">Главное правило <em>+ четыре опорных</em>.</h2>
+        <p class="section-kicker">Если хоть одно сломалось — ты уже не клоузер, а курьер сделок. Бизнес теряет деньги. Главное правило сверху — нарушение карается рублём. Остальные четыре — фундамент.</p>
+      </div>
+    </div>
+
+    <div class="iron-rule">
+      <div class="iron-mark">!</div>
+      <div class="iron-content">
+        <span class="upper">главное правило · zero tolerance</span>
+        <h3>Всё общение с клиентом <em>записывается</em>. Без записи — разговора не было.</h3>
+        <p><strong>Голосом — только рабочий телефон (запись через Sipuni) или Контур.Толк (запись видеозвонка).</strong> Личный мобильный, обычный WhatsApp-звонок, голосовое в Telegram — запрещены полностью.</p>
+        <p><strong>Текстом</strong> — только в MaxBot или VK Bot (чат привязан к сделке, всё фиксируется). Личные мессенджеры — нет.</p>
+        <p>Если клиент сам позвонил тебе в MaxBot/VK или в личный мессенджер — переключай на рабочий канал. Скрипт:</p>
+        <div class="iron-script">«Иван, давайте перейдём на другой телефон — я вам сейчас перезвоню с рабочего номера или скину ссылку на видеовстречу в Контур.Толк».</div>
+        <p style="margin-top:14px"><strong>Сделки без записи разговоров штрафуются.</strong> Это правило про юридическую защиту компании и качество работы — нарушений быть не может.</p>
       </div>
     </div>
 
@@ -1220,7 +1329,7 @@ section#quiz{
       <article class="rule reveal">
         <div class="rule-num">01</div>
         <h3 class="rule-title">Не двигай сделки руками.</h3>
-        <p class="rule-body">Закрой задачу с правильным <strong>результатом</strong> — Digital Pipeline сам передвинет сделку на нужный этап. Перетащил руками — убил аналитику и автоматизации.</p>
+        <p class="rule-body">Закрой задачу с правильным <strong>результатом</strong> — CRM сам передвинет сделку на нужный этап. Перетащил руками — убил аналитику и автоматизации.</p>
       </article>
       <article class="rule reveal" data-delay="1">
         <div class="rule-num">02</div>
@@ -1234,14 +1343,14 @@ section#quiz{
       </article>
       <article class="rule invert reveal" data-delay="3">
         <div class="rule-num">04</div>
-        <h3 class="rule-title">Zero Dashboard на конец дня.</h3>
-        <p class="rule-body">К концу рабочего дня в воронке <strong>не должно быть просроченных задач</strong>. Делаешь скриншот чистого дашборда и отправляешь в чат с РОПом. Без скрина — день не закрыт.</p>
+        <h3 class="rule-title">Чистая воронка на конец дня.</h3>
+        <p class="rule-body">К концу рабочего дня (у кого 18:00, у кого 21:00) в воронке <strong>не должно быть просроченных задач</strong>. Делаешь скриншот чистого дашборда и отправляешь в чат с РОПом — это <em>zero dashboard</em>. Без скрина — день не закрыт.</p>
       </article>
     </div>
 
     <div class="glossary">
       <span class="upper">ключевое слово</span>
-      <p><strong>Касание</strong> — это исходящий <em>звонок клиенту</em> (любой результат, кроме «не пытался») или <em>отправленное сообщение в MaxBot</em>. Входящий звонок или сообщение от клиента сами по себе касанием <strong>не считаются</strong> — на них клоузер просто обязан ответить.</p>
+      <p><strong>Подтверждённое касание</strong> — это исходящий <em>звонок клиенту длительностью ≥ 30 секунд</em> (через рабочий телефон или Контур.Толк) ИЛИ <em>ответ клиента в MaxBot/VK Bot</em>. Звонки короче 30 секунд, недозвоны, отбитые — <strong>не касание</strong>. Входящие от клиента сами по себе касанием тоже не считаются — на них клоузер просто обязан ответить (через рабочий канал).</p>
     </div>
 
     <div class="zd reveal">
@@ -1249,9 +1358,9 @@ section#quiz{
         <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><path d="M24 14 V24 L31 28"/></svg>
       </div>
       <div class="zd-text">
-        <span class="upper">конец дня · zero dashboard</span>
+        <span class="upper">конец дня · чистая воронка (zero dashboard)</span>
         <h3>Ноль просрочек — ноль вопросов.</h3>
-        <p>В <strong>18:00</strong> открываешь воронку, фильтруешь по своим сделкам, делаешь скрин: <strong>ни одной красной задачи</strong>. Скидываешь в группу с РОПом. Если есть просрочки — закрываешь, потом скрин. Без zero dashboard рабочий день не считается закрытым.</p>
+        <p>За <strong>15 минут до конца смены</strong> (у кого 18:00, у кого 21:00) открываешь воронку, фильтруешь по своим сделкам, делаешь скрин: <strong>ни одной красной задачи</strong>. Скидываешь в группу с РОПом. Если есть просрочки — закрываешь, потом скрин. Без чистого дашборда рабочий день не считается закрытым.</p>
       </div>
       <div class="zd-zero">0</div>
     </div>
@@ -1265,7 +1374,36 @@ section#quiz{
       <div class="section-num">02<small>схема</small></div>
       <div>
         <h2 class="section-title">Восемь этапов <em>одним взглядом</em>.</h2>
-        <p class="section-kicker">Слева — горячий вход с МПП1, справа — закрытие. Цвет показывает зону: активная работа, попытка спасти, успех или возврат.</p>
+        <p class="section-kicker">Слева — горячий вход от охотников, справа — закрытие. Цвет показывает зону: активная работа, попытка спасти, успех или возврат.</p>
+      </div>
+    </div>
+
+    <div class="terms">
+      <div class="terms-head">
+        <span class="upper">мини-словарь · кто есть кто</span>
+        <h3>Чтобы инструкция читалась с первой страницы.</h3>
+      </div>
+      <div class="terms-grid">
+        <div class="term">
+          <div class="term-label">Охотник</div>
+          <p>Менеджер 1-го уровня (раньше — МПП1). Привлекает клиента, продаёт первую маленькую услугу — трипваер. Подписывает клиента на MaxBot/VK Bot и передаёт сделку клоузеру.</p>
+        </div>
+        <div class="term">
+          <div class="term-label">Клоузер</div>
+          <p>Менеджер 2-го уровня (раньше — МПП2). <strong>Это ты.</strong> Принимаешь сделку от охотника, проводишь встречу, выставляешь счёт и доводишь до полной оплаты.</p>
+        </div>
+        <div class="term">
+          <div class="term-label">Клиент</div>
+          <p>Тот, кто покупает услугу — физическое лицо, которое хочет списать долг через банкротство.</p>
+        </div>
+        <div class="term">
+          <div class="term-label">Трипваер</div>
+          <p>Маленькая первая платная услуга — точка входа в воронку. Когда клиент платит трипваер, сделка уходит в воронку охотников, потом к тебе.</p>
+        </div>
+      </div>
+      <div class="terms-foot">
+        <span class="upper">как читать сроки</span>
+        <p><strong>SLA</strong> = срок реакции на этапе. <em>«SLA · 24 часа»</em> = 24 календарных часа с момента входа на этап. <em>«SLA · 14 дней»</em> = 14 календарных дней. Правило <em>«не реже 3 рабочих дней»</em> считает только пн–пт. Часы — всегда календарные.</p>
       </div>
     </div>
 
@@ -1283,7 +1421,7 @@ section#quiz{
 
       <div class="flow-line"></div>
       <div class="flow-caption">
-        <span>← вход с МПП1 (после трипваера)</span>
+        <span>← вход от охотников (после трипваера)</span>
         <span>выход в сопровождение / закрытие →</span>
       </div>
 
@@ -1331,15 +1469,16 @@ section#quiz{
 
         <div class="block">
           <div class="block-label">Откуда приходит сделка</div>
-          <p>Автоматом из воронки МПП1, как только клиент оплатил трипваер. Охотник МПП1 проставил поле <strong>«Формат встречи»</strong> (видео или телефон) — от него зависит набор сообщений и автозвонков.</p>
+          <p>Автоматом из <strong>воронки охотников</strong>, как только клиент оплатил трипваер. До передачи тебе охотник <strong>уже подписал клиента на MaxBot или VK Bot</strong> — все сообщения от тебя (и от автоматизаций) идут через этот чат, привязанный к сделке. Охотник также проставил поле <strong>«Формат встречи»</strong> (видео или телефон) — от него зависит набор сообщений и автозвонков.</p>
         </div>
 
         <div class="block">
           <div class="block-label">Что делать</div>
           <ol>
             <li>Открой задачу <strong>«Провести встречу с клиентом»</strong>. Дедлайн = время встречи.</li>
-            <li>Канал бери из поля «Формат встречи». <em>Видео — Контур.Толк</em>, телефон — обычный звонок.</li>
-            <li>Если клиент переносит — поставь новую дату (макс. 2 переноса подряд).</li>
+            <li>Канал бери из поля «Формат встречи». <em>Видео — только Контур.Толк</em> (запись), <em>телефон — только рабочий</em> через Sipuni (запись). Других вариантов нет.</li>
+            <li>Если клиент позвонил тебе в MaxBot/VK или личный мессенджер — переключи: <em>«Иван, давайте перейдём на другой телефон — я сейчас перезвоню с рабочего или отправлю ссылку на Контур.Толк»</em>. Без записи разговор не считается.</li>
+            <li>Если клиент переносит встречу — поставь новую дату (макс. 2 переноса подряд).</li>
             <li>По итогу закрой задачу с одним из четырёх результатов ниже.</li>
           </ol>
         </div>
@@ -1452,14 +1591,14 @@ section#quiz{
         <div class="stage-meta">
           <span class="meta-pill">обязательное поле · причина «не готов»</span>
           <span class="meta-pill warn">14 дней максимум</span>
-          <span class="meta-pill gold">звонок через 1 час обязателен</span>
+          <span class="meta-pill gold">звонок через 2 часа обязателен</span>
         </div>
 
         <div class="block">
           <div class="block-label">Что делать</div>
           <ol>
-            <li>Заполни поле <strong>«Причина не готов»</strong> — без этого Pipeline не двигает сделку.</li>
-            <li><em>Через 1 час</em> после встречи — обязательный звонок. Клиент ещё «горячий», это лучшее окно дожать.</li>
+            <li>Заполни поле <strong>«Причина не готов»</strong> — без этого CRM не передвинет сделку.</li>
+            <li><em>Через 2 часа</em> после встречи — обязательный звонок. Клиент ещё «горячий», это лучшее окно дожать.</li>
             <li>Дальше клоузер сам выбирает день и время следующего касания, ориентируясь на пожелание клиента.</li>
             <li><strong>Касание не реже раза в 3 рабочих дня</strong> — иначе РОП заберёт клиента.</li>
             <li>Если не дозвон — система переставит задачу автоматически (см. график ниже).</li>
@@ -1472,7 +1611,7 @@ section#quiz{
           <div class="block-label">График касаний</div>
           <div class="timeline">
             <div class="t-row">
-              <div class="t-when"><strong>+ 1 час</strong></div>
+              <div class="t-when"><strong>+ 2 часа</strong></div>
               <div class="t-channel call">звонок клоузера</div>
               <div class="t-text">Сразу после встречи. <em>Попытка дожать в горячем состоянии</em>. Самое результативное окно.</div>
             </div>
@@ -1558,55 +1697,56 @@ section#quiz{
       </div>
       <div class="stage-body">
         <h3 class="stage-name">Счёт <em>выставлен</em></h3>
-        <p class="stage-headline">Клиент сказал «да» — но между «да» и оплатой две недели и десяток сомнений. Не отпускаем: касание каждые 2 дня, каждое — с поводом, не «напомнить».</p>
+        <p class="stage-headline">Клиент сказал «да» — но между «да» и оплатой две недели и десяток сомнений. Жёсткий протокол первых 72 часов: 2 → 24 → 72, на каждой точке свой угол и свой голос.</p>
         <div class="stage-meta">
           <span class="meta-pill">SLA · 14 дней</span>
           <span class="meta-pill warn">макс. 9 касаний</span>
-          <span class="meta-pill">касание каждые 2 дня</span>
-          <span class="meta-pill gold">звонок через 1 час обязателен</span>
+          <span class="meta-pill gold">протокол 2 — 24 — 72</span>
+          <span class="meta-pill">3 угла на счёте</span>
         </div>
 
         <div class="block">
-          <div class="block-label">Цикл касаний — что делает Pipeline и что делаешь ты</div>
+          <div class="block-label">Протокол 2 — 24 — 72: первые трое суток после счёта</div>
+          <p style="margin-bottom:18px;color:var(--ink-soft)">Самые горячие 72 часа — три контрольные точки, мимо которых пройти физически нельзя. На каждой <strong>свой угол разговора</strong>, на третьей — <strong>свежий голос</strong> (не ты, а старший или другой клоузер). Свой клоузер к 72 часам уже «выгорел» в глазах клиента.</p>
           <div class="timeline">
             <div class="t-row">
               <div class="t-when">сразу при выставлении</div>
-              <div class="t-channel bot">MaxBot</div>
+              <div class="t-channel bot">MaxBot / VK Bot</div>
               <div class="t-text">Договор + ссылка на оплату + <strong>«юрист уже выделен по вашему делу»</strong>.</div>
             </div>
             <div class="t-row">
-              <div class="t-when"><strong>+ 1 час</strong></div>
+              <div class="t-when"><strong>+ 2 часа</strong></div>
               <div class="t-channel call">твой звонок</div>
-              <div class="t-text"><em>Обязательный звонок через час.</em> «Дошёл ли договор, всё ли открывается, разобрались с пунктами?» — попытка дожать на оплату прямо сейчас.</div>
+              <div class="t-text">УГОЛ <em>«горячо»</em>. «Дошёл ли договор, всё ли открывается, что мешает оплатить сейчас?» — снимаешь возражение пока эмоция от встречи не остыла.</div>
             </div>
             <div class="t-row">
-              <div class="t-when">день 2</div>
+              <div class="t-when"><strong>+ 24 часа</strong></div>
               <div class="t-channel call">твой звонок</div>
-              <div class="t-text">«Дожать на оплату» — снять текущее возражение.</div>
+              <div class="t-text">УГОЛ <em>«рассрочка»</em>. Клиент уже подумал, появились реальные возражения. <strong>Заходи с альтернативной формы оплаты</strong>: рассрочка, оплата частями, другой способ. Тот же угол, что вчера — не работает.</div>
             </div>
             <div class="t-row">
-              <div class="t-when">день 4</div>
-              <div class="t-channel bot">MaxBot</div>
+              <div class="t-when"><strong>+ 72 часа</strong></div>
+              <div class="t-channel boss">старший / другой клоузер</div>
+              <div class="t-text">УГОЛ <em>«дедлайн от свежего голоса»</em>. <strong>Звонит другой человек</strong> — старший клоузер или соседний клоузер. «Счёт сгорает, бронь снимается, юрист освобождается». Свежий голос даёт +20–30% реанимации. Свой клоузер на этой точке не звонит.</div>
+            </div>
+            <div class="t-row">
+              <div class="t-when">день 5</div>
+              <div class="t-channel bot">MaxBot / VK Bot</div>
               <div class="t-text"><strong>Кейс клиента</strong>: реальная история похожего профиля, который списал долг N млн. Текст готовит копирайтер.</div>
             </div>
             <div class="t-row">
-              <div class="t-when">день 6</div>
-              <div class="t-channel call">твой звонок</div>
-              <div class="t-text">«Юрист подготовил предварительный план по вашему делу — готов показать».</div>
-            </div>
-            <div class="t-row">
-              <div class="t-when">день 8</div>
-              <div class="t-channel bot">MaxBot</div>
+              <div class="t-when">день 7</div>
+              <div class="t-channel bot">MaxBot / VK Bot</div>
               <div class="t-text"><strong>Расчёт роста долга</strong>: «За эту неделю ваш долг вырос на X ₽ из-за процентов».</div>
             </div>
             <div class="t-row">
-              <div class="t-when">день 10</div>
-              <div class="t-channel boss">старший клоузер</div>
-              <div class="t-text">Личный разбор сомнений — закреплённый старший клоузер.</div>
+              <div class="t-when">день 9</div>
+              <div class="t-channel call">твой звонок</div>
+              <div class="t-text">«Юрист подготовил предварительный план по вашему делу — готов показать на видеовстрече».</div>
             </div>
             <div class="t-row">
-              <div class="t-when">день 12</div>
-              <div class="t-channel bot">MaxBot</div>
+              <div class="t-when">день 11</div>
+              <div class="t-channel bot">MaxBot / VK Bot</div>
               <div class="t-text"><strong>FAQ / разбор страха</strong>: «что говорят кредиторы», «как проходит суд».</div>
             </div>
             <div class="t-row">
@@ -1652,7 +1792,7 @@ section#quiz{
           <div class="escalation-mark">!</div>
           <div>
             <span class="upper">Эскалация</span>
-            <p><strong>День 10</strong> — старший клоузер. <strong>День 14</strong> — РОП. Тексты для дней 4, 8, 12 готовит копирайтер — не пиши их сам.</p>
+            <p><strong>+72 часа (день 3)</strong> — звонит старший / другой клоузер, не ты. <strong>День 14</strong> — РОП. Тексты MaxBot/VK для дней 5, 7, 11 готовит копирайтер — не пиши их сам.</p>
           </div>
         </div>
       </div>
@@ -1719,7 +1859,7 @@ section#quiz{
             <div class="t-row">
               <div class="t-when">день 9</div>
               <div class="t-channel bot">MaxBot</div>
-              <div class="t-text">«Вы уже инвестировали X ₽. Осталось N ₽, чтобы запустить дело».</div>
+              <div class="t-text">«Вы уже внесли X ₽. Осталось N ₽, чтобы запустить дело».</div>
             </div>
             <div class="t-row">
               <div class="t-when">день 12</div>
@@ -1931,7 +2071,7 @@ section#quiz{
       <div class="section-num">04<small>поля</small></div>
       <div>
         <h2 class="section-title">Кастомные <em>поля</em> сделки.</h2>
-        <p class="section-kicker">Без этих полей Pipeline не двигает сделку. Если поле обязательное на этапе — заполни, иначе автоматизация встанет.</p>
+        <p class="section-kicker">Без этих полей CRM не передвинет сделку. Если поле обязательное на этапе — заполни, иначе автоматизация встанет.</p>
       </div>
     </div>
 
@@ -1943,14 +2083,14 @@ section#quiz{
         <tr>
           <td class="field-name">Формат встречи</td>
           <td class="field-type">select · видео / телефон</td>
-          <td class="field-where">этап 01 · ставит МПП1</td>
+          <td class="field-where">этап 01 · ставит охотник</td>
           <td>От значения зависят сообщения и автозвонки. Видео = Контур.Толк.</td>
         </tr>
         <tr>
           <td class="field-name">Причина не готов</td>
           <td class="field-type">select</td>
           <td class="field-where">этап 03</td>
-          <td>Без этого Pipeline не передвинет сделку в догрев.</td>
+          <td>Без этого CRM не передвинет сделку в догрев.</td>
         </tr>
         <tr>
           <td class="field-name">Дата возврата к диалогу</td>
@@ -1999,14 +2139,17 @@ section#quiz{
           <h3>Запрещено</h3>
         </div>
         <ul class="cheat-list">
+          <li><strong>Звонить с личного телефона</strong> или принимать важный разговор в WhatsApp / личном Telegram — записи нет, разговор не считается.</li>
+          <li>Засчитывать звонок <strong>короче 30 секунд</strong> как касание.</li>
           <li>Двигать сделки руками между этапами. Только закрытие задачи с результатом.</li>
           <li>Касание без повода («просто напомнить про оплату»).</li>
-          <li>Писать тексты для MaxBot самому — их готовит копирайтер.</li>
+          <li>На +72 ч на этапе «Счёт» звонить самому — нужен <strong>свежий голос</strong> (старший / другой клоузер).</li>
+          <li>Писать тексты для MaxBot/VK самому — их готовит копирайтер.</li>
           <li>Третий перенос встречи на этапе 01 без эскалации РОПу.</li>
           <li>Тишина 3+ рабочих дня на активных этапах. РОП заберёт клиента.</li>
           <li>Зависать на этапе 07 больше 3 часов без передачи документов.</li>
-          <li>Закрыть рабочий день без zero dashboard в чате с РОПом.</li>
-          <li>Пропустить звонок через 1 час на этапе 03 (Догрев) и 04 (Счёт).</li>
+          <li>Закрыть рабочий день без чистого дашборда в чате с РОПом.</li>
+          <li>Пропустить звонок через 2 часа на этапе 03 (Догрев) и 04 (Счёт).</li>
         </ul>
       </div>
       <div class="cheat-col good">
@@ -2015,14 +2158,17 @@ section#quiz{
           <h3>Обязательно</h3>
         </div>
         <ul class="cheat-list">
-          <li>Закрывать каждую задачу с правильным результатом — Pipeline сам двигает сделку.</li>
+          <li><strong>Голосом — только рабочий телефон или Контур.Толк.</strong> Текстом — MaxBot/VK Bot. Всё фиксируется.</li>
+          <li>Если клиент пишет/звонит на личный канал — переключать: «давайте перейдём на другой телефон, я сейчас перезвоню».</li>
+          <li>Закрывать каждую задачу с правильным результатом — CRM сама двигает сделку.</li>
           <li>Заполнять обязательные поля до перехода: причина «не готов», дата возврата, сумма предоплаты.</li>
           <li>Касаться клиента не реже раза в 3 рабочих дня на активных этапах.</li>
-          <li>Звонить через 1 час после встречи (Догрев) и после счёта (Счёт выставлен).</li>
-          <li>На этапе 04 идти строго по графику касаний с поводом.</li>
+          <li>Звонить через 2 часа после встречи (Догрев) и после выставления счёта.</li>
+          <li>На этапе 04 идти по протоколу <strong>2 — 24 — 72</strong>: горячо → рассрочка → дедлайн от свежего голоса.</li>
+          <li>На +72 ч (день 3 после счёта) звонит <strong>другой клоузер или старший</strong>, не ты.</li>
           <li>На этапе 05 позвонить сразу при получении предоплаты.</li>
           <li>Передавать документы в сопровождение в первые 24 часа после оплаты.</li>
-          <li>В 18:00 каждый день — скрин zero dashboard в группу с РОПом.</li>
+          <li>К концу смены (18:00 / 21:00) — скрин чистой воронки в группу с РОПом.</li>
         </ul>
       </div>
     </div>
@@ -2055,7 +2201,7 @@ section#quiz{
         <h3 class="q-text">Ты провёл встречу — клиент сказал «готов к договору». Какой <em>результат задачи</em> ты выбираешь?</h3>
         <div class="q-answers">
           <button class="q-answer" data-letter="A" data-correct="false">Перетаскиваю сделку на этап «Счёт выставлен» вручную в CRM</button>
-          <button class="q-answer" data-letter="B" data-correct="true">Выбираю результат задачи «выставить счёт» — Pipeline сам передвинет сделку на этап 04</button>
+          <button class="q-answer" data-letter="B" data-correct="true">Выбираю результат задачи «выставить счёт» — CRM сама передвинет сделку на этап 04</button>
           <button class="q-answer" data-letter="C" data-correct="false">Создаю новую задачу «выставить счёт» и оставляю сделку на этапе 01</button>
           <button class="q-answer" data-letter="D" data-correct="false">Пишу РОПу в чат, что клиент готов, и жду указаний</button>
         </div>
@@ -2069,7 +2215,7 @@ section#quiz{
         <h3 class="q-text">Через сколько времени после встречи на этапе <em>Догрев</em> обязателен звонок клиенту?</h3>
         <div class="q-answers">
           <button class="q-answer" data-letter="A" data-correct="false">Сразу после встречи, в ту же минуту</button>
-          <button class="q-answer" data-letter="B" data-correct="true">Через 1 час — клиент ещё «горячий», лучшее окно дожать</button>
+          <button class="q-answer" data-letter="B" data-correct="true">Через 2 часа — клиент ещё «горячий», лучшее окно дожать</button>
           <button class="q-answer" data-letter="C" data-correct="false">На следующий день утром</button>
           <button class="q-answer" data-letter="D" data-correct="false">Когда клиент сам перезвонит</button>
         </div>
@@ -2094,12 +2240,12 @@ section#quiz{
       <!-- Q4 -->
       <div class="q-card" data-q="4">
         <div class="q-num">Вопрос 04 из 05 · конец дня</div>
-        <h3 class="q-text">Что такое <em>Zero Dashboard</em> и зачем он нужен?</h3>
+        <h3 class="q-text">Что такое <em>чистая воронка</em> (zero dashboard) и зачем она нужна?</h3>
         <div class="q-answers">
           <button class="q-answer" data-letter="A" data-correct="false">Аналитический дашборд с KPI клоузеров</button>
           <button class="q-answer" data-letter="B" data-correct="false">Бот для авторассылки сообщений в MaxBot</button>
           <button class="q-answer" data-letter="C" data-correct="true">Скрин воронки без просроченных задач, который клоузер шлёт РОПу к концу рабочего дня</button>
-          <button class="q-answer" data-letter="D" data-correct="false">Список новых лидов с МПП1 на сегодня</button>
+          <button class="q-answer" data-letter="D" data-correct="false">Список новых лидов от охотников на сегодня</button>
         </div>
         <div class="q-feedback"></div>
         <button class="q-next" disabled>Следующий вопрос →</button>
@@ -2136,7 +2282,7 @@ section#quiz{
   <div class="footer-inner">
     <div class="footer-mark">Дону<span>ля</span> · отдел продаж</div>
     <div class="footer-meta">
-      <div>версия 1.1 · апрель 2026</div>
+      <div>версия 1.4 · апрель 2026</div>
       <div>воронка МПП2 · amocrm</div>
       <div>вопросы по инструкции — РОПу МПП2</div>
     </div>
@@ -2190,20 +2336,20 @@ if(quizWrap){
 
   const feedbacks = {
     1:{
-      correct:'Точно. Выбираешь результат задачи — Pipeline сам передвинет сделку. Перетаскивать руками = убивать аналитику и автоматизации.',
-      wrong:'Правильно — выбрать результат задачи «выставить счёт». Pipeline сам передвинет сделку на этап 04. Руками не таскаем.'
+      correct:'Точно. Выбираешь результат задачи — CRM сама передвинет сделку. Перетаскивать руками = убивать аналитику и автоматизации.',
+      wrong:'Правильно — выбрать результат задачи «выставить счёт». CRM сама передвинет сделку на этап 04. Руками не таскаем.'
     },
     2:{
-      correct:'Точно. Час — золотое окно: клиент ещё в эмоциях, помнит встречу, готов к диалогу.',
-      wrong:'Через 1 час. В Догреве это обязательное правило — попытка дожать в горячем состоянии.'
+      correct:'Точно. Два часа — золотое окно: клиент ещё в эмоциях, помнит встречу, готов к диалогу.',
+      wrong:'Через 2 часа. В Догреве это обязательное правило — попытка дожать в горячем состоянии.'
     },
     3:{
       correct:'Да. 3 дня тишины = РОП может забрать клиента и отдать другому. Это правило №3.',
       wrong:'РОП заберёт клиента. Тишина 3+ рабочих дня на активном этапе = алерт + переназначение.'
     },
     4:{
-      correct:'Так и есть. К 18:00 — ноль просрочек, скрин в чат с РОПом, день закрыт.',
-      wrong:'Zero Dashboard — это скриншот чистой воронки без просрочек. Без него рабочий день не закрыт.'
+      correct:'Так и есть. К концу смены — ноль просрочек, скрин в чат с РОПом, день закрыт.',
+      wrong:'Чистая воронка (zero dashboard) — скриншот воронки без просрочек к концу смены. Без него рабочий день не закрыт.'
     },
     5:{
       correct:'Верно. Любая сумма открывает Дожим — даже символическая. Главное, что барьер снят.',
