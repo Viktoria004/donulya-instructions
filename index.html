@@ -12,23 +12,27 @@
   --paper:#F2EBDD;
   --paper-light:#FBF6EB;
   --paper-warm:#EAE0CD;
-  --ink:#161412;
+  --ink:#141210;
   --ink-soft:#5C564E;
   --ink-mute:#8A8378;
   --line:#D6CDB8;
   --line-soft:#E5DCC7;
 
-  --sage:#3F5C46;
-  --sage-deep:#1F3325;
-  --sage-light:#6E8973;
-  --copper:#B5663A;
-  --copper-deep:#7A3F1F;
-  --gold:#B7892C;
+  --sage:#1F6B47;
+  --sage-deep:#0E3D27;
+  --sage-light:#9FC4AC;
+  --sage-tint:#DFEDE3;
+  --copper:#D8632A;
+  --copper-deep:#7A2E0F;
+  --copper-tint:#F8DDC8;
+  --gold:#D8A22C;
   --gold-deep:#7A5A0F;
-  --burgundy:#7E2A3A;
-  --burgundy-deep:#4F141F;
-  --slate:#4F5862;
-  --sand:#D9C9A6;
+  --gold-tint:#F8E9C0;
+  --burgundy:#A82A40;
+  --burgundy-deep:#5A0F1E;
+  --burgundy-tint:#F2D6DC;
+  --slate:#3F4A55;
+  --sand:#E1CFA6;
 
   --font-display:"Fraunces",Georgia,serif;
   --font-body:"Manrope",-apple-system,sans-serif;
@@ -50,15 +54,16 @@ body{
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
   background-image:
-    radial-gradient(circle at 15% 8%, rgba(125,100,60,.07) 0%, transparent 45%),
-    radial-gradient(circle at 88% 72%, rgba(63,92,70,.06) 0%, transparent 50%);
+    radial-gradient(circle at 15% 8%, rgba(31,107,71,.10) 0%, transparent 45%),
+    radial-gradient(circle at 88% 72%, rgba(216,99,42,.08) 0%, transparent 50%),
+    radial-gradient(circle at 50% 100%, rgba(168,42,64,.06) 0%, transparent 60%);
 }
 
 /* ─────── grain overlay ─────── */
 body::before{
   content:"";position:fixed;inset:0;pointer-events:none;z-index:1;
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.08  0 0 0 0 0.07  0 0 0 0 0.06  0 0 0 0.35 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.55'/></svg>");
-  opacity:.5;mix-blend-mode:multiply;
+  opacity:.4;mix-blend-mode:multiply;
 }
 
 main{position:relative;z-index:2}
@@ -83,27 +88,45 @@ header.hero{
   padding:clamp(40px,7vw,90px) var(--gutter) clamp(40px,6vw,70px);
   border-bottom:1px solid var(--line);
   position:relative;
+  overflow:hidden;
 }
-.hero-inner{max-width:var(--max);margin:0 auto;position:relative}
+header.hero::after{
+  content:"";position:absolute;right:-8%;top:-12%;
+  width:520px;height:520px;border-radius:50%;
+  background:radial-gradient(circle, var(--sage) 0%, transparent 60%);
+  opacity:.18;pointer-events:none;
+  animation:float 14s ease-in-out infinite alternate;
+}
+header.hero::before{
+  content:"";position:absolute;left:-6%;bottom:-20%;
+  width:420px;height:420px;border-radius:50%;
+  background:radial-gradient(circle, var(--copper) 0%, transparent 60%);
+  opacity:.13;pointer-events:none;
+  animation:float 18s ease-in-out infinite alternate-reverse;
+}
+@keyframes float{
+  from{transform:translate(0,0) scale(1)}
+  to{transform:translate(20px,-15px) scale(1.07)}
+}
+.hero-inner{max-width:var(--max);margin:0 auto;position:relative;z-index:1}
 .hero-top{
   display:flex;justify-content:space-between;align-items:flex-start;gap:24px;
   margin-bottom:clamp(48px,9vw,140px);
   padding-bottom:18px;border-bottom:1px solid var(--line);
 }
-.brandmark{
-  display:flex;align-items:center;gap:14px;
-}
+.brandmark{display:flex;align-items:center;gap:14px}
 .brandmark-glyph{
-  width:42px;height:42px;border-radius:50%;
-  border:1.5px solid var(--ink);position:relative;flex-shrink:0;
+  width:46px;height:46px;border-radius:50%;
+  background:var(--sage);position:relative;flex-shrink:0;
+  box-shadow:0 0 0 1.5px var(--ink);
 }
 .brandmark-glyph::after{
-  content:"";position:absolute;inset:6px;border-radius:50%;
-  background:var(--ink);
-  clip-path:polygon(0 0,100% 0,100% 50%,0 50%);
+  content:"";position:absolute;inset:8px;border-radius:50%;
+  background:var(--paper);
+  clip-path:polygon(0 50%,100% 50%,100% 100%,0 100%);
 }
 .brandmark-text{
-  font-family:var(--font-display);font-weight:500;font-size:1.6rem;letter-spacing:-.01em;
+  font-family:var(--font-display);font-weight:500;font-size:1.65rem;letter-spacing:-.012em;
   font-feature-settings:"ss01";
 }
 .brandmark-sub{
@@ -114,24 +137,30 @@ header.hero{
   text-align:right;font-family:var(--font-mono);font-size:.78rem;
   color:var(--ink-soft);line-height:1.7;
 }
-.hero-meta .v{color:var(--ink);font-weight:600}
+.hero-meta .v{color:var(--sage-deep);font-weight:700}
 
 .hero-eyebrow{
   font-family:var(--font-mono);font-size:.78rem;letter-spacing:.32em;
-  text-transform:uppercase;color:var(--copper);margin-bottom:24px;font-weight:600;
+  text-transform:uppercase;color:var(--copper);margin-bottom:24px;font-weight:700;
+  display:inline-flex;align-items:center;gap:14px;
+}
+.hero-eyebrow::before{
+  content:"";width:36px;height:2px;background:var(--copper);
 }
 .hero-title{
   font-family:var(--font-display);
   font-weight:300;
-  font-size:clamp(3.2rem,9vw,7.4rem);
+  font-size:clamp(3.2rem,9vw,7.6rem);
   line-height:.92;
   letter-spacing:-.035em;
   margin-bottom:14px;
   font-variation-settings:"opsz" 144,"SOFT" 30;
 }
 .hero-title em{
-  font-style:italic;font-weight:400;color:var(--sage-deep);
+  font-style:italic;font-weight:500;color:var(--sage);
   font-variation-settings:"opsz" 144,"SOFT" 100;
+  background:linear-gradient(180deg,transparent 60%,var(--gold-tint) 60%);
+  padding:0 .08em;
 }
 .hero-sub{
   font-family:var(--font-display);font-weight:300;font-style:italic;
@@ -140,12 +169,18 @@ header.hero{
   margin-top:6px;
 }
 .hero-divider{
-  height:1px;background:var(--ink);margin:46px 0 30px;width:64px;
+  height:3px;background:var(--ink);margin:46px 0 30px;width:64px;
 }
 .hero-ledes{
   display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;
   margin-top:30px;max-width:980px;
 }
+.hero-lede{
+  position:relative;padding-left:18px;border-left:2px solid var(--ink);
+}
+.hero-lede:nth-child(1){border-left-color:var(--sage)}
+.hero-lede:nth-child(2){border-left-color:var(--copper)}
+.hero-lede:nth-child(3){border-left-color:var(--gold)}
 .hero-lede .upper{color:var(--ink-mute);margin-bottom:6px;display:block}
 .hero-lede strong{
   font-family:var(--font-display);font-weight:500;font-size:1.3rem;
@@ -156,32 +191,34 @@ header.hero{
 /* tape / ribbon */
 .ribbon{
   position:absolute;top:0;right:0;
-  background:var(--ink);color:var(--paper-light);
+  background:var(--burgundy);color:var(--paper-light);
   font-family:var(--font-mono);font-size:.66rem;letter-spacing:.25em;
-  text-transform:uppercase;padding:7px 18px;font-weight:600;
+  text-transform:uppercase;padding:8px 22px;font-weight:700;
+  z-index:2;
+  box-shadow:-4px 4px 0 var(--ink);
 }
 
 /* ───────────────────────────── */
 /* SECTION SHELL                 */
 /* ───────────────────────────── */
-section{padding:clamp(56px,8vw,110px) var(--gutter)}
+section{padding:clamp(56px,8vw,110px) var(--gutter);position:relative}
 section + section{border-top:1px solid var(--line-soft)}
-.shell{max-width:var(--max);margin:0 auto}
+.shell{max-width:var(--max);margin:0 auto;position:relative}
 
 .section-head{
   display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:end;
-  padding-bottom:34px;margin-bottom:50px;border-bottom:1px solid var(--ink);
+  padding-bottom:34px;margin-bottom:50px;border-bottom:2px solid var(--ink);
 }
 .section-num{
   font-family:var(--font-display);font-weight:300;
-  font-size:clamp(3rem,7vw,5rem);line-height:.85;letter-spacing:-.04em;
+  font-size:clamp(3rem,7vw,5.4rem);line-height:.85;letter-spacing:-.04em;
   color:var(--ink);
   font-variation-settings:"opsz" 144,"SOFT" 50;
 }
 .section-num small{
   display:block;font-family:var(--font-mono);font-size:.66rem;
-  letter-spacing:.28em;text-transform:uppercase;font-weight:500;
-  color:var(--ink-mute);margin-top:14px;
+  letter-spacing:.28em;text-transform:uppercase;font-weight:600;
+  color:var(--copper);margin-top:14px;
 }
 .section-title{
   font-family:var(--font-display);font-weight:400;
@@ -193,51 +230,86 @@ section + section{border-top:1px solid var(--line-soft)}
   margin-top:18px;font-size:1.05rem;color:var(--ink-soft);max-width:720px;
 }
 
+/* alternate section bg for rhythm */
+section.alt-bg{
+  background:linear-gradient(180deg,var(--paper-warm) 0%,var(--paper) 100%);
+}
+
 /* ───────────────────────────── */
-/* THREE RULES                   */
+/* RULES                         */
 /* ───────────────────────────── */
 .rules{
-  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:clamp(16px,2vw,28px);
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:clamp(16px,2.2vw,28px);
 }
 .rule{
   background:var(--paper-light);
   border:1px solid var(--line);
-  padding:32px 28px 30px;
+  padding:34px 30px 32px;
   position:relative;
   display:flex;flex-direction:column;
-  min-height:280px;
+  min-height:240px;
   transition:transform .35s ease,box-shadow .35s ease;
+  overflow:hidden;
 }
-.rule:hover{transform:translateY(-3px);box-shadow:0 18px 40px -22px rgba(20,16,12,.32)}
+.rule::after{
+  content:"";position:absolute;top:-30px;right:-30px;width:120px;height:120px;
+  border-radius:50%;background:currentColor;opacity:0;transition:opacity .35s ease;
+}
+.rule:hover{transform:translateY(-4px);box-shadow:0 22px 50px -22px rgba(20,16,12,.32)}
 .rule-num{
   font-family:var(--font-display);font-weight:300;
   font-size:5rem;line-height:.85;letter-spacing:-.04em;
-  color:var(--ink);margin-bottom:24px;
+  color:var(--ink);margin-bottom:22px;
   font-variation-settings:"opsz" 144,"SOFT" 100;
+  position:relative;z-index:1;
 }
 .rule-title{
   font-family:var(--font-display);font-weight:500;
   font-size:1.45rem;line-height:1.15;letter-spacing:-.012em;
-  margin-bottom:14px;
+  margin-bottom:14px;position:relative;z-index:1;
 }
-.rule-body{font-size:.95rem;color:var(--ink-soft);line-height:1.55}
+.rule-body{font-size:.95rem;color:var(--ink-soft);line-height:1.55;position:relative;z-index:1}
 .rule-body strong{color:var(--ink);font-weight:600}
 
-.rule:nth-child(1){border-top:3px solid var(--sage)}
-.rule:nth-child(2){border-top:3px solid var(--copper)}
-.rule:nth-child(3){border-top:3px solid var(--gold)}
+.rule:nth-child(1){border-top:4px solid var(--sage);background:linear-gradient(180deg,var(--sage-tint) 0%,var(--paper-light) 60%)}
+.rule:nth-child(2){border-top:4px solid var(--copper);background:linear-gradient(180deg,var(--copper-tint) 0%,var(--paper-light) 60%)}
+.rule:nth-child(3){border-top:4px solid var(--burgundy);background:linear-gradient(180deg,var(--burgundy-tint) 0%,var(--paper-light) 60%)}
+
+/* inverted rule - Zero Dashboard */
+.rule.invert{
+  background:var(--ink);color:var(--paper-light);
+  border:none;border-top:4px solid var(--gold);
+  background-image:radial-gradient(circle at 80% 20%,rgba(216,162,44,.18) 0%,transparent 50%);
+}
+.rule.invert .rule-num{color:var(--gold)}
+.rule.invert .rule-title{color:var(--paper-light)}
+.rule.invert .rule-body{color:var(--sand)}
+.rule.invert .rule-body strong{color:var(--paper-light);font-weight:700}
+.rule.invert::before{
+  content:"⚡";position:absolute;top:18px;right:24px;
+  font-size:1.6rem;color:var(--gold);opacity:.5;
+}
 
 /* glossary block under rules */
 .glossary{
   margin-top:36px;
   background:var(--ink);color:var(--paper-light);
-  padding:30px 36px;display:grid;grid-template-columns:160px 1fr;gap:30px;
+  padding:32px 38px;display:grid;grid-template-columns:170px 1fr;gap:30px;
   align-items:start;
+  border-left:6px solid var(--gold);
+  position:relative;
+  overflow:hidden;
 }
-.glossary .upper{color:var(--gold);font-size:.7rem}
-.glossary p{font-size:1.02rem;line-height:1.6;font-family:var(--font-display);
-  font-weight:300;letter-spacing:-.005em;}
+.glossary::after{
+  content:"";position:absolute;right:-40px;top:-40px;
+  width:200px;height:200px;border-radius:50%;
+  background:radial-gradient(circle,var(--copper) 0%,transparent 60%);
+  opacity:.18;
+}
+.glossary .upper{color:var(--gold);font-size:.7rem;position:relative;z-index:1}
+.glossary p{font-size:1.04rem;line-height:1.6;font-family:var(--font-display);
+  font-weight:300;letter-spacing:-.005em;position:relative;z-index:1}
 .glossary strong{font-weight:500;color:var(--paper-light)}
 .glossary em{color:var(--sand);font-style:italic}
 
@@ -248,6 +320,7 @@ section + section{border-top:1px solid var(--line-soft)}
   background:var(--paper-light);
   border:1px solid var(--line);
   padding:clamp(28px,4vw,56px) clamp(20px,3vw,42px);
+  box-shadow:0 30px 60px -40px rgba(20,16,12,.25);
 }
 .pipeline-legend{
   display:flex;flex-wrap:wrap;gap:18px 28px;margin-top:28px;
@@ -256,7 +329,7 @@ section + section{border-top:1px solid var(--line-soft)}
 }
 .legend-dot{display:inline-flex;align-items:center;gap:8px}
 .legend-dot::before{
-  content:"";width:11px;height:11px;border-radius:50%;background:var(--ink);
+  content:"";width:13px;height:13px;border-radius:50%;background:var(--ink);
 }
 .legend-dot.active::before{background:var(--sage)}
 .legend-dot.warm::before{background:var(--copper)}
@@ -266,18 +339,24 @@ section + section{border-top:1px solid var(--line-soft)}
 
 .pipeline-row{
   display:grid;grid-template-columns:repeat(8,minmax(0,1fr));
-  gap:6px;align-items:stretch;
+  gap:8px;align-items:stretch;
 }
 .pip{
   border:1px solid var(--line);background:var(--paper);
-  padding:18px 14px 22px;
+  padding:20px 14px 22px;
   position:relative;
-  transition:transform .3s ease;
+  transition:transform .35s cubic-bezier(.2,.8,.3,1),box-shadow .35s ease;
+  overflow:hidden;
 }
-.pip:hover{transform:translateY(-2px)}
+.pip::after{
+  content:"";position:absolute;left:0;top:0;height:4px;width:0;
+  background:currentColor;transition:width .6s ease;
+}
+.pip:hover::after{width:100%}
+.pip:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 20px 36px -18px rgba(20,16,12,.28)}
 .pip-num{
   font-family:var(--font-mono);font-size:.7rem;letter-spacing:.22em;
-  color:var(--ink-mute);text-transform:uppercase;margin-bottom:10px;
+  color:var(--ink-mute);text-transform:uppercase;margin-bottom:10px;font-weight:600;
 }
 .pip-title{
   font-family:var(--font-display);font-weight:500;font-size:1.05rem;
@@ -289,21 +368,25 @@ section + section{border-top:1px solid var(--line-soft)}
   text-transform:uppercase;color:var(--ink-mute);margin-top:14px;
   padding-top:10px;border-top:1px solid var(--line-soft);
 }
-.pip[data-tag="active"]{border-top:3px solid var(--sage)}
-.pip[data-tag="warm"]{border-top:3px solid var(--copper)}
-.pip[data-tag="gold"]{border-top:3px solid var(--gold);background:linear-gradient(180deg,#FBF1D2 0%,var(--paper) 60%)}
-.pip[data-tag="bad"]{border-top:3px solid var(--burgundy)}
-.pip[data-tag="mute"]{border-top:3px solid var(--slate)}
+.pip[data-tag="active"]{border-top:4px solid var(--sage);color:var(--sage);background:linear-gradient(180deg,var(--sage-tint) 0%,var(--paper) 50%)}
+.pip[data-tag="warm"]{border-top:4px solid var(--copper);color:var(--copper);background:linear-gradient(180deg,var(--copper-tint) 0%,var(--paper) 50%)}
+.pip[data-tag="gold"]{border-top:4px solid var(--gold);color:var(--gold);background:linear-gradient(180deg,var(--gold-tint) 0%,var(--paper) 50%)}
+.pip[data-tag="bad"]{border-top:4px solid var(--burgundy);color:var(--burgundy);background:linear-gradient(180deg,var(--burgundy-tint) 0%,var(--paper) 50%)}
+.pip[data-tag="mute"]{border-top:4px solid var(--slate);color:var(--slate);background:linear-gradient(180deg,#E0DDD3 0%,var(--paper) 50%)}
+.pip .pip-num,.pip .pip-title,.pip .pip-sla{color:var(--ink)}
+.pip[data-tag] .pip-num{color:var(--ink-mute)}
 
 .flow-line{
-  height:1px;background:var(--ink);margin:36px 0 12px;position:relative;
+  height:2px;background:var(--ink);margin:36px 0 12px;position:relative;
+  background-image:linear-gradient(90deg,var(--sage) 0%,var(--copper) 30%,var(--gold) 60%,var(--burgundy) 100%);
+  height:3px;
 }
 .flow-line::before,.flow-line::after{
-  content:"";position:absolute;width:8px;height:8px;border-radius:50%;
-  background:var(--ink);top:-3.5px;
+  content:"";position:absolute;width:10px;height:10px;border-radius:50%;
+  background:var(--ink);top:-4px;
 }
-.flow-line::before{left:0}
-.flow-line::after{right:0}
+.flow-line::before{left:0;background:var(--sage)}
+.flow-line::after{right:0;background:var(--burgundy)}
 .flow-caption{
   display:flex;justify-content:space-between;font-family:var(--font-mono);
   font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-mute);
@@ -317,10 +400,28 @@ section + section{border-top:1px solid var(--line-soft)}
   grid-template-columns:minmax(220px,300px) 1fr;
   gap:clamp(20px,4vw,60px);
   padding:clamp(40px,5vw,72px) 0;
-  border-top:1px solid var(--line);
+  border-top:2px solid var(--line);
   position:relative;
 }
 .stage:first-of-type{border-top:none;padding-top:10px}
+
+/* highlighted stages with tinted backgrounds */
+.stage[data-accent="key"]{
+  background:linear-gradient(180deg,var(--sage-tint) 0%,transparent 70%);
+  margin:0 calc(-1 * var(--gutter));
+  padding-left:var(--gutter);padding-right:var(--gutter);
+}
+.stage[data-accent="gold"]{
+  background:linear-gradient(180deg,var(--gold-tint) 0%,transparent 70%);
+  margin:0 calc(-1 * var(--gutter));
+  padding-left:var(--gutter);padding-right:var(--gutter);
+}
+.stage[data-accent="bad"]{
+  background:linear-gradient(180deg,var(--burgundy-tint) 0%,transparent 70%);
+  margin:0 calc(-1 * var(--gutter));
+  padding-left:var(--gutter);padding-right:var(--gutter);
+}
+
 .stage-side{position:sticky;top:30px;align-self:start;height:fit-content}
 .stage-num{
   font-family:var(--font-display);
@@ -331,7 +432,11 @@ section + section{border-top:1px solid var(--line-soft)}
   color:var(--ink);
   margin-bottom:18px;
   font-variation-settings:"opsz" 144,"SOFT" 100;
+  transition:color .3s ease;
 }
+.stage:hover .stage-num{color:var(--sage)}
+.stage[data-accent="gold"]:hover .stage-num{color:var(--gold-deep)}
+.stage[data-accent="bad"]:hover .stage-num{color:var(--burgundy)}
 .stage-num em{
   font-style:italic;font-weight:300;
   font-variation-settings:"opsz" 144,"SOFT" 100;
@@ -339,20 +444,23 @@ section + section{border-top:1px solid var(--line-soft)}
 .stage-tag{
   display:inline-block;font-family:var(--font-mono);font-size:.66rem;
   letter-spacing:.24em;text-transform:uppercase;
-  padding:5px 11px;border:1px solid var(--ink);font-weight:600;
+  padding:6px 12px;border:1.5px solid var(--ink);font-weight:700;
   margin-bottom:14px;
 }
-.stage-tag[data-tag="gold"]{background:var(--gold);color:var(--ink);border-color:var(--gold)}
-.stage-tag[data-tag="bad"]{background:var(--burgundy);color:var(--paper-light);border-color:var(--burgundy)}
+.stage-tag[data-tag="gold"]{background:var(--gold);color:var(--ink);border-color:var(--gold-deep)}
+.stage-tag[data-tag="bad"]{background:var(--burgundy);color:var(--paper-light);border-color:var(--burgundy-deep)}
 .stage-tag[data-tag="mute"]{background:var(--slate);color:var(--paper-light);border-color:var(--slate)}
-.stage-tag[data-tag="active"]{background:var(--sage);color:var(--paper-light);border-color:var(--sage)}
-.stage-tag[data-tag="warm"]{background:var(--copper);color:var(--paper-light);border-color:var(--copper)}
+.stage-tag[data-tag="active"]{background:var(--sage);color:var(--paper-light);border-color:var(--sage-deep)}
+.stage-tag[data-tag="warm"]{background:var(--copper);color:var(--paper-light);border-color:var(--copper-deep)}
 
 .stage-icon{
-  width:88px;height:88px;border:1.5px solid var(--ink);border-radius:50%;
+  width:96px;height:96px;border:2px solid var(--ink);border-radius:50%;
   display:flex;align-items:center;justify-content:center;margin-bottom:24px;
+  background:var(--paper-light);
+  transition:transform .35s ease,background .35s ease;
 }
-.stage-icon svg{width:42px;height:42px;stroke:var(--ink);fill:none;stroke-width:1.4}
+.stage:hover .stage-icon{transform:rotate(-6deg) scale(1.05)}
+.stage-icon svg{width:46px;height:46px;stroke:var(--ink);fill:none;stroke-width:1.5}
 .stage-side .upper{color:var(--ink-mute);margin-bottom:10px;display:block}
 
 .stage-body h3.stage-name{
@@ -363,7 +471,7 @@ section + section{border-top:1px solid var(--line-soft)}
 .stage-name em{font-style:italic}
 .stage-headline{
   font-family:var(--font-display);font-weight:300;font-style:italic;
-  font-size:1.2rem;color:var(--ink-soft);max-width:640px;line-height:1.4;
+  font-size:1.22rem;color:var(--ink-soft);max-width:640px;line-height:1.4;
   margin-bottom:32px;letter-spacing:-.005em;
 }
 .stage-meta{
@@ -374,37 +482,41 @@ section + section{border-top:1px solid var(--line-soft)}
   font-family:var(--font-mono);font-size:.72rem;letter-spacing:.14em;
   text-transform:uppercase;
   padding:7px 14px;background:var(--paper-light);border:1px solid var(--line);
-  font-weight:500;color:var(--ink);
+  font-weight:600;color:var(--ink);
 }
 .meta-pill::before{
-  content:"";width:6px;height:6px;border-radius:50%;background:var(--sage);
+  content:"";width:7px;height:7px;border-radius:50%;background:var(--sage);
 }
 .meta-pill.warn::before{background:var(--copper)}
 .meta-pill.bad::before{background:var(--burgundy)}
+.meta-pill.gold::before{background:var(--gold)}
 
 .block{margin-bottom:30px}
 .block-label{
   font-family:var(--font-mono);font-size:.7rem;letter-spacing:.24em;
-  text-transform:uppercase;color:var(--ink-mute);margin-bottom:12px;font-weight:600;
+  text-transform:uppercase;color:var(--copper);margin-bottom:12px;font-weight:700;
   display:flex;align-items:center;gap:10px;
 }
 .block-label::before{
-  content:"";width:18px;height:1px;background:var(--ink);
+  content:"";width:24px;height:2px;background:var(--copper);
 }
 .block p{margin-bottom:6px}
 .block ol,.block ul{padding-left:0;list-style:none;counter-reset:step}
 .block ol li{
   counter-increment:step;
-  padding:10px 0 10px 46px;border-bottom:1px solid var(--line-soft);
+  padding:12px 0 12px 50px;border-bottom:1px solid var(--line-soft);
   position:relative;font-size:1rem;
 }
 .block ol li:last-child{border-bottom:none}
 .block ol li::before{
   content:counter(step,decimal-leading-zero);
-  position:absolute;left:0;top:11px;
-  font-family:var(--font-mono);font-size:.78rem;font-weight:700;
+  position:absolute;left:0;top:13px;
+  font-family:var(--font-mono);font-size:.82rem;font-weight:700;
   color:var(--copper);letter-spacing:.05em;
+  background:var(--copper-tint);padding:3px 8px;border-radius:3px;
 }
+.block ol li strong{color:var(--ink);font-weight:700}
+.block ol li em{font-style:normal;background:var(--gold-tint);padding:1px 5px;border-radius:2px;font-weight:600}
 .block ul li{
   padding:9px 0 9px 22px;position:relative;border-bottom:1px solid var(--line-soft);
 }
@@ -415,18 +527,21 @@ section + section{border-top:1px solid var(--line-soft)}
 
 /* result transitions */
 .results{
-  border:1px solid var(--ink);
+  border:2px solid var(--ink);
+  background:var(--paper-light);
 }
 .results-row{
   display:grid;grid-template-columns:48px 1fr auto;align-items:center;gap:16px;
-  padding:16px 22px;
+  padding:18px 24px;
   border-bottom:1px solid var(--line);
+  transition:background .25s ease;
 }
+.results-row:hover{background:var(--paper-warm)}
 .results-row:last-child{border-bottom:none}
 .results-icon{
-  width:30px;height:30px;border-radius:50%;
+  width:34px;height:34px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
-  font-family:var(--font-mono);font-size:.85rem;font-weight:700;
+  font-family:var(--font-mono);font-size:.95rem;font-weight:700;
 }
 .results-icon.ok{background:var(--sage);color:var(--paper-light)}
 .results-icon.wait{background:var(--copper);color:var(--paper-light)}
@@ -434,103 +549,155 @@ section + section{border-top:1px solid var(--line-soft)}
 .results-icon.bad{background:var(--burgundy);color:var(--paper-light)}
 .results-icon.mute{background:var(--slate);color:var(--paper-light)}
 .results-text{font-size:1rem;line-height:1.4}
+.results-text strong{font-weight:700}
 .results-target{
   font-family:var(--font-mono);font-size:.78rem;letter-spacing:.06em;
-  text-transform:uppercase;font-weight:600;color:var(--ink);white-space:nowrap;
+  text-transform:uppercase;font-weight:700;color:var(--ink);white-space:nowrap;
 }
-.results-target span{display:inline-block;padding:6px 12px;border:1px solid var(--ink);background:var(--paper-light)}
-.results-target.bad span{background:var(--ink);color:var(--paper-light)}
-.results-target.gold span{background:var(--gold)}
-.results-target.warm span{background:var(--copper);color:var(--paper-light);border-color:var(--copper)}
+.results-target span{display:inline-block;padding:7px 14px;border:1.5px solid var(--ink);background:var(--paper-light)}
+.results-target.bad span{background:var(--burgundy);color:var(--paper-light);border-color:var(--burgundy-deep)}
+.results-target.gold span{background:var(--gold);border-color:var(--gold-deep)}
+.results-target.warm span{background:var(--copper);color:var(--paper-light);border-color:var(--copper-deep)}
 
-/* schedule timeline (stage 4) */
+/* schedule timeline */
 .timeline{
-  border-left:1.5px solid var(--ink);padding-left:0;margin-left:14px;
+  border-left:2px solid var(--ink);padding-left:0;margin-left:14px;
 }
 .t-row{
-  display:grid;grid-template-columns:130px 110px 1fr;gap:18px;align-items:start;
-  padding:18px 0 18px 26px;position:relative;
+  display:grid;grid-template-columns:140px 130px 1fr;gap:18px;align-items:start;
+  padding:20px 0 20px 28px;position:relative;
   border-bottom:1px dashed var(--line);
 }
 .t-row:last-child{border-bottom:none}
 .t-row::before{
-  content:"";position:absolute;left:-7.5px;top:26px;
-  width:13px;height:13px;border-radius:50%;background:var(--paper);
-  border:1.5px solid var(--ink);
+  content:"";position:absolute;left:-8px;top:28px;
+  width:14px;height:14px;border-radius:50%;background:var(--paper);
+  border:2px solid var(--ink);
+  transition:background .25s ease,transform .25s ease;
 }
+.t-row:hover::before{background:var(--gold);transform:scale(1.3)}
 .t-when{
   font-family:var(--font-mono);font-size:.78rem;letter-spacing:.1em;
   text-transform:uppercase;font-weight:700;color:var(--ink);
 }
+.t-when strong{color:var(--copper);font-weight:800}
 .t-channel{
   font-family:var(--font-mono);font-size:.7rem;letter-spacing:.18em;
   text-transform:uppercase;color:var(--ink-mute);
-  display:inline-flex;align-items:center;gap:7px;
+  display:inline-flex;align-items:center;gap:8px;font-weight:600;
 }
 .t-channel::before{
-  content:"";width:8px;height:8px;border-radius:50%;
+  content:"";width:9px;height:9px;border-radius:50%;
 }
 .t-channel.bot::before{background:var(--copper)}
 .t-channel.call::before{background:var(--sage)}
 .t-channel.boss::before{background:var(--gold)}
 .t-text{font-size:.98rem;line-height:1.5}
-.t-text strong{font-weight:600;color:var(--ink)}
+.t-text strong{font-weight:700;color:var(--ink)}
+.t-text em{font-style:normal;background:var(--copper-tint);padding:1px 5px;border-radius:2px;font-weight:600}
 
 /* warning / escalation block */
 .escalation{
   background:var(--ink);color:var(--paper-light);
-  padding:24px 28px;display:grid;grid-template-columns:auto 1fr;gap:22px;
-  align-items:start;
+  padding:26px 30px;display:grid;grid-template-columns:auto 1fr;gap:24px;
+  align-items:start;border-left:6px solid var(--copper);
+  position:relative;overflow:hidden;
+}
+.escalation::after{
+  content:"";position:absolute;right:-20px;bottom:-20px;
+  width:140px;height:140px;border-radius:50%;
+  background:radial-gradient(circle,var(--copper) 0%,transparent 60%);
+  opacity:.22;
 }
 .escalation-mark{
-  width:42px;height:42px;background:var(--copper);
+  width:46px;height:46px;background:var(--copper);
   display:flex;align-items:center;justify-content:center;
-  font-family:var(--font-display);font-weight:600;font-size:1.4rem;color:var(--paper-light);
+  font-family:var(--font-display);font-weight:700;font-size:1.6rem;color:var(--paper-light);
+  box-shadow:0 0 0 3px var(--ink),0 0 0 5px var(--copper);
+  position:relative;z-index:1;
 }
 .escalation .upper{color:var(--gold);font-size:.7rem}
-.escalation p{margin-top:6px;font-size:1rem;line-height:1.5;color:var(--paper-warm)}
-.escalation p strong{color:var(--paper-light);font-weight:600}
+.escalation p{margin-top:6px;font-size:1.02rem;line-height:1.55;color:var(--paper-warm);position:relative;z-index:1}
+.escalation p strong{color:var(--paper-light);font-weight:700}
 
 /* fields table */
 .fields-table{
   width:100%;border-collapse:collapse;
-  background:var(--paper-light);border:1px solid var(--ink);
+  background:var(--paper-light);border:2px solid var(--ink);
+  box-shadow:0 24px 50px -28px rgba(20,16,12,.3);
 }
 .fields-table th,.fields-table td{
   padding:18px 22px;text-align:left;border-bottom:1px solid var(--line);
   font-size:.97rem;vertical-align:top;
 }
 .fields-table th{
-  background:var(--ink);color:var(--paper-light);
+  background:var(--ink);color:var(--gold);
   font-family:var(--font-mono);font-size:.7rem;letter-spacing:.2em;
-  text-transform:uppercase;font-weight:600;
+  text-transform:uppercase;font-weight:700;
 }
+.fields-table tr:hover td{background:var(--paper-warm)}
 .fields-table tr:last-child td{border-bottom:none}
-.fields-table td.field-name{font-family:var(--font-display);font-size:1.1rem;font-weight:500}
+.fields-table td.field-name{font-family:var(--font-display);font-size:1.12rem;font-weight:500;color:var(--sage-deep)}
 .fields-table td.field-type{font-family:var(--font-mono);font-size:.82rem;color:var(--ink-soft)}
-.fields-table td.field-where{font-family:var(--font-mono);font-size:.82rem;font-weight:600}
+.fields-table td.field-where{font-family:var(--font-mono);font-size:.82rem;font-weight:700;color:var(--copper)}
+
+/* zero dashboard hero panel */
+.zd{
+  margin-top:36px;
+  background:var(--ink);color:var(--paper-light);
+  padding:42px 44px;
+  border-left:6px solid var(--gold);
+  display:grid;grid-template-columns:auto 1fr auto;gap:36px;align-items:center;
+  position:relative;overflow:hidden;
+}
+.zd::before{
+  content:"00:00";position:absolute;right:-30px;top:-30px;
+  font-family:var(--font-display);font-weight:200;font-size:18rem;
+  color:var(--gold);opacity:.06;letter-spacing:-.05em;line-height:1;
+  pointer-events:none;
+}
+.zd-zero{
+  font-family:var(--font-display);font-weight:300;font-size:8rem;line-height:.85;
+  color:var(--gold);letter-spacing:-.06em;
+  font-variation-settings:"opsz" 144,"SOFT" 100;
+}
+.zd-text{position:relative;z-index:1}
+.zd-text .upper{color:var(--gold);font-size:.72rem;margin-bottom:10px;display:block}
+.zd-text h3{
+  font-family:var(--font-display);font-weight:500;font-size:1.85rem;
+  line-height:1.1;letter-spacing:-.018em;margin-bottom:10px;
+}
+.zd-text p{font-size:1.02rem;line-height:1.55;color:var(--sand)}
+.zd-text strong{color:var(--paper-light);font-weight:700}
+.zd-icon{
+  width:80px;height:80px;border:2px solid var(--gold);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  position:relative;z-index:1;
+}
+.zd-icon svg{width:42px;height:42px;stroke:var(--gold);fill:none;stroke-width:1.5}
 
 /* cheatsheet */
 .cheat{
   display:grid;grid-template-columns:1fr 1fr;gap:0;
-  border:1px solid var(--ink);
+  border:2px solid var(--ink);
+  box-shadow:0 30px 60px -36px rgba(20,16,12,.35);
 }
-.cheat-col{padding:36px 36px}
-.cheat-col + .cheat-col{border-left:1px solid var(--ink)}
-.cheat-col.bad{background:var(--paper-light)}
+.cheat-col{padding:40px 38px}
+.cheat-col + .cheat-col{border-left:2px solid var(--ink)}
+.cheat-col.bad{background:linear-gradient(180deg,var(--burgundy-tint) 0%,var(--paper-light) 60%)}
 .cheat-col.good{background:var(--ink);color:var(--paper-light)}
 .cheat-head{
   display:flex;align-items:center;gap:14px;margin-bottom:24px;
 }
 .cheat-mark{
-  width:48px;height:48px;border-radius:50%;
+  width:54px;height:54px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
-  font-family:var(--font-display);font-size:1.6rem;font-weight:600;
+  font-family:var(--font-display);font-size:1.8rem;font-weight:700;
 }
-.cheat-col.bad .cheat-mark{background:var(--burgundy);color:var(--paper-light)}
-.cheat-col.good .cheat-mark{background:var(--gold);color:var(--ink)}
+.cheat-col.bad .cheat-mark{background:var(--burgundy);color:var(--paper-light);box-shadow:0 0 0 3px var(--burgundy-tint)}
+.cheat-col.good .cheat-mark{background:var(--gold);color:var(--ink);box-shadow:0 0 0 3px rgba(216,162,44,.2)}
 .cheat-col h3{
-  font-family:var(--font-display);font-weight:500;font-size:1.6rem;
+  font-family:var(--font-display);font-weight:500;font-size:1.7rem;
   letter-spacing:-.012em;line-height:1.05;
 }
 .cheat-list{list-style:none}
@@ -543,38 +710,33 @@ section + section{border-top:1px solid var(--line-soft)}
 .cheat-list li:last-child{border-bottom:none}
 .cheat-col.bad .cheat-list li::before{
   content:"×";position:absolute;left:0;top:11px;
-  font-family:var(--font-display);font-size:1.4rem;color:var(--burgundy);font-weight:500;
+  font-family:var(--font-display);font-size:1.5rem;color:var(--burgundy);font-weight:600;
 }
 .cheat-col.good .cheat-list li::before{
   content:"✓";position:absolute;left:0;top:14px;
-  font-family:var(--font-display);font-size:1.05rem;color:var(--gold);font-weight:600;
-}
-
-/* open questions */
-.q-list{list-style:none;border-top:1px solid var(--ink)}
-.q-list li{
-  padding:22px 0;border-bottom:1px solid var(--line);
-  display:grid;grid-template-columns:38px 1fr;align-items:start;gap:20px;
-  font-size:1.05rem;line-height:1.5;
-}
-.q-box{
-  width:22px;height:22px;border:1.5px solid var(--ink);margin-top:2px;
+  font-family:var(--font-display);font-size:1.1rem;color:var(--gold);font-weight:700;
 }
 
 /* footer */
 footer{
-  padding:60px var(--gutter) 40px;
-  border-top:1px solid var(--ink);background:var(--ink);color:var(--paper-light);
+  padding:64px var(--gutter) 44px;
+  border-top:2px solid var(--ink);background:var(--ink);color:var(--paper-light);
+  position:relative;overflow:hidden;
+}
+footer::before{
+  content:"";position:absolute;left:0;top:0;width:100%;height:3px;
+  background:linear-gradient(90deg,var(--sage) 0%,var(--copper) 30%,var(--gold) 60%,var(--burgundy) 100%);
 }
 .footer-inner{
   max-width:var(--max);margin:0 auto;
   display:grid;grid-template-columns:1fr auto;gap:40px;align-items:end;
+  position:relative;z-index:1;
 }
 .footer-mark{
   font-family:var(--font-display);font-weight:300;font-style:italic;
-  font-size:2rem;letter-spacing:-.02em;line-height:1;
+  font-size:2.2rem;letter-spacing:-.02em;line-height:1;
 }
-.footer-mark span{font-style:normal;font-weight:500}
+.footer-mark span{font-style:normal;font-weight:600;color:var(--gold)}
 .footer-meta{
   font-family:var(--font-mono);font-size:.74rem;letter-spacing:.14em;
   text-transform:uppercase;color:var(--sand);text-align:right;line-height:1.8;
@@ -583,18 +745,20 @@ footer{
 /* anchor list quick-jump */
 .toc{
   background:var(--paper-light);border:1px solid var(--line);
-  padding:24px 28px;margin-top:38px;
-  display:grid;grid-template-columns:repeat(4,1fr);gap:6px 20px;
+  padding:26px 30px;margin-top:38px;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:6px 22px;
+  border-top:3px solid var(--sage);
 }
 .toc a{
   text-decoration:none;color:var(--ink);
-  font-family:var(--font-mono);font-size:.78rem;
-  padding:8px 0;border-bottom:1px solid var(--line-soft);
+  font-family:var(--font-mono);font-size:.78rem;font-weight:500;
+  padding:9px 0;border-bottom:1px solid var(--line-soft);
   display:flex;justify-content:space-between;gap:12px;
-  transition:color .2s ease,padding-left .2s ease;
+  transition:color .25s ease,padding-left .25s ease,border-color .25s ease;
 }
-.toc a:hover{color:var(--copper);padding-left:6px}
-.toc a span{color:var(--ink-mute);font-size:.7rem;letter-spacing:.1em}
+.toc a:hover{color:var(--copper);padding-left:8px;border-color:var(--copper)}
+.toc a span{color:var(--ink-mute);font-size:.7rem;letter-spacing:.1em;font-weight:700}
+.toc a:hover span{color:var(--copper)}
 
 /* responsive */
 @media (max-width:980px){
@@ -605,7 +769,7 @@ footer{
   .stage-side{position:static}
   .stage-num{font-size:9rem}
   .cheat{grid-template-columns:1fr}
-  .cheat-col + .cheat-col{border-left:none;border-top:1px solid var(--ink)}
+  .cheat-col + .cheat-col{border-left:none;border-top:2px solid var(--ink)}
   .toc{grid-template-columns:repeat(2,1fr)}
   .footer-inner{grid-template-columns:1fr}
   .footer-meta{text-align:left}
@@ -613,6 +777,9 @@ footer{
   .t-row{grid-template-columns:1fr;gap:6px}
   .results-row{grid-template-columns:30px 1fr;}
   .results-target{grid-column:2;justify-self:start}
+  .zd{grid-template-columns:1fr;text-align:center}
+  .zd-icon{margin:0 auto}
+  .zd::before{font-size:10rem}
 }
 @media (max-width:560px){
   .pipeline-row{grid-template-columns:repeat(2,1fr)}
@@ -632,8 +799,12 @@ footer{
 }
 
 /* fade-in animations */
-.reveal{opacity:0;transform:translateY(14px);transition:opacity .9s ease,transform .9s ease}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity 1s cubic-bezier(.2,.7,.3,1),transform 1s cubic-bezier(.2,.7,.3,1)}
 .reveal.in{opacity:1;transform:none}
+.reveal[data-delay="1"]{transition-delay:.08s}
+.reveal[data-delay="2"]{transition-delay:.16s}
+.reveal[data-delay="3"]{transition-delay:.24s}
+.reveal[data-delay="4"]{transition-delay:.32s}
 </style>
 </head>
 <body>
@@ -642,7 +813,7 @@ footer{
 <!-- ─────────────── HERO ─────────────── -->
 <header class="hero">
   <div class="hero-inner">
-    <div class="ribbon">внутренний документ · v 1.0</div>
+    <div class="ribbon">внутренний документ · v 1.1</div>
 
     <div class="hero-top">
       <div class="brandmark">
@@ -684,7 +855,7 @@ footer{
     </div>
 
     <nav class="toc">
-      <a href="#rules"><span>01</span> три правила</a>
+      <a href="#rules"><span>01</span> правила</a>
       <a href="#pipeline"><span>02</span> схема воронки</a>
       <a href="#s1"><span>03</span> встреча назначена</a>
       <a href="#s2"><span>04</span> реанимация</a>
@@ -706,8 +877,8 @@ footer{
     <div class="section-head">
       <div class="section-num">01<small>правила</small></div>
       <div>
-        <h2 class="section-title">Три правила, которые <em>нельзя</em> нарушать.</h2>
-        <p class="section-kicker">Если хоть одно сломалось — ты уже не клоузер, а курьер сделок. Бизнес теряет деньги. Сначала эти три, потом всё остальное.</p>
+        <h2 class="section-title">Четыре правила, которые <em>нельзя</em> нарушать.</h2>
+        <p class="section-kicker">Если хоть одно сломалось — ты уже не клоузер, а курьер сделок. Бизнес теряет деньги. Сначала эти четыре, потом всё остальное.</p>
       </div>
     </div>
 
@@ -717,15 +888,20 @@ footer{
         <h3 class="rule-title">Не двигай сделки руками.</h3>
         <p class="rule-body">Закрой задачу с правильным <strong>результатом</strong> — Digital Pipeline сам передвинет сделку на нужный этап. Перетащил руками — убил аналитику и автоматизации.</p>
       </article>
-      <article class="rule reveal">
+      <article class="rule reveal" data-delay="1">
         <div class="rule-num">02</div>
         <h3 class="rule-title">У каждого касания — повод.</h3>
         <p class="rule-body">Не «напомнить про оплату», а <strong>конкретный повод</strong>: кейс, расчёт долга, юрист подготовил план. Тексты для MaxBot готовит копирайтер — твоё дело сделать звонок с поводом из таблицы.</p>
       </article>
-      <article class="rule reveal">
+      <article class="rule reveal" data-delay="2">
         <div class="rule-num">03</div>
-        <h3 class="rule-title">3 рабочих дня тишины — алерт РОПу.</h3>
-        <p class="rule-body">На любом активном этапе (1, 2, 3, 4, 5, 7, 8) если касаний нет <strong>3+ рабочих дня</strong> — РОПу прилетает задача «проверить сделку». Этап 6 (Отложен) — исключение: там пауза до названной даты.</p>
+        <h3 class="rule-title">Касание не реже раза в 3 рабочих дня.</h3>
+        <p class="rule-body">На любом активном этапе если касаний нет <strong>3+ рабочих дня</strong> — РОПу прилетает алерт. РОП вправе <strong>забрать клиента и передать другому клоузеру</strong>. Этап 6 (Отложен) — исключение: пауза до названной даты.</p>
+      </article>
+      <article class="rule invert reveal" data-delay="3">
+        <div class="rule-num">04</div>
+        <h3 class="rule-title">Zero Dashboard на конец дня.</h3>
+        <p class="rule-body">К концу рабочего дня в воронке <strong>не должно быть просроченных задач</strong>. Делаешь скриншот чистого дашборда и отправляешь в чат с РОПом. Без скрина — день не закрыт.</p>
       </article>
     </div>
 
@@ -733,11 +909,23 @@ footer{
       <span class="upper">ключевое слово</span>
       <p><strong>Касание</strong> — это исходящий <em>звонок клиенту</em> (любой результат, кроме «не пытался») или <em>отправленное сообщение в MaxBot</em>. Входящий звонок или сообщение от клиента сами по себе касанием <strong>не считаются</strong> — на них клоузер просто обязан ответить.</p>
     </div>
+
+    <div class="zd reveal">
+      <div class="zd-icon">
+        <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><path d="M24 14 V24 L31 28"/></svg>
+      </div>
+      <div class="zd-text">
+        <span class="upper">конец дня · zero dashboard</span>
+        <h3>Ноль просрочек — ноль вопросов.</h3>
+        <p>В <strong>18:00</strong> открываешь воронку, фильтруешь по своим сделкам, делаешь скрин: <strong>ни одной красной задачи</strong>. Скидываешь в группу с РОПом. Если есть просрочки — закрываешь, потом скрин. Без zero dashboard рабочий день не считается закрытым.</p>
+      </div>
+      <div class="zd-zero">0</div>
+    </div>
   </div>
 </section>
 
 <!-- ─────────────── 2. PIPELINE OVERVIEW ─────────────── -->
-<section id="pipeline">
+<section id="pipeline" class="alt-bg">
   <div class="shell">
     <div class="section-head">
       <div class="section-num">02<small>схема</small></div>
@@ -749,14 +937,14 @@ footer{
 
     <div class="pipeline-wrap">
       <div class="pipeline-row">
-        <div class="pip" data-tag="active"><div class="pip-num">01</div><div class="pip-title">Встреча назначена</div><div class="pip-sla">SLA · 24 часа</div></div>
-        <div class="pip" data-tag="warm"><div class="pip-num">02</div><div class="pip-title">Реанимация</div><div class="pip-sla">SLA · 7 дней</div></div>
-        <div class="pip" data-tag="warm"><div class="pip-num">03</div><div class="pip-title">Догрев</div><div class="pip-sla">SLA · 14 дней</div></div>
-        <div class="pip" data-tag="active"><div class="pip-num">04</div><div class="pip-title">Счёт выставлен</div><div class="pip-sla">SLA · 14 дней</div></div>
-        <div class="pip" data-tag="active"><div class="pip-num">05</div><div class="pip-title">Дожим</div><div class="pip-sla">SLA · 14 дней</div></div>
-        <div class="pip" data-tag="mute"><div class="pip-num">06</div><div class="pip-title">Отложен</div><div class="pip-sla">SLA · до 60 дней</div></div>
-        <div class="pip" data-tag="gold"><div class="pip-num">07</div><div class="pip-title">Договор оплачен</div><div class="pip-sla">SLA · 24 часа</div></div>
-        <div class="pip" data-tag="bad"><div class="pip-num">08</div><div class="pip-title">Возврат трипваера</div><div class="pip-sla">SLA · 24 часа</div></div>
+        <div class="pip reveal" data-tag="active"><div class="pip-num">01</div><div class="pip-title">Встреча назначена</div><div class="pip-sla">SLA · 24 часа</div></div>
+        <div class="pip reveal" data-tag="warm" data-delay="1"><div class="pip-num">02</div><div class="pip-title">Реанимация</div><div class="pip-sla">SLA · 7 дней</div></div>
+        <div class="pip reveal" data-tag="warm" data-delay="2"><div class="pip-num">03</div><div class="pip-title">Догрев</div><div class="pip-sla">SLA · 14 дней</div></div>
+        <div class="pip reveal" data-tag="active" data-delay="3"><div class="pip-num">04</div><div class="pip-title">Счёт выставлен</div><div class="pip-sla">SLA · 14 дней</div></div>
+        <div class="pip reveal" data-tag="active" data-delay="4"><div class="pip-num">05</div><div class="pip-title">Дожим</div><div class="pip-sla">SLA · 14 дней</div></div>
+        <div class="pip reveal" data-tag="mute"><div class="pip-num">06</div><div class="pip-title">Отложен</div><div class="pip-sla">SLA · до 60 дней</div></div>
+        <div class="pip reveal" data-tag="gold" data-delay="1"><div class="pip-num">07</div><div class="pip-title">Договор оплачен</div><div class="pip-sla">SLA · 24 часа</div></div>
+        <div class="pip reveal" data-tag="bad" data-delay="2"><div class="pip-num">08</div><div class="pip-title">Возврат трипваера</div><div class="pip-sla">SLA · 24 часа</div></div>
       </div>
 
       <div class="flow-line"></div>
@@ -796,7 +984,7 @@ footer{
           <svg viewBox="0 0 48 48"><rect x="8" y="12" width="32" height="28" rx="2"/><path d="M8 20 H40"/><path d="M16 8 V16"/><path d="M32 8 V16"/></svg>
         </div>
         <span class="upper">SLA</span>
-        <div style="font-family:var(--font-mono);font-size:.95rem;font-weight:600;margin-top:4px">24 часа</div>
+        <div style="font-family:var(--font-mono);font-size:.95rem;font-weight:700;margin-top:4px">24 часа</div>
       </div>
       <div class="stage-body">
         <h3 class="stage-name">Встреча <em>назначена</em></h3>
@@ -804,6 +992,7 @@ footer{
         <div class="stage-meta">
           <span class="meta-pill">SLA · встреча в 24 часа</span>
           <span class="meta-pill warn">максимум 2 переноса</span>
+          <span class="meta-pill gold">видео = Контур.Толк</span>
         </div>
 
         <div class="block">
@@ -815,7 +1004,7 @@ footer{
           <div class="block-label">Что делать</div>
           <ol>
             <li>Открой задачу <strong>«Провести встречу с клиентом»</strong>. Дедлайн = время встречи.</li>
-            <li>Канал встречи бери из поля «Формат встречи» — видео или телефон.</li>
+            <li>Канал бери из поля «Формат встречи». <em>Видео — Контур.Толк</em>, телефон — обычный звонок.</li>
             <li>Если клиент переносит — поставь новую дату (макс. 2 переноса подряд).</li>
             <li>По итогу закрой задачу с одним из четырёх результатов ниже.</li>
           </ol>
@@ -866,7 +1055,7 @@ footer{
           <svg viewBox="0 0 48 48"><path d="M24 8 V24 L34 30"/><circle cx="24" cy="24" r="16"/></svg>
         </div>
         <span class="upper">SLA</span>
-        <div style="font-family:var(--font-mono);font-size:.95rem;font-weight:600;margin-top:4px">7 дней</div>
+        <div style="font-family:var(--font-mono);font-size:.95rem;font-weight:700;margin-top:4px">7 дней</div>
       </div>
       <div class="stage-body">
         <h3 class="stage-name">Реани<em>мация</em></h3>
@@ -921,44 +1110,62 @@ footer{
           <svg viewBox="0 0 48 48"><path d="M24 38 C16 30 12 24 12 18 a12 12 0 1 1 24 0 c0 6-4 12-12 20Z"/><circle cx="24" cy="18" r="4"/></svg>
         </div>
         <span class="upper">SLA</span>
-        <div style="font-family:var(--font-mono);font-size:.95rem;font-weight:600;margin-top:4px">14 дней</div>
+        <div style="font-family:var(--font-mono);font-size:.95rem;font-weight:700;margin-top:4px">14 дней</div>
       </div>
       <div class="stage-body">
         <h3 class="stage-name">До<em>грев</em></h3>
-        <p class="stage-headline">Клиент пришёл на встречу, но «не готов прямо сейчас». Задача — настойчиво, но без давления вернуть его в диалог.</p>
+        <p class="stage-headline">Клиент пришёл на встречу, но «не готов прямо сейчас». Не отдавай горячее тепло — звонок через час, дальше касания каждые 3 дня.</p>
         <div class="stage-meta">
           <span class="meta-pill">обязательное поле · причина «не готов»</span>
           <span class="meta-pill warn">14 дней максимум</span>
+          <span class="meta-pill gold">звонок через 1 час обязателен</span>
         </div>
 
         <div class="block">
           <div class="block-label">Что делать</div>
           <ol>
             <li>Заполни поле <strong>«Причина не готов»</strong> — без этого Pipeline не двигает сделку.</li>
-            <li>На время, которое <em>сам клиент назвал</em>, поставь задачу «Позвонить клиенту».</li>
-            <li>Если не дозвонился — система переставит задачу автоматически по графику ниже.</li>
+            <li><em>Через 1 час</em> после встречи — обязательный звонок. Клиент ещё «горячий», это лучшее окно дожать.</li>
+            <li>Дальше клоузер сам выбирает день и время следующего касания, ориентируясь на пожелание клиента.</li>
+            <li><strong>Касание не реже раза в 3 рабочих дня</strong> — иначе РОП заберёт клиента.</li>
+            <li>Если не дозвон — система переставит задачу автоматически (см. график ниже).</li>
             <li>День 7 — задача упадёт старшему клоузеру: «Попробуй вывести клиента на диалог».</li>
             <li>День 14 — финальная попытка. Без результата — автозакрытие с пометкой «неактивен».</li>
           </ol>
         </div>
 
         <div class="block">
-          <div class="block-label">График при не-дозвонах (автоматически)</div>
+          <div class="block-label">График касаний</div>
           <div class="timeline">
             <div class="t-row">
+              <div class="t-when"><strong>+ 1 час</strong></div>
+              <div class="t-channel call">звонок клоузера</div>
+              <div class="t-text">Сразу после встречи. <em>Попытка дожать в горячем состоянии</em>. Самое результативное окно.</div>
+            </div>
+            <div class="t-row">
               <div class="t-when">дни 1–3</div>
-              <div class="t-channel call">звонок</div>
-              <div class="t-text"><strong>2 раза в день</strong>, каждые 3 часа. Самое плотное окно.</div>
+              <div class="t-channel call">звонки</div>
+              <div class="t-text">Если не дозвон — <strong>2 раза в день, каждые 3 часа</strong>. Самое плотное окно.</div>
             </div>
             <div class="t-row">
               <div class="t-when">дни 4–6</div>
-              <div class="t-channel call">звонок</div>
+              <div class="t-channel call">звонки</div>
               <div class="t-text"><strong>1 раз в день.</strong> Снижаем темп, не давим.</div>
             </div>
             <div class="t-row">
               <div class="t-when">день 7</div>
               <div class="t-channel boss">старший</div>
               <div class="t-text">Старший клоузер: «попробуй вывести на диалог».</div>
+            </div>
+            <div class="t-row">
+              <div class="t-when">день 10</div>
+              <div class="t-channel call">звонок / MaxBot</div>
+              <div class="t-text">Касание с поводом. Не пропускаем — иначе нарушим правило «3 дня тишины».</div>
+            </div>
+            <div class="t-row">
+              <div class="t-when">день 13</div>
+              <div class="t-channel call">звонок / MaxBot</div>
+              <div class="t-text">Предпоследнее касание перед финалом.</div>
             </div>
             <div class="t-row">
               <div class="t-when">день 14</div>
@@ -1005,7 +1212,7 @@ footer{
     </article>
 
     <!-- ============ STAGE 04 ============ -->
-    <article class="stage" id="s4">
+    <article class="stage" id="s4" data-accent="key">
       <div class="stage-side">
         <span class="stage-tag" data-tag="active">этап 04 · ключевой</span>
         <div class="stage-num">04</div>
@@ -1013,7 +1220,7 @@ footer{
           <svg viewBox="0 0 48 48"><path d="M10 8 H38 V40 L24 34 L10 40 Z"/><path d="M16 18 H32"/><path d="M16 24 H28"/></svg>
         </div>
         <span class="upper">SLA · максимум 9 касаний</span>
-        <div style="font-family:var(--font-mono);font-size:.95rem;font-weight:600;margin-top:4px">14 дней</div>
+        <div style="font-family:var(--font-mono);font-size:.95rem;font-weight:700;margin-top:4px">14 дней</div>
       </div>
       <div class="stage-body">
         <h3 class="stage-name">Счёт <em>выставлен</em></h3>
@@ -1022,6 +1229,7 @@ footer{
           <span class="meta-pill">SLA · 14 дней</span>
           <span class="meta-pill warn">макс. 9 касаний</span>
           <span class="meta-pill">касание каждые 2 дня</span>
+          <span class="meta-pill gold">звонок через 1 час обязателен</span>
         </div>
 
         <div class="block">
@@ -1033,9 +1241,9 @@ footer{
               <div class="t-text">Договор + ссылка на оплату + <strong>«юрист уже выделен по вашему делу»</strong>.</div>
             </div>
             <div class="t-row">
-              <div class="t-when">через 1 час</div>
+              <div class="t-when"><strong>+ 1 час</strong></div>
               <div class="t-channel call">твой звонок</div>
-              <div class="t-text">«Дошёл ли договор, всё ли открывается, разобрались с пунктами?» — попытка дожать на оплату прямо сейчас.</div>
+              <div class="t-text"><em>Обязательный звонок через час.</em> «Дошёл ли договор, всё ли открывается, разобрались с пунктами?» — попытка дожать на оплату прямо сейчас.</div>
             </div>
             <div class="t-row">
               <div class="t-when">день 2</div>
@@ -1085,7 +1293,7 @@ footer{
             </div>
             <div class="results-row">
               <div class="results-icon ok">~</div>
-              <div class="results-text">Внёс предоплату ≥ <em>X ₽</em> (значение уточняется)</div>
+              <div class="results-text">Внёс предоплату <em>любой суммы</em></div>
               <div class="results-target"><span>→ этап 05 дожим</span></div>
             </div>
             <div class="results-row">
@@ -1125,7 +1333,7 @@ footer{
           <svg viewBox="0 0 48 48"><path d="M8 32 L20 20 L28 28 L40 12"/><path d="M32 12 H40 V20"/></svg>
         </div>
         <span class="upper">SLA</span>
-        <div style="font-family:var(--font-mono);font-size:.95rem;font-weight:600;margin-top:4px">14 дней</div>
+        <div style="font-family:var(--font-mono);font-size:.95rem;font-weight:700;margin-top:4px">14 дней</div>
       </div>
       <div class="stage-body">
         <h3 class="stage-name">До<em>жим</em></h3>
@@ -1139,15 +1347,15 @@ footer{
         <div class="block">
           <div class="block-label">Что делать</div>
           <ol>
-            <li><strong>Как только пришла предоплата</strong> — сразу позвони, поздравь клиента и сверь дату полной доплаты.</li>
-            <li>Ставь следующую задачу <strong>не позднее 3 рабочих дней</strong> после касания.</li>
+            <li><strong>Как только пришла предоплата</strong> — сразу позвони, поздравь клиента и сверь дату полной доплаты. Звонок через час здесь не нужен — ты уже сделал главный звонок.</li>
+            <li>Дальше клоузер сам выбирает день и время касаний, ориентируясь на пожелание клиента.</li>
+            <li><strong>Касание не реже раза в 3 рабочих дня</strong> — иначе РОП заберёт клиента.</li>
             <li>Параллельно работает <strong>авторассылка</strong> в MaxBot — ты её не пишешь, она идёт по графику.</li>
-            <li>Каждое твоё касание — с конкретным поводом (не «напомнить»). Поводы — в графике ниже.</li>
           </ol>
         </div>
 
         <div class="block">
-          <div class="block-label">Цикл касаний — что делает MaxBot и что делаешь ты</div>
+          <div class="block-label">Цикл касаний — каждые 3 рабочих дня</div>
           <div class="timeline">
             <div class="t-row">
               <div class="t-when">сразу при входе</div>
@@ -1165,14 +1373,24 @@ footer{
               <div class="t-text">«Остаток N ₽. Как только закроете — юрист стартует сегодня же».</div>
             </div>
             <div class="t-row">
-              <div class="t-when">день 7</div>
-              <div class="t-channel boss">старший менеджер</div>
-              <div class="t-text">Звонок дожать остаток — снять текущее возражение.</div>
+              <div class="t-when">день 6</div>
+              <div class="t-channel call">твой звонок</div>
+              <div class="t-text">Дожать остаток — снять текущее возражение.</div>
             </div>
             <div class="t-row">
-              <div class="t-when">день 10</div>
+              <div class="t-when">день 7</div>
+              <div class="t-channel boss">старший менеджер</div>
+              <div class="t-text">Подключается старший: личный разбор оставшихся сомнений.</div>
+            </div>
+            <div class="t-row">
+              <div class="t-when">день 9</div>
               <div class="t-channel bot">MaxBot</div>
               <div class="t-text">«Вы уже инвестировали X ₽. Осталось N ₽, чтобы запустить дело».</div>
+            </div>
+            <div class="t-row">
+              <div class="t-when">день 12</div>
+              <div class="t-channel call">твой звонок</div>
+              <div class="t-text">Касание с поводом. Не пропускаем — правило «3 дня тишины».</div>
             </div>
             <div class="t-row">
               <div class="t-when">день 14</div>
@@ -1222,7 +1440,7 @@ footer{
           <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="16"/><path d="M24 14 V24 L31 28"/><path d="M14 8 L8 14"/><path d="M34 8 L40 14"/></svg>
         </div>
         <span class="upper">SLA</span>
-        <div style="font-family:var(--font-mono);font-size:.95rem;font-weight:600;margin-top:4px">до 60 дней</div>
+        <div style="font-family:var(--font-mono);font-size:.95rem;font-weight:700;margin-top:4px">до 60 дней</div>
       </div>
       <div class="stage-body">
         <h3 class="stage-name">От<em>ложен</em></h3>
@@ -1278,7 +1496,7 @@ footer{
     </article>
 
     <!-- ============ STAGE 07 ============ -->
-    <article class="stage" id="s7">
+    <article class="stage" id="s7" data-accent="gold">
       <div class="stage-side">
         <span class="stage-tag" data-tag="gold">этап 07 · оплачен ✓</span>
         <div class="stage-num">07</div>
@@ -1286,13 +1504,13 @@ footer{
           <svg viewBox="0 0 48 48"><path d="M10 24 L20 34 L38 14"/></svg>
         </div>
         <span class="upper">SLA</span>
-        <div style="font-family:var(--font-mono);font-size:.95rem;font-weight:600;margin-top:4px">24 часа</div>
+        <div style="font-family:var(--font-mono);font-size:.95rem;font-weight:700;margin-top:4px">24 часа</div>
       </div>
       <div class="stage-body">
         <h3 class="stage-name">Договор <em>оплачен</em></h3>
         <p class="stage-headline">Полная оплата получена. Сделка покидает воронку МПП2 и уходит в отдел сопровождения. Твоя последняя задача — передать документы.</p>
         <div class="stage-meta">
-          <span class="meta-pill">SLA · 24 часа</span>
+          <span class="meta-pill gold">SLA · 24 часа</span>
           <span class="meta-pill warn">эскалация · через 3 часа</span>
         </div>
 
@@ -1316,7 +1534,7 @@ footer{
     </article>
 
     <!-- ============ STAGE 08 ============ -->
-    <article class="stage" id="s8">
+    <article class="stage" id="s8" data-accent="bad">
       <div class="stage-side">
         <span class="stage-tag" data-tag="bad">этап 08 · возврат ↩</span>
         <div class="stage-num">08</div>
@@ -1324,11 +1542,11 @@ footer{
           <svg viewBox="0 0 48 48"><path d="M10 24 L24 10 V20 H38 V28 H24 V38 Z"/></svg>
         </div>
         <span class="upper">SLA</span>
-        <div style="font-family:var(--font-mono);font-size:.95rem;font-weight:600;margin-top:4px">24 часа</div>
+        <div style="font-family:var(--font-mono);font-size:.95rem;font-weight:700;margin-top:4px">24 часа</div>
       </div>
       <div class="stage-body">
         <h3 class="stage-name">Возврат <em>трипваера</em></h3>
-        <p class="stage-headline">Клиент попросил вернуть оплату. Не спорим, не давим — оформляем возврат чисто и быстро. Это репутация компании.</p>
+        <p class="stage-headline">Клиент попросил вернуть оплату. Не спорим, не давим — оформляем возврат чисто и быстро. Это репутация компании. Возврат — отдельный системный статус, не тег.</p>
         <div class="stage-meta">
           <span class="meta-pill bad">SLA · 24 часа</span>
           <span class="meta-pill">обязательно · «этап-источник возврата»</span>
@@ -1349,7 +1567,7 @@ footer{
             <div class="results-row">
               <div class="results-icon ok">✓</div>
               <div class="results-text">Деньги возвращены</div>
-              <div class="results-target bad"><span>закрыто · тег <span class="mono">mpp2:refund_done</span></span></div>
+              <div class="results-target bad"><span>статус «возврат завершён»</span></div>
             </div>
             <div class="results-row">
               <div class="results-icon bad">!</div>
@@ -1373,7 +1591,7 @@ footer{
 </section>
 
 <!-- ─────────────── 4. CUSTOM FIELDS ─────────────── -->
-<section id="fields">
+<section id="fields" class="alt-bg">
   <div class="shell">
     <div class="section-head">
       <div class="section-num">04<small>поля</small></div>
@@ -1392,7 +1610,7 @@ footer{
           <td class="field-name">Формат встречи</td>
           <td class="field-type">select · видео / телефон</td>
           <td class="field-where">этап 01 · ставит МПП1</td>
-          <td>От значения зависят сообщения и автозвонки.</td>
+          <td>От значения зависят сообщения и автозвонки. Видео = Контур.Толк.</td>
         </tr>
         <tr>
           <td class="field-name">Причина не готов</td>
@@ -1416,7 +1634,7 @@ footer{
           <td class="field-name">Сумма предоплаты</td>
           <td class="field-type">numeric</td>
           <td class="field-where">этап 05</td>
-          <td>Для аналитики и расчёта остатка.</td>
+          <td>Любая сумма открывает этап 05. Для аналитики и расчёта остатка.</td>
         </tr>
         <tr>
           <td class="field-name">Этап-источник возврата</td>
@@ -1451,8 +1669,10 @@ footer{
           <li>Касание без повода («просто напомнить про оплату»).</li>
           <li>Писать тексты для MaxBot самому — их готовит копирайтер.</li>
           <li>Третий перенос встречи на этапе 01 без эскалации РОПу.</li>
-          <li>Тишина 3+ рабочих дня на активных этапах.</li>
+          <li>Тишина 3+ рабочих дня на активных этапах. РОП заберёт клиента.</li>
           <li>Зависать на этапе 07 больше 3 часов без передачи документов.</li>
+          <li>Закрыть рабочий день без zero dashboard в чате с РОПом.</li>
+          <li>Пропустить звонок через 1 час на этапе 03 (Догрев) и 04 (Счёт).</li>
         </ul>
       </div>
       <div class="cheat-col good">
@@ -1463,41 +1683,15 @@ footer{
         <ul class="cheat-list">
           <li>Закрывать каждую задачу с правильным результатом — Pipeline сам двигает сделку.</li>
           <li>Заполнять обязательные поля до перехода: причина «не готов», дата возврата, сумма предоплаты.</li>
-          <li>Отвечать на входящие от клиента (но это не считается касанием).</li>
+          <li>Касаться клиента не реже раза в 3 рабочих дня на активных этапах.</li>
+          <li>Звонить через 1 час после встречи (Догрев) и после счёта (Счёт выставлен).</li>
           <li>На этапе 04 идти строго по графику касаний с поводом.</li>
           <li>На этапе 05 позвонить сразу при получении предоплаты.</li>
           <li>Передавать документы в сопровождение в первые 24 часа после оплаты.</li>
+          <li>В 18:00 каждый день — скрин zero dashboard в группу с РОПом.</li>
         </ul>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- ─────────────── 6. OPEN QUESTIONS ─────────────── -->
-<section id="questions">
-  <div class="shell">
-    <div class="section-head">
-      <div class="section-num">06<small>в работе</small></div>
-      <div>
-        <h2 class="section-title">Открытые вопросы — <em>будут уточнены</em>.</h2>
-        <p class="section-kicker">Эти три пункта блокируют запуск воронки. Как только ответы появятся — обновим инструкцию и сообщим всем.</p>
-      </div>
-    </div>
-
-    <ul class="q-list">
-      <li>
-        <span class="q-box"></span>
-        <span><strong>Минимальная сумма предоплаты</strong> для перехода с этапа 04 на 05 — _ ₽.</span>
-      </li>
-      <li>
-        <span class="q-box"></span>
-        <span><strong>Платформа для видеовстреч</strong> — Контур.Толк, Zoom или другое.</span>
-      </li>
-      <li>
-        <span class="q-box"></span>
-        <span><strong>Возврат трипваера</strong> — отдельный системный статус или тег внутри «Закрыто и не реализовано».</span>
-      </li>
-    </ul>
   </div>
 </section>
 
@@ -1506,7 +1700,7 @@ footer{
   <div class="footer-inner">
     <div class="footer-mark">Дону<span>ля</span> · отдел продаж</div>
     <div class="footer-meta">
-      <div>версия 1.0 · апрель 2026</div>
+      <div>версия 1.1 · апрель 2026</div>
       <div>воронка МПП2 · amocrm</div>
       <div>вопросы по инструкции — РОПу МПП2</div>
     </div>
@@ -1516,11 +1710,20 @@ footer{
 </main>
 
 <script>
-// gentle reveal on scroll
 const io = new IntersectionObserver((entries)=>{
   entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
-},{threshold:.15});
-document.querySelectorAll('.reveal,.rule,.stage,.pip').forEach(el=>{el.classList.add('reveal');io.observe(el)});
+},{threshold:.12});
+document.querySelectorAll('.reveal,.rule,.stage,.pip,.zd,.glossary,.escalation,.fields-table,.cheat').forEach(el=>{el.classList.add('reveal');io.observe(el)});
+
+// subtle parallax on hero blobs
+const hero = document.querySelector('.hero');
+if(hero){
+  document.addEventListener('mousemove',(e)=>{
+    const x=(e.clientX/window.innerWidth-.5);
+    const y=(e.clientY/window.innerHeight-.5);
+    hero.style.setProperty('--mx',x);hero.style.setProperty('--my',y);
+  });
+}
 </script>
 </body>
 </html>
