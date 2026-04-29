@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Воронка МПП2 · Инструкция клоузеру · Донуля</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Manrope:wght@300..800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F2EBDD;
+  --paper-light:#FBF6EB;
+  --paper-warm:#EAE0CD;
+  --ink:#161412;
+  --ink-soft:#5C564E;
+  --ink-mute:#8A8378;
+  --line:#D6CDB8;
+  --line-soft:#E5DCC7;
+
+  --sage:#3F5C46;
+  --sage-deep:#1F3325;
+  --sage-light:#6E8973;
+  --copper:#B5663A;
+  --copper-deep:#7A3F1F;
+  --gold:#B7892C;
+  --gold-deep:#7A5A0F;
+  --burgundy:#7E2A3A;
+  --burgundy-deep:#4F141F;
+  --slate:#4F5862;
+  --sand:#D9C9A6;
+
+  --font-display:"Fraunces",Georgia,serif;
+  --font-body:"Manrope",-apple-system,sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,monospace;
+
+  --max:1180px;
+  --gutter:clamp(20px,4vw,56px);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-size:16px;
+  line-height:1.55;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  background-image:
+    radial-gradient(circle at 15% 8%, rgba(125,100,60,.07) 0%, transparent 45%),
+    radial-gradient(circle at 88% 72%, rgba(63,92,70,.06) 0%, transparent 50%);
+}
+
+/* ─────── grain overlay ─────── */
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:1;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.08  0 0 0 0 0.07  0 0 0 0 0.06  0 0 0 0.35 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.55'/></svg>");
+  opacity:.5;mix-blend-mode:multiply;
+}
+
+main{position:relative;z-index:2}
+
+/* ───────────────────────────── */
+/* TYPE                          */
+/* ───────────────────────────── */
+.serif{font-family:var(--font-display);font-optical-sizing:auto}
+.mono{font-family:var(--font-mono);letter-spacing:.02em}
+.upper{text-transform:uppercase;letter-spacing:.18em;font-weight:600;font-size:.72rem}
+.eyebrow{
+  font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.22em;
+  font-size:.7rem;color:var(--ink-mute);font-weight:500;
+}
+
+a{color:inherit}
+
+/* ───────────────────────────── */
+/* HERO                          */
+/* ───────────────────────────── */
+header.hero{
+  padding:clamp(40px,7vw,90px) var(--gutter) clamp(40px,6vw,70px);
+  border-bottom:1px solid var(--line);
+  position:relative;
+}
+.hero-inner{max-width:var(--max);margin:0 auto;position:relative}
+.hero-top{
+  display:flex;justify-content:space-between;align-items:flex-start;gap:24px;
+  margin-bottom:clamp(48px,9vw,140px);
+  padding-bottom:18px;border-bottom:1px solid var(--line);
+}
+.brandmark{
+  display:flex;align-items:center;gap:14px;
+}
+.brandmark-glyph{
+  width:42px;height:42px;border-radius:50%;
+  border:1.5px solid var(--ink);position:relative;flex-shrink:0;
+}
+.brandmark-glyph::after{
+  content:"";position:absolute;inset:6px;border-radius:50%;
+  background:var(--ink);
+  clip-path:polygon(0 0,100% 0,100% 50%,0 50%);
+}
+.brandmark-text{
+  font-family:var(--font-display);font-weight:500;font-size:1.6rem;letter-spacing:-.01em;
+  font-feature-settings:"ss01";
+}
+.brandmark-sub{
+  font-family:var(--font-mono);font-size:.7rem;text-transform:uppercase;
+  letter-spacing:.2em;color:var(--ink-mute);margin-top:2px;
+}
+.hero-meta{
+  text-align:right;font-family:var(--font-mono);font-size:.78rem;
+  color:var(--ink-soft);line-height:1.7;
+}
+.hero-meta .v{color:var(--ink);font-weight:600}
+
+.hero-eyebrow{
+  font-family:var(--font-mono);font-size:.78rem;letter-spacing:.32em;
+  text-transform:uppercase;color:var(--copper);margin-bottom:24px;font-weight:600;
+}
+.hero-title{
+  font-family:var(--font-display);
+  font-weight:300;
+  font-size:clamp(3.2rem,9vw,7.4rem);
+  line-height:.92;
+  letter-spacing:-.035em;
+  margin-bottom:14px;
+  font-variation-settings:"opsz" 144,"SOFT" 30;
+}
+.hero-title em{
+  font-style:italic;font-weight:400;color:var(--sage-deep);
+  font-variation-settings:"opsz" 144,"SOFT" 100;
+}
+.hero-sub{
+  font-family:var(--font-display);font-weight:300;font-style:italic;
+  font-size:clamp(1.3rem,2.4vw,1.85rem);
+  color:var(--ink-soft);max-width:720px;line-height:1.4;letter-spacing:-.005em;
+  margin-top:6px;
+}
+.hero-divider{
+  height:1px;background:var(--ink);margin:46px 0 30px;width:64px;
+}
+.hero-ledes{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;
+  margin-top:30px;max-width:980px;
+}
+.hero-lede .upper{color:var(--ink-mute);margin-bottom:6px;display:block}
+.hero-lede strong{
+  font-family:var(--font-display);font-weight:500;font-size:1.3rem;
+  display:block;line-height:1.2;letter-spacing:-.01em;
+}
+.hero-lede small{display:block;color:var(--ink-soft);font-size:.88rem;margin-top:4px}
+
+/* tape / ribbon */
+.ribbon{
+  position:absolute;top:0;right:0;
+  background:var(--ink);color:var(--paper-light);
+  font-family:var(--font-mono);font-size:.66rem;letter-spacing:.25em;
+  text-transform:uppercase;padding:7px 18px;font-weight:600;
+}
+
+/* ───────────────────────────── */
+/* SECTION SHELL                 */
+/* ───────────────────────────── */
+section{padding:clamp(56px,8vw,110px) var(--gutter)}
+section + section{border-top:1px solid var(--line-soft)}
+.shell{max-width:var(--max);margin:0 auto}
+
+.section-head{
+  display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:end;
+  padding-bottom:34px;margin-bottom:50px;border-bottom:1px solid var(--ink);
+}
+.section-num{
+  font-family:var(--font-display);font-weight:300;
+  font-size:clamp(3rem,7vw,5rem);line-height:.85;letter-spacing:-.04em;
+  color:var(--ink);
+  font-variation-settings:"opsz" 144,"SOFT" 50;
+}
+.section-num small{
+  display:block;font-family:var(--font-mono);font-size:.66rem;
+  letter-spacing:.28em;text-transform:uppercase;font-weight:500;
+  color:var(--ink-mute);margin-top:14px;
+}
+.section-title{
+  font-family:var(--font-display);font-weight:400;
+  font-size:clamp(1.85rem,4vw,3rem);
+  line-height:1.05;letter-spacing:-.018em;
+}
+.section-title em{font-style:italic;color:var(--copper)}
+.section-kicker{
+  margin-top:18px;font-size:1.05rem;color:var(--ink-soft);max-width:720px;
+}
+
+/* ───────────────────────────── */
+/* THREE RULES                   */
+/* ───────────────────────────── */
+.rules{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:clamp(16px,2vw,28px);
+}
+.rule{
+  background:var(--paper-light);
+  border:1px solid var(--line);
+  padding:32px 28px 30px;
+  position:relative;
+  display:flex;flex-direction:column;
+  min-height:280px;
+  transition:transform .35s ease,box-shadow .35s ease;
+}
+.rule:hover{transform:translateY(-3px);box-shadow:0 18px 40px -22px rgba(20,16,12,.32)}
+.rule-num{
+  font-family:var(--font-display);font-weight:300;
+  font-size:5rem;line-height:.85;letter-spacing:-.04em;
+  color:var(--ink);margin-bottom:24px;
+  font-variation-settings:"opsz" 144,"SOFT" 100;
+}
+.rule-title{
+  font-family:var(--font-display);font-weight:500;
+  font-size:1.45rem;line-height:1.15;letter-spacing:-.012em;
+  margin-bottom:14px;
+}
+.rule-body{font-size:.95rem;color:var(--ink-soft);line-height:1.55}
+.rule-body strong{color:var(--ink);font-weight:600}
+
+.rule:nth-child(1){border-top:3px solid var(--sage)}
+.rule:nth-child(2){border-top:3px solid var(--copper)}
+.rule:nth-child(3){border-top:3px solid var(--gold)}
+
+/* glossary block under rules */
+.glossary{
+  margin-top:36px;
+  background:var(--ink);color:var(--paper-light);
+  padding:30px 36px;display:grid;grid-template-columns:160px 1fr;gap:30px;
+  align-items:start;
+}
+.glossary .upper{color:var(--gold);font-size:.7rem}
+.glossary p{font-size:1.02rem;line-height:1.6;font-family:var(--font-display);
+  font-weight:300;letter-spacing:-.005em;}
+.glossary strong{font-weight:500;color:var(--paper-light)}
+.glossary em{color:var(--sand);font-style:italic}
+
+/* ───────────────────────────── */
+/* PIPELINE OVERVIEW             */
+/* ───────────────────────────── */
+.pipeline-wrap{
+  background:var(--paper-light);
+  border:1px solid var(--line);
+  padding:clamp(28px,4vw,56px) clamp(20px,3vw,42px);
+}
+.pipeline-legend{
+  display:flex;flex-wrap:wrap;gap:18px 28px;margin-top:28px;
+  font-family:var(--font-mono);font-size:.72rem;text-transform:uppercase;
+  letter-spacing:.16em;color:var(--ink-soft);
+}
+.legend-dot{display:inline-flex;align-items:center;gap:8px}
+.legend-dot::before{
+  content:"";width:11px;height:11px;border-radius:50%;background:var(--ink);
+}
+.legend-dot.active::before{background:var(--sage)}
+.legend-dot.warm::before{background:var(--copper)}
+.legend-dot.gold::before{background:var(--gold)}
+.legend-dot.bad::before{background:var(--burgundy)}
+.legend-dot.mute::before{background:var(--slate)}
+
+.pipeline-row{
+  display:grid;grid-template-columns:repeat(8,minmax(0,1fr));
+  gap:6px;align-items:stretch;
+}
+.pip{
+  border:1px solid var(--line);background:var(--paper);
+  padding:18px 14px 22px;
+  position:relative;
+  transition:transform .3s ease;
+}
+.pip:hover{transform:translateY(-2px)}
+.pip-num{
+  font-family:var(--font-mono);font-size:.7rem;letter-spacing:.22em;
+  color:var(--ink-mute);text-transform:uppercase;margin-bottom:10px;
+}
+.pip-title{
+  font-family:var(--font-display);font-weight:500;font-size:1.05rem;
+  line-height:1.15;letter-spacing:-.012em;
+  min-height:2.6em;
+}
+.pip-sla{
+  font-family:var(--font-mono);font-size:.66rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-mute);margin-top:14px;
+  padding-top:10px;border-top:1px solid var(--line-soft);
+}
+.pip[data-tag="active"]{border-top:3px solid var(--sage)}
+.pip[data-tag="warm"]{border-top:3px solid var(--copper)}
+.pip[data-tag="gold"]{border-top:3px solid var(--gold);background:linear-gradient(180deg,#FBF1D2 0%,var(--paper) 60%)}
+.pip[data-tag="bad"]{border-top:3px solid var(--burgundy)}
+.pip[data-tag="mute"]{border-top:3px solid var(--slate)}
+
+.flow-line{
+  height:1px;background:var(--ink);margin:36px 0 12px;position:relative;
+}
+.flow-line::before,.flow-line::after{
+  content:"";position:absolute;width:8px;height:8px;border-radius:50%;
+  background:var(--ink);top:-3.5px;
+}
+.flow-line::before{left:0}
+.flow-line::after{right:0}
+.flow-caption{
+  display:flex;justify-content:space-between;font-family:var(--font-mono);
+  font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-mute);
+}
+
+/* ───────────────────────────── */
+/* STAGE CARD                    */
+/* ───────────────────────────── */
+.stage{
+  display:grid;
+  grid-template-columns:minmax(220px,300px) 1fr;
+  gap:clamp(20px,4vw,60px);
+  padding:clamp(40px,5vw,72px) 0;
+  border-top:1px solid var(--line);
+  position:relative;
+}
+.stage:first-of-type{border-top:none;padding-top:10px}
+.stage-side{position:sticky;top:30px;align-self:start;height:fit-content}
+.stage-num{
+  font-family:var(--font-display);
+  font-weight:200;
+  font-size:clamp(7rem,16vw,13rem);
+  line-height:.82;
+  letter-spacing:-.06em;
+  color:var(--ink);
+  margin-bottom:18px;
+  font-variation-settings:"opsz" 144,"SOFT" 100;
+}
+.stage-num em{
+  font-style:italic;font-weight:300;
+  font-variation-settings:"opsz" 144,"SOFT" 100;
+}
+.stage-tag{
+  display:inline-block;font-family:var(--font-mono);font-size:.66rem;
+  letter-spacing:.24em;text-transform:uppercase;
+  padding:5px 11px;border:1px solid var(--ink);font-weight:600;
+  margin-bottom:14px;
+}
+.stage-tag[data-tag="gold"]{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.stage-tag[data-tag="bad"]{background:var(--burgundy);color:var(--paper-light);border-color:var(--burgundy)}
+.stage-tag[data-tag="mute"]{background:var(--slate);color:var(--paper-light);border-color:var(--slate)}
+.stage-tag[data-tag="active"]{background:var(--sage);color:var(--paper-light);border-color:var(--sage)}
+.stage-tag[data-tag="warm"]{background:var(--copper);color:var(--paper-light);border-color:var(--copper)}
+
+.stage-icon{
+  width:88px;height:88px;border:1.5px solid var(--ink);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;margin-bottom:24px;
+}
+.stage-icon svg{width:42px;height:42px;stroke:var(--ink);fill:none;stroke-width:1.4}
+.stage-side .upper{color:var(--ink-mute);margin-bottom:10px;display:block}
+
+.stage-body h3.stage-name{
+  font-family:var(--font-display);font-weight:400;
+  font-size:clamp(2rem,4.2vw,3.2rem);
+  line-height:1;letter-spacing:-.025em;margin-bottom:8px;
+}
+.stage-name em{font-style:italic}
+.stage-headline{
+  font-family:var(--font-display);font-weight:300;font-style:italic;
+  font-size:1.2rem;color:var(--ink-soft);max-width:640px;line-height:1.4;
+  margin-bottom:32px;letter-spacing:-.005em;
+}
+.stage-meta{
+  display:flex;flex-wrap:wrap;gap:6px;margin-bottom:32px;
+}
+.meta-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--font-mono);font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;
+  padding:7px 14px;background:var(--paper-light);border:1px solid var(--line);
+  font-weight:500;color:var(--ink);
+}
+.meta-pill::before{
+  content:"";width:6px;height:6px;border-radius:50%;background:var(--sage);
+}
+.meta-pill.warn::before{background:var(--copper)}
+.meta-pill.bad::before{background:var(--burgundy)}
+
+.block{margin-bottom:30px}
+.block-label{
+  font-family:var(--font-mono);font-size:.7rem;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--ink-mute);margin-bottom:12px;font-weight:600;
+  display:flex;align-items:center;gap:10px;
+}
+.block-label::before{
+  content:"";width:18px;height:1px;background:var(--ink);
+}
+.block p{margin-bottom:6px}
+.block ol,.block ul{padding-left:0;list-style:none;counter-reset:step}
+.block ol li{
+  counter-increment:step;
+  padding:10px 0 10px 46px;border-bottom:1px solid var(--line-soft);
+  position:relative;font-size:1rem;
+}
+.block ol li:last-child{border-bottom:none}
+.block ol li::before{
+  content:counter(step,decimal-leading-zero);
+  position:absolute;left:0;top:11px;
+  font-family:var(--font-mono);font-size:.78rem;font-weight:700;
+  color:var(--copper);letter-spacing:.05em;
+}
+.block ul li{
+  padding:9px 0 9px 22px;position:relative;border-bottom:1px solid var(--line-soft);
+}
+.block ul li:last-child{border-bottom:none}
+.block ul li::before{
+  content:"";position:absolute;left:0;top:18px;width:8px;height:1px;background:var(--ink);
+}
+
+/* result transitions */
+.results{
+  border:1px solid var(--ink);
+}
+.results-row{
+  display:grid;grid-template-columns:48px 1fr auto;align-items:center;gap:16px;
+  padding:16px 22px;
+  border-bottom:1px solid var(--line);
+}
+.results-row:last-child{border-bottom:none}
+.results-icon{
+  width:30px;height:30px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-mono);font-size:.85rem;font-weight:700;
+}
+.results-icon.ok{background:var(--sage);color:var(--paper-light)}
+.results-icon.wait{background:var(--copper);color:var(--paper-light)}
+.results-icon.gold{background:var(--gold);color:var(--ink)}
+.results-icon.bad{background:var(--burgundy);color:var(--paper-light)}
+.results-icon.mute{background:var(--slate);color:var(--paper-light)}
+.results-text{font-size:1rem;line-height:1.4}
+.results-target{
+  font-family:var(--font-mono);font-size:.78rem;letter-spacing:.06em;
+  text-transform:uppercase;font-weight:600;color:var(--ink);white-space:nowrap;
+}
+.results-target span{display:inline-block;padding:6px 12px;border:1px solid var(--ink);background:var(--paper-light)}
+.results-target.bad span{background:var(--ink);color:var(--paper-light)}
+.results-target.gold span{background:var(--gold)}
+.results-target.warm span{background:var(--copper);color:var(--paper-light);border-color:var(--copper)}
+
+/* schedule timeline (stage 4) */
+.timeline{
+  border-left:1.5px solid var(--ink);padding-left:0;margin-left:14px;
+}
+.t-row{
+  display:grid;grid-template-columns:130px 110px 1fr;gap:18px;align-items:start;
+  padding:18px 0 18px 26px;position:relative;
+  border-bottom:1px dashed var(--line);
+}
+.t-row:last-child{border-bottom:none}
+.t-row::before{
+  content:"";position:absolute;left:-7.5px;top:26px;
+  width:13px;height:13px;border-radius:50%;background:var(--paper);
+  border:1.5px solid var(--ink);
+}
+.t-when{
+  font-family:var(--font-mono);font-size:.78rem;letter-spacing:.1em;
+  text-transform:uppercase;font-weight:700;color:var(--ink);
+}
+.t-channel{
+  font-family:var(--font-mono);font-size:.7rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ink-mute);
+  display:inline-flex;align-items:center;gap:7px;
+}
+.t-channel::before{
+  content:"";width:8px;height:8px;border-radius:50%;
+}
+.t-channel.bot::before{background:var(--copper)}
+.t-channel.call::before{background:var(--sage)}
+.t-channel.boss::before{background:var(--gold)}
+.t-text{font-size:.98rem;line-height:1.5}
+.t-text strong{font-weight:600;color:var(--ink)}
+
+/* warning / escalation block */
+.escalation{
+  background:var(--ink);color:var(--paper-light);
+  padding:24px 28px;display:grid;grid-template-columns:auto 1fr;gap:22px;
+  align-items:start;
+}
+.escalation-mark{
+  width:42px;height:42px;background:var(--copper);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-weight:600;font-size:1.4rem;color:var(--paper-light);
+}
+.escalation .upper{color:var(--gold);font-size:.7rem}
+.escalation p{margin-top:6px;font-size:1rem;line-height:1.5;color:var(--paper-warm)}
+.escalation p strong{color:var(--paper-light);font-weight:600}
+
+/* fields table */
+.fields-table{
+  width:100%;border-collapse:collapse;
+  background:var(--paper-light);border:1px solid var(--ink);
+}
+.fields-table th,.fields-table td{
+  padding:18px 22px;text-align:left;border-bottom:1px solid var(--line);
+  font-size:.97rem;vertical-align:top;
+}
+.fields-table th{
+  background:var(--ink);color:var(--paper-light);
+  font-family:var(--font-mono);font-size:.7rem;letter-spacing:.2em;
+  text-transform:uppercase;font-weight:600;
+}
+.fields-table tr:last-child td{border-bottom:none}
+.fields-table td.field-name{font-family:var(--font-display);font-size:1.1rem;font-weight:500}
+.fields-table td.field-type{font-family:var(--font-mono);font-size:.82rem;color:var(--ink-soft)}
+.fields-table td.field-where{font-family:var(--font-mono);font-size:.82rem;font-weight:600}
+
+/* cheatsheet */
+.cheat{
+  display:grid;grid-template-columns:1fr 1fr;gap:0;
+  border:1px solid var(--ink);
+}
+.cheat-col{padding:36px 36px}
+.cheat-col + .cheat-col{border-left:1px solid var(--ink)}
+.cheat-col.bad{background:var(--paper-light)}
+.cheat-col.good{background:var(--ink);color:var(--paper-light)}
+.cheat-head{
+  display:flex;align-items:center;gap:14px;margin-bottom:24px;
+}
+.cheat-mark{
+  width:48px;height:48px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-size:1.6rem;font-weight:600;
+}
+.cheat-col.bad .cheat-mark{background:var(--burgundy);color:var(--paper-light)}
+.cheat-col.good .cheat-mark{background:var(--gold);color:var(--ink)}
+.cheat-col h3{
+  font-family:var(--font-display);font-weight:500;font-size:1.6rem;
+  letter-spacing:-.012em;line-height:1.05;
+}
+.cheat-list{list-style:none}
+.cheat-list li{
+  padding:14px 0 14px 32px;position:relative;
+  border-bottom:1px solid;font-size:1rem;line-height:1.45;
+}
+.cheat-col.bad .cheat-list li{border-color:var(--line)}
+.cheat-col.good .cheat-list li{border-color:rgba(255,255,255,.12)}
+.cheat-list li:last-child{border-bottom:none}
+.cheat-col.bad .cheat-list li::before{
+  content:"×";position:absolute;left:0;top:11px;
+  font-family:var(--font-display);font-size:1.4rem;color:var(--burgundy);font-weight:500;
+}
+.cheat-col.good .cheat-list li::before{
+  content:"✓";position:absolute;left:0;top:14px;
+  font-family:var(--font-display);font-size:1.05rem;color:var(--gold);font-weight:600;
+}
+
+/* open questions */
+.q-list{list-style:none;border-top:1px solid var(--ink)}
+.q-list li{
+  padding:22px 0;border-bottom:1px solid var(--line);
+  display:grid;grid-template-columns:38px 1fr;align-items:start;gap:20px;
+  font-size:1.05rem;line-height:1.5;
+}
+.q-box{
+  width:22px;height:22px;border:1.5px solid var(--ink);margin-top:2px;
+}
+
+/* footer */
+footer{
+  padding:60px var(--gutter) 40px;
+  border-top:1px solid var(--ink);background:var(--ink);color:var(--paper-light);
+}
+.footer-inner{
+  max-width:var(--max);margin:0 auto;
+  display:grid;grid-template-columns:1fr auto;gap:40px;align-items:end;
+}
+.footer-mark{
+  font-family:var(--font-display);font-weight:300;font-style:italic;
+  font-size:2rem;letter-spacing:-.02em;line-height:1;
+}
+.footer-mark span{font-style:normal;font-weight:500}
+.footer-meta{
+  font-family:var(--font-mono);font-size:.74rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--sand);text-align:right;line-height:1.8;
+}
+
+/* anchor list quick-jump */
+.toc{
+  background:var(--paper-light);border:1px solid var(--line);
+  padding:24px 28px;margin-top:38px;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:6px 20px;
+}
+.toc a{
+  text-decoration:none;color:var(--ink);
+  font-family:var(--font-mono);font-size:.78rem;
+  padding:8px 0;border-bottom:1px solid var(--line-soft);
+  display:flex;justify-content:space-between;gap:12px;
+  transition:color .2s ease,padding-left .2s ease;
+}
+.toc a:hover{color:var(--copper);padding-left:6px}
+.toc a span{color:var(--ink-mute);font-size:.7rem;letter-spacing:.1em}
+
+/* responsive */
+@media (max-width:980px){
+  .hero-ledes{grid-template-columns:1fr 1fr}
+  .rules{grid-template-columns:1fr}
+  .pipeline-row{grid-template-columns:repeat(4,1fr);gap:6px}
+  .stage{grid-template-columns:1fr}
+  .stage-side{position:static}
+  .stage-num{font-size:9rem}
+  .cheat{grid-template-columns:1fr}
+  .cheat-col + .cheat-col{border-left:none;border-top:1px solid var(--ink)}
+  .toc{grid-template-columns:repeat(2,1fr)}
+  .footer-inner{grid-template-columns:1fr}
+  .footer-meta{text-align:left}
+  .glossary{grid-template-columns:1fr}
+  .t-row{grid-template-columns:1fr;gap:6px}
+  .results-row{grid-template-columns:30px 1fr;}
+  .results-target{grid-column:2;justify-self:start}
+}
+@media (max-width:560px){
+  .pipeline-row{grid-template-columns:repeat(2,1fr)}
+  .hero-ledes{grid-template-columns:1fr}
+  .section-head{grid-template-columns:1fr;gap:10px}
+}
+
+/* PRINT */
+@media print{
+  body{background:white;font-size:11pt}
+  body::before{display:none}
+  header.hero,section{padding:24px 16mm;page-break-inside:avoid}
+  .stage{page-break-inside:avoid;padding:18px 0}
+  .stage-side{position:static}
+  .ribbon{display:none}
+  a{color:inherit;text-decoration:none}
+}
+
+/* fade-in animations */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .9s ease,transform .9s ease}
+.reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+<main>
+
+<!-- ─────────────── HERO ─────────────── -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="ribbon">внутренний документ · v 1.0</div>
+
+    <div class="hero-top">
+      <div class="brandmark">
+        <div class="brandmark-glyph"></div>
+        <div>
+          <div class="brandmark-text">Донуля</div>
+          <div class="brandmark-sub">отдел продаж · мпп2</div>
+        </div>
+      </div>
+      <div class="hero-meta">
+        <div class="v">N° 01 / 2026</div>
+        <div>апрель · санкт-петербург</div>
+        <div>для клоузеров и старших</div>
+      </div>
+    </div>
+
+    <div class="hero-eyebrow">инструкция клоузеру</div>
+    <h1 class="hero-title">Воронка <em>МПП2</em><br>от встречи до&nbsp;оплаты.</h1>
+    <p class="hero-sub">Восемь этапов, одна логика: касания с поводом, задачи с результатом, без ручного перетаскивания сделок. Делай по шагам — клиент дойдёт до договора.</p>
+
+    <div class="hero-divider"></div>
+
+    <div class="hero-ledes">
+      <div class="hero-lede">
+        <span class="upper">воронка</span>
+        <strong>МПП2</strong>
+        <small>основная воронка отдела продаж в AmoCRM</small>
+      </div>
+      <div class="hero-lede">
+        <span class="upper">этапов</span>
+        <strong>8 + закрытие</strong>
+        <small>1–6 активные, 7 — выход в сопровождение, 8 — возврат</small>
+      </div>
+      <div class="hero-lede">
+        <span class="upper">главный принцип</span>
+        <strong>Задача → результат → CRM сама двигает сделку</strong>
+        <small>Руками не таскаем. Никогда.</small>
+      </div>
+    </div>
+
+    <nav class="toc">
+      <a href="#rules"><span>01</span> три правила</a>
+      <a href="#pipeline"><span>02</span> схема воронки</a>
+      <a href="#s1"><span>03</span> встреча назначена</a>
+      <a href="#s2"><span>04</span> реанимация</a>
+      <a href="#s3"><span>05</span> догрев</a>
+      <a href="#s4"><span>06</span> счёт выставлен</a>
+      <a href="#s5"><span>07</span> дожим</a>
+      <a href="#s6"><span>08</span> отложен</a>
+      <a href="#s7"><span>09</span> договор оплачен</a>
+      <a href="#s8"><span>10</span> возврат</a>
+      <a href="#fields"><span>11</span> поля сделки</a>
+      <a href="#cheat"><span>12</span> шпаргалка</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ─────────────── 1. RULES ─────────────── -->
+<section id="rules">
+  <div class="shell">
+    <div class="section-head">
+      <div class="section-num">01<small>правила</small></div>
+      <div>
+        <h2 class="section-title">Три правила, которые <em>нельзя</em> нарушать.</h2>
+        <p class="section-kicker">Если хоть одно сломалось — ты уже не клоузер, а курьер сделок. Бизнес теряет деньги. Сначала эти три, потом всё остальное.</p>
+      </div>
+    </div>
+
+    <div class="rules">
+      <article class="rule reveal">
+        <div class="rule-num">01</div>
+        <h3 class="rule-title">Не двигай сделки руками.</h3>
+        <p class="rule-body">Закрой задачу с правильным <strong>результатом</strong> — Digital Pipeline сам передвинет сделку на нужный этап. Перетащил руками — убил аналитику и автоматизации.</p>
+      </article>
+      <article class="rule reveal">
+        <div class="rule-num">02</div>
+        <h3 class="rule-title">У каждого касания — повод.</h3>
+        <p class="rule-body">Не «напомнить про оплату», а <strong>конкретный повод</strong>: кейс, расчёт долга, юрист подготовил план. Тексты для MaxBot готовит копирайтер — твоё дело сделать звонок с поводом из таблицы.</p>
+      </article>
+      <article class="rule reveal">
+        <div class="rule-num">03</div>
+        <h3 class="rule-title">3 рабочих дня тишины — алерт РОПу.</h3>
+        <p class="rule-body">На любом активном этапе (1, 2, 3, 4, 5, 7, 8) если касаний нет <strong>3+ рабочих дня</strong> — РОПу прилетает задача «проверить сделку». Этап 6 (Отложен) — исключение: там пауза до названной даты.</p>
+      </article>
+    </div>
+
+    <div class="glossary">
+      <span class="upper">ключевое слово</span>
+      <p><strong>Касание</strong> — это исходящий <em>звонок клиенту</em> (любой результат, кроме «не пытался») или <em>отправленное сообщение в MaxBot</em>. Входящий звонок или сообщение от клиента сами по себе касанием <strong>не считаются</strong> — на них клоузер просто обязан ответить.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── 2. PIPELINE OVERVIEW ─────────────── -->
+<section id="pipeline">
+  <div class="shell">
+    <div class="section-head">
+      <div class="section-num">02<small>схема</small></div>
+      <div>
+        <h2 class="section-title">Восемь этапов <em>одним взглядом</em>.</h2>
+        <p class="section-kicker">Слева — горячий вход с МПП1, справа — закрытие. Цвет показывает зону: активная работа, попытка спасти, успех или возврат.</p>
+      </div>
+    </div>
+
+    <div class="pipeline-wrap">
+      <div class="pipeline-row">
+        <div class="pip" data-tag="active"><div class="pip-num">01</div><div class="pip-title">Встреча назначена</div><div class="pip-sla">SLA · 24 часа</div></div>
+        <div class="pip" data-tag="warm"><div class="pip-num">02</div><div class="pip-title">Реанимация</div><div class="pip-sla">SLA · 7 дней</div></div>
+        <div class="pip" data-tag="warm"><div class="pip-num">03</div><div class="pip-title">Догрев</div><div class="pip-sla">SLA · 14 дней</div></div>
+        <div class="pip" data-tag="active"><div class="pip-num">04</div><div class="pip-title">Счёт выставлен</div><div class="pip-sla">SLA · 14 дней</div></div>
+        <div class="pip" data-tag="active"><div class="pip-num">05</div><div class="pip-title">Дожим</div><div class="pip-sla">SLA · 14 дней</div></div>
+        <div class="pip" data-tag="mute"><div class="pip-num">06</div><div class="pip-title">Отложен</div><div class="pip-sla">SLA · до 60 дней</div></div>
+        <div class="pip" data-tag="gold"><div class="pip-num">07</div><div class="pip-title">Договор оплачен</div><div class="pip-sla">SLA · 24 часа</div></div>
+        <div class="pip" data-tag="bad"><div class="pip-num">08</div><div class="pip-title">Возврат трипваера</div><div class="pip-sla">SLA · 24 часа</div></div>
+      </div>
+
+      <div class="flow-line"></div>
+      <div class="flow-caption">
+        <span>← вход с МПП1 (после трипваера)</span>
+        <span>выход в сопровождение / закрытие →</span>
+      </div>
+
+      <div class="pipeline-legend">
+        <span class="legend-dot active">активная работа</span>
+        <span class="legend-dot warm">попытка спасти</span>
+        <span class="legend-dot mute">отложено по договорённости</span>
+        <span class="legend-dot gold">оплата получена</span>
+        <span class="legend-dot bad">возврат / закрытие</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── STAGES ─────────────── -->
+<section id="stages">
+  <div class="shell">
+    <div class="section-head">
+      <div class="section-num">03<small>этапы</small></div>
+      <div>
+        <h2 class="section-title">По каждому этапу — <em>что делать</em>, к чему вести и куда уйдёт сделка.</h2>
+        <p class="section-kicker">Структура одна и та же: откуда сделка пришла → что делать → результат и переход → эскалация. Запомни шаблон один раз — будешь читать остальное по диагонали.</p>
+      </div>
+    </div>
+
+    <!-- ============ STAGE 01 ============ -->
+    <article class="stage" id="s1">
+      <div class="stage-side">
+        <span class="stage-tag" data-tag="active">этап 01 · активный</span>
+        <div class="stage-num">01</div>
+        <div class="stage-icon">
+          <svg viewBox="0 0 48 48"><rect x="8" y="12" width="32" height="28" rx="2"/><path d="M8 20 H40"/><path d="M16 8 V16"/><path d="M32 8 V16"/></svg>
+        </div>
+        <span class="upper">SLA</span>
+        <div style="font-family:var(--font-mono);font-size:.95rem;font-weight:600;margin-top:4px">24 часа</div>
+      </div>
+      <div class="stage-body">
+        <h3 class="stage-name">Встреча <em>назначена</em></h3>
+        <p class="stage-headline">Сделка пришла горячая: клиент только что заплатил трипваер. Твоя единственная задача — провести встречу.</p>
+        <div class="stage-meta">
+          <span class="meta-pill">SLA · встреча в 24 часа</span>
+          <span class="meta-pill warn">максимум 2 переноса</span>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Откуда приходит сделка</div>
+          <p>Автоматом из воронки МПП1, как только клиент оплатил трипваер. Охотник МПП1 проставил поле <strong>«Формат встречи»</strong> (видео или телефон) — от него зависит набор сообщений и автозвонков.</p>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Что делать</div>
+          <ol>
+            <li>Открой задачу <strong>«Провести встречу с клиентом»</strong>. Дедлайн = время встречи.</li>
+            <li>Канал встречи бери из поля «Формат встречи» — видео или телефон.</li>
+            <li>Если клиент переносит — поставь новую дату (макс. 2 переноса подряд).</li>
+            <li>По итогу закрой задачу с одним из четырёх результатов ниже.</li>
+          </ol>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Куда уйдёт сделка по результату</div>
+          <div class="results">
+            <div class="results-row">
+              <div class="results-icon ok">✓</div>
+              <div class="results-text">Встреча прошла, клиент <strong>готов к договору</strong></div>
+              <div class="results-target"><span>→ этап 04 счёт</span></div>
+            </div>
+            <div class="results-row">
+              <div class="results-icon wait">~</div>
+              <div class="results-text">Встреча прошла, клиент <strong>не готов</strong></div>
+              <div class="results-target warm"><span>→ этап 03 догрев</span></div>
+            </div>
+            <div class="results-row">
+              <div class="results-icon mute">!</div>
+              <div class="results-text">Не пришёл / не дозвон</div>
+              <div class="results-target"><span>→ этап 02 реанимация</span></div>
+            </div>
+            <div class="results-row">
+              <div class="results-icon bad">×</div>
+              <div class="results-text">Встреча прошла, <strong>отказался</strong></div>
+              <div class="results-target bad"><span>закрыто и не реализовано</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="escalation">
+          <div class="escalation-mark">!</div>
+          <div>
+            <span class="upper">Эскалация</span>
+            <p>Если встречу <strong>перенесли 2 раза подряд</strong> — РОПу автоматически прилетает задача «Проверить сделку». Не дотягивай до третьего переноса.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ STAGE 02 ============ -->
+    <article class="stage" id="s2">
+      <div class="stage-side">
+        <span class="stage-tag" data-tag="warm">этап 02 · попытка спасти</span>
+        <div class="stage-num">02</div>
+        <div class="stage-icon">
+          <svg viewBox="0 0 48 48"><path d="M24 8 V24 L34 30"/><circle cx="24" cy="24" r="16"/></svg>
+        </div>
+        <span class="upper">SLA</span>
+        <div style="font-family:var(--font-mono);font-size:.95rem;font-weight:600;margin-top:4px">7 дней</div>
+      </div>
+      <div class="stage-body">
+        <h3 class="stage-name">Реани<em>мация</em></h3>
+        <p class="stage-headline">Клиент не пришёл на встречу. Здесь он не общается с тобой напрямую — после двух не-дозвонов общение уходит в Savi Bot. Твоих задач здесь нет.</p>
+        <div class="stage-meta">
+          <span class="meta-pill warn">SLA · 7 дней без ответа = автозакрытие</span>
+          <span class="meta-pill">источник · только этап 01</span>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Откуда приходит сделка</div>
+          <p>Только из этапа 01 — клиент не пришёл на встречу или 2 раза не дозвонились.</p>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Что делать</div>
+          <ul>
+            <li>После 2 не-дозвонов клоузеру задач здесь не приходит — общение ведёт <strong>Savi Bot</strong>.</li>
+            <li>Если клиент сам ответит — проверь, что Savi корректно вернул сделку в нужный этап.</li>
+          </ul>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Куда уйдёт сделка по результату</div>
+          <div class="results">
+            <div class="results-row">
+              <div class="results-icon ok">✓</div>
+              <div class="results-text">Клиент ответил, согласен на встречу</div>
+              <div class="results-target"><span>→ этап 01 (с новой датой)</span></div>
+            </div>
+            <div class="results-row">
+              <div class="results-icon bad">↩</div>
+              <div class="results-text">Клиент просит вернуть деньги</div>
+              <div class="results-target warm"><span>→ этап 08 возврат</span></div>
+            </div>
+            <div class="results-row">
+              <div class="results-icon mute">∅</div>
+              <div class="results-text">7 дней без ответа</div>
+              <div class="results-target bad"><span>закрыто · «не пришёл»</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ STAGE 03 ============ -->
+    <article class="stage" id="s3">
+      <div class="stage-side">
+        <span class="stage-tag" data-tag="warm">этап 03 · догрев</span>
+        <div class="stage-num">03</div>
+        <div class="stage-icon">
+          <svg viewBox="0 0 48 48"><path d="M24 38 C16 30 12 24 12 18 a12 12 0 1 1 24 0 c0 6-4 12-12 20Z"/><circle cx="24" cy="18" r="4"/></svg>
+        </div>
+        <span class="upper">SLA</span>
+        <div style="font-family:var(--font-mono);font-size:.95rem;font-weight:600;margin-top:4px">14 дней</div>
+      </div>
+      <div class="stage-body">
+        <h3 class="stage-name">До<em>грев</em></h3>
+        <p class="stage-headline">Клиент пришёл на встречу, но «не готов прямо сейчас». Задача — настойчиво, но без давления вернуть его в диалог.</p>
+        <div class="stage-meta">
+          <span class="meta-pill">обязательное поле · причина «не готов»</span>
+          <span class="meta-pill warn">14 дней максимум</span>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Что делать</div>
+          <ol>
+            <li>Заполни поле <strong>«Причина не готов»</strong> — без этого Pipeline не двигает сделку.</li>
+            <li>На время, которое <em>сам клиент назвал</em>, поставь задачу «Позвонить клиенту».</li>
+            <li>Если не дозвонился — система переставит задачу автоматически по графику ниже.</li>
+            <li>День 7 — задача упадёт старшему клоузеру: «Попробуй вывести клиента на диалог».</li>
+            <li>День 14 — финальная попытка. Без результата — автозакрытие с пометкой «неактивен».</li>
+          </ol>
+        </div>
+
+        <div class="block">
+          <div class="block-label">График при не-дозвонах (автоматически)</div>
+          <div class="timeline">
+            <div class="t-row">
+              <div class="t-when">дни 1–3</div>
+              <div class="t-channel call">звонок</div>
+              <div class="t-text"><strong>2 раза в день</strong>, каждые 3 часа. Самое плотное окно.</div>
+            </div>
+            <div class="t-row">
+              <div class="t-when">дни 4–6</div>
+              <div class="t-channel call">звонок</div>
+              <div class="t-text"><strong>1 раз в день.</strong> Снижаем темп, не давим.</div>
+            </div>
+            <div class="t-row">
+              <div class="t-when">день 7</div>
+              <div class="t-channel boss">старший</div>
+              <div class="t-text">Старший клоузер: «попробуй вывести на диалог».</div>
+            </div>
+            <div class="t-row">
+              <div class="t-when">день 14</div>
+              <div class="t-channel boss">старший / РОП</div>
+              <div class="t-text">Финал. Если без результата — закрытие «неактивен».</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Куда уйдёт сделка по результату</div>
+          <div class="results">
+            <div class="results-row">
+              <div class="results-icon ok">✓</div>
+              <div class="results-text">Готов — выставляю счёт</div>
+              <div class="results-target"><span>→ этап 04</span></div>
+            </div>
+            <div class="results-row">
+              <div class="results-icon wait">~</div>
+              <div class="results-text">Назвал конкретную дату возврата</div>
+              <div class="results-target"><span>→ этап 06 отложен</span></div>
+            </div>
+            <div class="results-row">
+              <div class="results-icon bad">×</div>
+              <div class="results-text">Отказался</div>
+              <div class="results-target bad"><span>закрыто и не реализовано</span></div>
+            </div>
+            <div class="results-row">
+              <div class="results-icon mute">∅</div>
+              <div class="results-text">Нет ответа 14 дней</div>
+              <div class="results-target bad"><span>закрыто · «неактивен»</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="escalation">
+          <div class="escalation-mark">!</div>
+          <div>
+            <span class="upper">Эскалация</span>
+            <p><strong>День 7</strong> — задача старшему клоузеру. <strong>День 14</strong> — задача РОПу «Проверить работу со сделкой». Не пропускай контрольные точки.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ STAGE 04 ============ -->
+    <article class="stage" id="s4">
+      <div class="stage-side">
+        <span class="stage-tag" data-tag="active">этап 04 · ключевой</span>
+        <div class="stage-num">04</div>
+        <div class="stage-icon">
+          <svg viewBox="0 0 48 48"><path d="M10 8 H38 V40 L24 34 L10 40 Z"/><path d="M16 18 H32"/><path d="M16 24 H28"/></svg>
+        </div>
+        <span class="upper">SLA · максимум 9 касаний</span>
+        <div style="font-family:var(--font-mono);font-size:.95rem;font-weight:600;margin-top:4px">14 дней</div>
+      </div>
+      <div class="stage-body">
+        <h3 class="stage-name">Счёт <em>выставлен</em></h3>
+        <p class="stage-headline">Клиент сказал «да» — но между «да» и оплатой две недели и десяток сомнений. Не отпускаем: касание каждые 2 дня, каждое — с поводом, не «напомнить».</p>
+        <div class="stage-meta">
+          <span class="meta-pill">SLA · 14 дней</span>
+          <span class="meta-pill warn">макс. 9 касаний</span>
+          <span class="meta-pill">касание каждые 2 дня</span>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Цикл касаний — что делает Pipeline и что делаешь ты</div>
+          <div class="timeline">
+            <div class="t-row">
+              <div class="t-when">сразу при выставлении</div>
+              <div class="t-channel bot">MaxBot</div>
+              <div class="t-text">Договор + ссылка на оплату + <strong>«юрист уже выделен по вашему делу»</strong>.</div>
+            </div>
+            <div class="t-row">
+              <div class="t-when">через 1 час</div>
+              <div class="t-channel call">твой звонок</div>
+              <div class="t-text">«Дошёл ли договор, всё ли открывается, разобрались с пунктами?» — попытка дожать на оплату прямо сейчас.</div>
+            </div>
+            <div class="t-row">
+              <div class="t-when">день 2</div>
+              <div class="t-channel call">твой звонок</div>
+              <div class="t-text">«Дожать на оплату» — снять текущее возражение.</div>
+            </div>
+            <div class="t-row">
+              <div class="t-when">день 4</div>
+              <div class="t-channel bot">MaxBot</div>
+              <div class="t-text"><strong>Кейс клиента</strong>: реальная история похожего профиля, который списал долг N млн. Текст готовит копирайтер.</div>
+            </div>
+            <div class="t-row">
+              <div class="t-when">день 6</div>
+              <div class="t-channel call">твой звонок</div>
+              <div class="t-text">«Юрист подготовил предварительный план по вашему делу — готов показать».</div>
+            </div>
+            <div class="t-row">
+              <div class="t-when">день 8</div>
+              <div class="t-channel bot">MaxBot</div>
+              <div class="t-text"><strong>Расчёт роста долга</strong>: «За эту неделю ваш долг вырос на X ₽ из-за процентов».</div>
+            </div>
+            <div class="t-row">
+              <div class="t-when">день 10</div>
+              <div class="t-channel boss">старший клоузер</div>
+              <div class="t-text">Личный разбор сомнений — закреплённый старший клоузер.</div>
+            </div>
+            <div class="t-row">
+              <div class="t-when">день 12</div>
+              <div class="t-channel bot">MaxBot</div>
+              <div class="t-text"><strong>FAQ / разбор страха</strong>: «что говорят кредиторы», «как проходит суд».</div>
+            </div>
+            <div class="t-row">
+              <div class="t-when">день 14</div>
+              <div class="t-channel boss">РОП</div>
+              <div class="t-text">Финальная попытка → если без результата → автозакрытие или перевод в «Отложен».</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Куда уйдёт сделка по результату</div>
+          <div class="results">
+            <div class="results-row">
+              <div class="results-icon gold">₽</div>
+              <div class="results-text"><strong>Оплатил полностью</strong></div>
+              <div class="results-target gold"><span>→ этап 07 договор оплачен</span></div>
+            </div>
+            <div class="results-row">
+              <div class="results-icon ok">~</div>
+              <div class="results-text">Внёс предоплату ≥ <em>X ₽</em> (значение уточняется)</div>
+              <div class="results-target"><span>→ этап 05 дожим</span></div>
+            </div>
+            <div class="results-row">
+              <div class="results-icon wait">!</div>
+              <div class="results-text">Назвал конкретную дату оплаты</div>
+              <div class="results-target"><span>→ этап 06 отложен</span></div>
+            </div>
+            <div class="results-row">
+              <div class="results-icon bad">×</div>
+              <div class="results-text">Отказался</div>
+              <div class="results-target bad"><span>закрыто и не реализовано</span></div>
+            </div>
+            <div class="results-row">
+              <div class="results-icon mute">∅</div>
+              <div class="results-text">Нет ответа 14 дней</div>
+              <div class="results-target bad"><span>закрыто и не реализовано</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="escalation">
+          <div class="escalation-mark">!</div>
+          <div>
+            <span class="upper">Эскалация</span>
+            <p><strong>День 10</strong> — старший клоузер. <strong>День 14</strong> — РОП. Тексты для дней 4, 8, 12 готовит копирайтер — не пиши их сам.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ STAGE 05 ============ -->
+    <article class="stage" id="s5">
+      <div class="stage-side">
+        <span class="stage-tag" data-tag="active">этап 05 · дожим</span>
+        <div class="stage-num">05</div>
+        <div class="stage-icon">
+          <svg viewBox="0 0 48 48"><path d="M8 32 L20 20 L28 28 L40 12"/><path d="M32 12 H40 V20"/></svg>
+        </div>
+        <span class="upper">SLA</span>
+        <div style="font-family:var(--font-mono);font-size:.95rem;font-weight:600;margin-top:4px">14 дней</div>
+      </div>
+      <div class="stage-body">
+        <h3 class="stage-name">До<em>жим</em></h3>
+        <p class="stage-headline">Клиент уже свой — заплатил часть, психологический барьер снят. Юрист ждёт старта по делу. Цель — закрыть остаток без давления, через ценность.</p>
+        <div class="stage-meta">
+          <span class="meta-pill">SLA · 14 дней</span>
+          <span class="meta-pill">обязательное поле · сумма предоплаты</span>
+          <span class="meta-pill warn">авторассылка работает параллельно</span>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Что делать</div>
+          <ol>
+            <li><strong>Как только пришла предоплата</strong> — сразу позвони, поздравь клиента и сверь дату полной доплаты.</li>
+            <li>Ставь следующую задачу <strong>не позднее 3 рабочих дней</strong> после касания.</li>
+            <li>Параллельно работает <strong>авторассылка</strong> в MaxBot — ты её не пишешь, она идёт по графику.</li>
+            <li>Каждое твоё касание — с конкретным поводом (не «напомнить»). Поводы — в графике ниже.</li>
+          </ol>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Цикл касаний — что делает MaxBot и что делаешь ты</div>
+          <div class="timeline">
+            <div class="t-row">
+              <div class="t-when">сразу при входе</div>
+              <div class="t-channel bot">MaxBot</div>
+              <div class="t-text">«Предоплата получена! Осталось N ₽ — юрист сразу приступит к делу. Ссылка на доплату».</div>
+            </div>
+            <div class="t-row">
+              <div class="t-when">сразу + звонок</div>
+              <div class="t-channel call">твой звонок</div>
+              <div class="t-text">Поздравить с предоплатой, сверить дату полной доплаты.</div>
+            </div>
+            <div class="t-row">
+              <div class="t-when">день 3</div>
+              <div class="t-channel bot">MaxBot</div>
+              <div class="t-text">«Остаток N ₽. Как только закроете — юрист стартует сегодня же».</div>
+            </div>
+            <div class="t-row">
+              <div class="t-when">день 7</div>
+              <div class="t-channel boss">старший менеджер</div>
+              <div class="t-text">Звонок дожать остаток — снять текущее возражение.</div>
+            </div>
+            <div class="t-row">
+              <div class="t-when">день 10</div>
+              <div class="t-channel bot">MaxBot</div>
+              <div class="t-text">«Вы уже инвестировали X ₽. Осталось N ₽, чтобы запустить дело».</div>
+            </div>
+            <div class="t-row">
+              <div class="t-when">день 14</div>
+              <div class="t-channel boss">РОП</div>
+              <div class="t-text">Финальная попытка → если без доплаты → автозакрытие или перевод в «Отложен».</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Куда уйдёт сделка по результату</div>
+          <div class="results">
+            <div class="results-row">
+              <div class="results-icon gold">₽</div>
+              <div class="results-text"><strong>Доплатил полностью</strong></div>
+              <div class="results-target gold"><span>→ этап 07 договор оплачен</span></div>
+            </div>
+            <div class="results-row">
+              <div class="results-icon bad">↩</div>
+              <div class="results-text">Хочет вернуть предоплату</div>
+              <div class="results-target warm"><span>→ этап 08 возврат</span></div>
+            </div>
+            <div class="results-row">
+              <div class="results-icon mute">∅</div>
+              <div class="results-text">Нет ответа 14 дней</div>
+              <div class="results-target bad"><span>закрыто или → этап 06 отложен</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="escalation">
+          <div class="escalation-mark">!</div>
+          <div>
+            <span class="upper">Эскалация</span>
+            <p><strong>День 7</strong> — задача старшему менеджеру. <strong>День 14</strong> — РОП. Не выпускай клиента в тишину после предоплаты — это самое больное место воронки.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ STAGE 06 ============ -->
+    <article class="stage" id="s6">
+      <div class="stage-side">
+        <span class="stage-tag" data-tag="mute">этап 06 · отложен</span>
+        <div class="stage-num">06</div>
+        <div class="stage-icon">
+          <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="16"/><path d="M24 14 V24 L31 28"/><path d="M14 8 L8 14"/><path d="M34 8 L40 14"/></svg>
+        </div>
+        <span class="upper">SLA</span>
+        <div style="font-family:var(--font-mono);font-size:.95rem;font-weight:600;margin-top:4px">до 60 дней</div>
+      </div>
+      <div class="stage-body">
+        <h3 class="stage-name">От<em>ложен</em></h3>
+        <p class="stage-headline">Клиент назвал конкретную дату возврата к диалогу. До этой даты не трогаем: пауза тут — норма, а не провал.</p>
+        <div class="stage-meta">
+          <span class="meta-pill">обязательно · «дата возврата к диалогу»</span>
+          <span class="meta-pill">источник · 03 / 04 / 05</span>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Что делать</div>
+          <ol>
+            <li>Заполни поле <strong>«Дата возврата к диалогу»</strong> — без неё этап не работает.</li>
+            <li>В день, который клиент назвал — задача «Перезвонить, как договаривались» прилетит автоматически.</li>
+            <li>Не закрыл задачу за 24 часа после назначенного дня → автоматическая задача РОПу.</li>
+          </ol>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Куда уйдёт сделка по результату</div>
+          <div class="results">
+            <div class="results-row">
+              <div class="results-icon ok">✓</div>
+              <div class="results-text">Готов — выставляю счёт</div>
+              <div class="results-target"><span>→ этап 04</span></div>
+            </div>
+            <div class="results-row">
+              <div class="results-icon wait">~</div>
+              <div class="results-text">Снова перенёс, новая дата</div>
+              <div class="results-target"><span>остаётся в 06 (новая дата)</span></div>
+            </div>
+            <div class="results-row">
+              <div class="results-icon bad">×</div>
+              <div class="results-text">Отказался</div>
+              <div class="results-target bad"><span>закрыто и не реализовано</span></div>
+            </div>
+            <div class="results-row">
+              <div class="results-icon mute">∅</div>
+              <div class="results-text">Нет ответа</div>
+              <div class="results-target bad"><span>закрыто и не реализовано</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="escalation">
+          <div class="escalation-mark">!</div>
+          <div>
+            <span class="upper">Эскалация</span>
+            <p>Если в день возврата задача <strong>не закрыта в течение 24 часов</strong> и клиент не перешёл в другой статус — РОПу прилетает задача «Проверить сделку».</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ STAGE 07 ============ -->
+    <article class="stage" id="s7">
+      <div class="stage-side">
+        <span class="stage-tag" data-tag="gold">этап 07 · оплачен ✓</span>
+        <div class="stage-num">07</div>
+        <div class="stage-icon">
+          <svg viewBox="0 0 48 48"><path d="M10 24 L20 34 L38 14"/></svg>
+        </div>
+        <span class="upper">SLA</span>
+        <div style="font-family:var(--font-mono);font-size:.95rem;font-weight:600;margin-top:4px">24 часа</div>
+      </div>
+      <div class="stage-body">
+        <h3 class="stage-name">Договор <em>оплачен</em></h3>
+        <p class="stage-headline">Полная оплата получена. Сделка покидает воронку МПП2 и уходит в отдел сопровождения. Твоя последняя задача — передать документы.</p>
+        <div class="stage-meta">
+          <span class="meta-pill">SLA · 24 часа</span>
+          <span class="meta-pill warn">эскалация · через 3 часа</span>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Что делать</div>
+          <ol>
+            <li>Получи задачу <strong>«Передать документы в сопровождение»</strong>.</li>
+            <li>Передай — дедлайн 24 часа.</li>
+            <li>После закрытия задачи сделка уходит в воронку сопровождения. Всё, твой клиент стал клиентом юриста.</li>
+          </ol>
+        </div>
+
+        <div class="escalation">
+          <div class="escalation-mark">!</div>
+          <div>
+            <span class="upper">Эскалация</span>
+            <p>Если задача <strong>не закрыта в течение 3 часов</strong> — РОПу автоматически прилетает задача. Здесь нельзя зависать: клиент уже в системе, юристу пора начинать.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ STAGE 08 ============ -->
+    <article class="stage" id="s8">
+      <div class="stage-side">
+        <span class="stage-tag" data-tag="bad">этап 08 · возврат ↩</span>
+        <div class="stage-num">08</div>
+        <div class="stage-icon">
+          <svg viewBox="0 0 48 48"><path d="M10 24 L24 10 V20 H38 V28 H24 V38 Z"/></svg>
+        </div>
+        <span class="upper">SLA</span>
+        <div style="font-family:var(--font-mono);font-size:.95rem;font-weight:600;margin-top:4px">24 часа</div>
+      </div>
+      <div class="stage-body">
+        <h3 class="stage-name">Возврат <em>трипваера</em></h3>
+        <p class="stage-headline">Клиент попросил вернуть оплату. Не спорим, не давим — оформляем возврат чисто и быстро. Это репутация компании.</p>
+        <div class="stage-meta">
+          <span class="meta-pill bad">SLA · 24 часа</span>
+          <span class="meta-pill">обязательно · «этап-источник возврата»</span>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Что делать</div>
+          <ol>
+            <li>Заполни поле <strong>«Этап-источник возврата»</strong> — для аналитики, откуда клиент ушёл.</li>
+            <li>Получи задачу <strong>«Провести возврат»</strong> (на тебе или на финансисте — по регламенту).</li>
+            <li>Возврат должен быть закрыт за 24 часа.</li>
+          </ol>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Куда уйдёт сделка по результату</div>
+          <div class="results">
+            <div class="results-row">
+              <div class="results-icon ok">✓</div>
+              <div class="results-text">Деньги возвращены</div>
+              <div class="results-target bad"><span>закрыто · тег <span class="mono">mpp2:refund_done</span></span></div>
+            </div>
+            <div class="results-row">
+              <div class="results-icon bad">!</div>
+              <div class="results-text">Просрочка 3+ дня</div>
+              <div class="results-target warm"><span>эскалация · сделка остаётся</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="escalation">
+          <div class="escalation-mark">!</div>
+          <div>
+            <span class="upper">Эскалация</span>
+            <p>Просрочка возврата на <strong>3+ дня</strong> — задача ответственному за возвраты + РОП. Каждый день просрочки — это негатив, отзывы, претензии.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ─────────────── 4. CUSTOM FIELDS ─────────────── -->
+<section id="fields">
+  <div class="shell">
+    <div class="section-head">
+      <div class="section-num">04<small>поля</small></div>
+      <div>
+        <h2 class="section-title">Кастомные <em>поля</em> сделки.</h2>
+        <p class="section-kicker">Без этих полей Pipeline не двигает сделку. Если поле обязательное на этапе — заполни, иначе автоматизация встанет.</p>
+      </div>
+    </div>
+
+    <table class="fields-table">
+      <thead>
+        <tr><th>Поле</th><th>Тип</th><th>Где обязательно</th><th>Зачем</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="field-name">Формат встречи</td>
+          <td class="field-type">select · видео / телефон</td>
+          <td class="field-where">этап 01 · ставит МПП1</td>
+          <td>От значения зависят сообщения и автозвонки.</td>
+        </tr>
+        <tr>
+          <td class="field-name">Причина не готов</td>
+          <td class="field-type">select</td>
+          <td class="field-where">этап 03</td>
+          <td>Без этого Pipeline не передвинет сделку в догрев.</td>
+        </tr>
+        <tr>
+          <td class="field-name">Дата возврата к диалогу</td>
+          <td class="field-type">date</td>
+          <td class="field-where">этап 06</td>
+          <td>Дата автозадачи «Перезвонить, как договаривались».</td>
+        </tr>
+        <tr>
+          <td class="field-name">Дата оплаты обещанная</td>
+          <td class="field-type">date</td>
+          <td class="field-where">этап 06 (если оплата)</td>
+          <td>Когда клиент обещал заплатить — для контроля.</td>
+        </tr>
+        <tr>
+          <td class="field-name">Сумма предоплаты</td>
+          <td class="field-type">numeric</td>
+          <td class="field-where">этап 05</td>
+          <td>Для аналитики и расчёта остатка.</td>
+        </tr>
+        <tr>
+          <td class="field-name">Этап-источник возврата</td>
+          <td class="field-type">select</td>
+          <td class="field-where">этап 08</td>
+          <td>Откуда ушёл клиент — нужно для отчёта по возвратам.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ─────────────── 5. CHEAT SHEET ─────────────── -->
+<section id="cheat">
+  <div class="shell">
+    <div class="section-head">
+      <div class="section-num">05<small>шпаргалка</small></div>
+      <div>
+        <h2 class="section-title">Что <em>запрещено</em> и что <em>обязательно</em>.</h2>
+        <p class="section-kicker">Распечатай и повесь рядом с монитором. Если не помнишь правило — посмотри сюда.</p>
+      </div>
+    </div>
+
+    <div class="cheat">
+      <div class="cheat-col bad">
+        <div class="cheat-head">
+          <div class="cheat-mark">×</div>
+          <h3>Запрещено</h3>
+        </div>
+        <ul class="cheat-list">
+          <li>Двигать сделки руками между этапами. Только закрытие задачи с результатом.</li>
+          <li>Касание без повода («просто напомнить про оплату»).</li>
+          <li>Писать тексты для MaxBot самому — их готовит копирайтер.</li>
+          <li>Третий перенос встречи на этапе 01 без эскалации РОПу.</li>
+          <li>Тишина 3+ рабочих дня на активных этапах.</li>
+          <li>Зависать на этапе 07 больше 3 часов без передачи документов.</li>
+        </ul>
+      </div>
+      <div class="cheat-col good">
+        <div class="cheat-head">
+          <div class="cheat-mark">✓</div>
+          <h3>Обязательно</h3>
+        </div>
+        <ul class="cheat-list">
+          <li>Закрывать каждую задачу с правильным результатом — Pipeline сам двигает сделку.</li>
+          <li>Заполнять обязательные поля до перехода: причина «не готов», дата возврата, сумма предоплаты.</li>
+          <li>Отвечать на входящие от клиента (но это не считается касанием).</li>
+          <li>На этапе 04 идти строго по графику касаний с поводом.</li>
+          <li>На этапе 05 позвонить сразу при получении предоплаты.</li>
+          <li>Передавать документы в сопровождение в первые 24 часа после оплаты.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── 6. OPEN QUESTIONS ─────────────── -->
+<section id="questions">
+  <div class="shell">
+    <div class="section-head">
+      <div class="section-num">06<small>в работе</small></div>
+      <div>
+        <h2 class="section-title">Открытые вопросы — <em>будут уточнены</em>.</h2>
+        <p class="section-kicker">Эти три пункта блокируют запуск воронки. Как только ответы появятся — обновим инструкцию и сообщим всем.</p>
+      </div>
+    </div>
+
+    <ul class="q-list">
+      <li>
+        <span class="q-box"></span>
+        <span><strong>Минимальная сумма предоплаты</strong> для перехода с этапа 04 на 05 — _ ₽.</span>
+      </li>
+      <li>
+        <span class="q-box"></span>
+        <span><strong>Платформа для видеовстреч</strong> — Контур.Толк, Zoom или другое.</span>
+      </li>
+      <li>
+        <span class="q-box"></span>
+        <span><strong>Возврат трипваера</strong> — отдельный системный статус или тег внутри «Закрыто и не реализовано».</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────── FOOTER ─────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-mark">Дону<span>ля</span> · отдел продаж</div>
+    <div class="footer-meta">
+      <div>версия 1.0 · апрель 2026</div>
+      <div>воронка МПП2 · amocrm</div>
+      <div>вопросы по инструкции — РОПу МПП2</div>
+    </div>
+  </div>
+</footer>
+
+</main>
+
+<script>
+// gentle reveal on scroll
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+},{threshold:.15});
+document.querySelectorAll('.reveal,.rule,.stage,.pip').forEach(el=>{el.classList.add('reveal');io.observe(el)});
+</script>
+</body>
+</html>
