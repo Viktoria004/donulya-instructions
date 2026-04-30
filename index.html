@@ -341,6 +341,58 @@ section.alt-bg{
   .pool::before{font-size:9rem}
 }
 
+/* extension box (продление по решению РОПа) */
+.extension-box{
+  background:linear-gradient(135deg,var(--gold-tint) 0%,var(--paper-light) 100%);
+  border:1px solid var(--gold);
+  border-left:5px solid var(--gold);
+  padding:24px 28px;
+  display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:start;
+  position:relative;
+}
+.ext-icon{
+  font-family:var(--font-display);font-weight:300;font-size:3.4rem;
+  line-height:.85;color:var(--gold-deep);letter-spacing:-.04em;
+  font-variation-settings:"opsz" 144,"SOFT" 100;flex-shrink:0;
+}
+.ext-content h4{
+  font-family:var(--font-display);font-weight:500;font-size:1.3rem;
+  letter-spacing:-.012em;line-height:1.15;
+  color:var(--ink);margin-bottom:10px;
+}
+.ext-content > p{font-size:.96rem;line-height:1.5;color:var(--ink-soft);margin-bottom:14px}
+.ext-content > p:last-child{margin-bottom:0}
+.ext-content strong{color:var(--ink);font-weight:700}
+.ext-content em{font-style:normal;background:rgba(229,169,18,.25);padding:1px 6px;border-radius:2px;font-weight:600}
+.ext-steps{padding-left:0;list-style:none;counter-reset:estep;margin-bottom:14px}
+.ext-steps li{
+  counter-increment:estep;padding:10px 0 10px 38px;
+  border-bottom:1px dashed rgba(229,169,18,.4);
+  position:relative;font-size:.94rem;line-height:1.4;color:var(--ink-soft);
+}
+.ext-steps li:last-child{border-bottom:none}
+.ext-steps li::before{
+  content:counter(estep);position:absolute;left:0;top:11px;
+  width:22px;height:22px;border-radius:50%;
+  background:var(--gold);color:var(--ink);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-size:.82rem;font-weight:700;
+}
+.ext-steps li strong{color:var(--ink);font-weight:700}
+.ext-track{
+  background:var(--ink);color:var(--paper-light);
+  padding:14px 18px;font-size:.92rem;line-height:1.5;
+  margin-top:14px;border-left:3px solid var(--gold);
+}
+.ext-track strong{color:var(--gold);font-weight:700}
+
+@media (max-width:680px){
+  .extension-box{grid-template-columns:1fr;padding:20px 22px;gap:14px}
+  .ext-icon{font-size:2.6rem}
+  .ext-content h4{font-size:1.1rem}
+  .ext-steps li{padding:9px 0 9px 32px;font-size:.9rem}
+}
+
 /* AUTOBOT — что делает MaxBot параллельно с клоузером */
 .autobot-grid{
   display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;
@@ -2132,6 +2184,26 @@ section#quiz{
         </div>
 
         <div class="block">
+          <div class="block-label">Продление по решению РОПа</div>
+          <div class="extension-box">
+            <div class="ext-icon">+7</div>
+            <div class="ext-content">
+              <h4>Если клиент сказал «оплачу через 5 дней» — не закрываем сразу.</h4>
+              <p>Клиент в эфире, готов платить, но просит ещё несколько дней. Не закрываем на 14-й день — запрашиваем у РОПа <strong>продление SLA до 7 рабочих дней</strong>.</p>
+              <ol class="ext-steps">
+                <li><strong>Условие:</strong> клиент назвал <em>точную дату оплаты</em> (≤ 7 рабочих дней), запись разговора это подтверждает.</li>
+                <li><strong>Активация:</strong> ты пишешь РОПу запрос. РОП лично одобряет и заполняет поле «Дата продления оплаты».</li>
+                <li><strong>Лимит:</strong> 1 продление на сделку. Повторно — нельзя.</li>
+                <li><strong>Что меняется:</strong> SLA продлевается до новой даты + 1 день буфера. Правило 72 часа продолжает действовать.</li>
+                <li><strong>Если оплатил в дату:</strong> → этап 06 договор оплачен.</li>
+                <li><strong>Если не оплатил:</strong> → этап 08 отложенный (Savi реактивирует).</li>
+              </ol>
+              <div class="ext-track">📊 <strong>Все продлённые сделки автоматически попадают в дашборд оперативного директора</strong> — отслеживается, кто из РОПов и как часто использует продление и какая конверсия в оплату после продления.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="block">
           <div class="block-label">Куда уйдёт сделка по результату</div>
           <div class="results">
             <div class="results-row">
@@ -2148,6 +2220,11 @@ section#quiz{
               <div class="results-icon wait">!</div>
               <div class="results-text">Назвал близкую дату оплаты <em>≤ 14 дней</em></div>
               <div class="results-target"><span>остаётся на Счёте, ставишь напоминание</span></div>
+            </div>
+            <div class="results-row">
+              <div class="results-icon gold">+</div>
+              <div class="results-text">Назвал точную дату <em>≤ 7 раб. дней</em> — РОП одобрил продление</div>
+              <div class="results-target gold"><span>остаётся на Счёте до новой даты</span></div>
             </div>
             <div class="results-row">
               <div class="results-icon mute">~</div>
@@ -2213,6 +2290,26 @@ section#quiz{
         </div>
 
         <div class="block">
+          <div class="block-label">Продление по решению РОПа</div>
+          <div class="extension-box">
+            <div class="ext-icon">+7</div>
+            <div class="ext-content">
+              <h4>Клиент уже внёс предоплату, просит ещё пару дней — не закрываем.</h4>
+              <p>Самый частый кейс на Дожиме: клиент в эфире, говорит «очень хочу заплатить остаток, но смогу через 5 дней». Не закрываем на 14-й день и не возвращаем предоплату — запрашиваем у РОПа <strong>продление SLA до 7 рабочих дней</strong>.</p>
+              <ol class="ext-steps">
+                <li><strong>Условие:</strong> клиент назвал <em>точную дату полной доплаты</em> (≤ 7 рабочих дней), запись разговора подтверждает намерение.</li>
+                <li><strong>Активация:</strong> ты пишешь РОПу запрос. РОП лично одобряет и заполняет поле «Дата продления оплаты».</li>
+                <li><strong>Лимит:</strong> 1 продление на сделку. Повторно — нельзя.</li>
+                <li><strong>Что меняется:</strong> SLA продлевается до новой даты + 1 день буфера. Правило 72 часа продолжает действовать.</li>
+                <li><strong>Если доплатил в дату:</strong> → этап 06 договор оплачен.</li>
+                <li><strong>Если не доплатил:</strong> → этап 08 отложенный (Savi реактивирует) или возврат по запросу клиента.</li>
+              </ol>
+              <div class="ext-track">📊 <strong>Все продлённые сделки автоматически попадают в дашборд оперативного директора</strong> — отслеживается, кто из РОПов и как часто использует продление и какая конверсия в полную оплату после продления.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="block">
           <div class="block-label">Цикл касаний — каждые 72 часа</div>
           <p style="margin-bottom:18px;color:var(--ink-soft);font-size:.9rem"><em>Расшифровка:</em> <strong>MaxBot · авто</strong> — система отправляет сама. <strong>MaxBot · шаблон</strong> — клоузер сам жмёт кнопку «отправить шаблон».</p>
           <div class="timeline">
@@ -2271,6 +2368,11 @@ section#quiz{
               <div class="results-icon gold">₽</div>
               <div class="results-text"><strong>Доплатил полностью</strong></div>
               <div class="results-target gold"><span>→ этап 06 договор оплачен</span></div>
+            </div>
+            <div class="results-row">
+              <div class="results-icon gold">+</div>
+              <div class="results-text">Назвал точную дату доплаты <em>≤ 7 раб. дней</em> — РОП одобрил продление</div>
+              <div class="results-target gold"><span>остаётся на Дожиме до новой даты</span></div>
             </div>
             <div class="results-row">
               <div class="results-icon bad">↩</div>
@@ -2735,6 +2837,7 @@ section#quiz{
           <li>На этапе 04 (Счёт) держать связь с клиентом — пока он отвечает, сделка остаётся твоей до 14 дней.</li>
           <li>Реагировать на уведомления системы (48ч / 60ч / 70ч) — это твой шанс сохранить сделку.</li>
           <li>Подбирать сделки из «Общего котла» — за их закрытие <strong>+2 000 ₽ к стандартному бонусу</strong>.</li>
+          <li>Если клиент назвал <strong>точную дату оплаты ≤ 7 рабочих дней</strong> — запроси у РОПа продление SLA. Не закрывай раньше времени. Лимит — 1 раз на сделку.</li>
           <li>На этапе 05 позвонить сразу при получении предоплаты.</li>
           <li>Передавать документы в сопровождение в первые 24 часа после оплаты.</li>
           <li>К концу смены (18:00 / 21:00) — скрин чистой воронки в группу с РОПом.</li>
@@ -2926,7 +3029,7 @@ section#quiz{
   <div class="footer-inner">
     <div class="footer-mark">Дону<span>ля</span> · отдел продаж</div>
     <div class="footer-meta">
-      <div>версия 3.2 · апрель 2026</div>
+      <div>версия 3.4 · апрель 2026</div>
       <div>воронка МПП2 · amocrm</div>
       <div>вопросы по инструкции — РОПу МПП2</div>
     </div>
