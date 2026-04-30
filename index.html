@@ -1565,7 +1565,7 @@ section#quiz{
 <!-- ─────────────── HERO ─────────────── -->
 <header class="hero">
   <div class="hero-inner">
-    <div class="ribbon">внутренний документ · v 2.4</div>
+    <div class="ribbon">внутренний документ · v 3.0</div>
 
     <div class="hero-top">
       <div class="brandmark">
@@ -1614,9 +1614,9 @@ section#quiz{
       <a href="#s3"><span>05</span> догрев</a>
       <a href="#s4"><span>06</span> счёт выставлен</a>
       <a href="#s5"><span>07</span> дожим</a>
-      <a href="#s6"><span>08</span> отложен</a>
-      <a href="#s7"><span>09</span> договор оплачен</a>
-      <a href="#s8"><span>10</span> возврат</a>
+      <a href="#s6"><span>08</span> договор оплачен</a>
+      <a href="#s7"><span>09</span> возврат</a>
+      <a href="#s8"><span>10</span> отложенный · реактивация</a>
       <a href="#autobot"><span>11</span> автосообщения</a>
       <a href="#fields"><span>12</span> поля сделки</a>
       <a href="#cheat"><span>13</span> шпаргалка</a>
@@ -1663,7 +1663,7 @@ section#quiz{
       <article class="rule reveal" data-delay="2">
         <div class="rule-num">03</div>
         <h3 class="rule-title">72 часа без касания — сделка уходит в «Общий котёл».</h3>
-        <p class="rule-body">На активных этапах (Догрев, Счёт, Дожим) если <strong>подтверждённого касания нет более 72 часов</strong> — ответственный <strong>автоматически снимается</strong>, сделка уходит в воронку «Общий котёл» и <strong>система автоматически назначает её другому клоузеру</strong>. Этап 6 (Отложен) — исключение: пауза до названной даты.</p>
+        <p class="rule-body">На активных этапах (Догрев, Счёт, Дожим) если <strong>подтверждённого касания нет более 72 часов</strong> — ответственный <strong>автоматически снимается</strong>, сделка уходит в воронку «Общий котёл» и <strong>система автоматически назначает её другому клоузеру</strong>. Правило не действует на этапе 08 (Отложенный) — там работает Savi Bot.</p>
       </article>
       <article class="rule invert reveal" data-delay="3">
         <div class="rule-num">04</div>
@@ -1804,9 +1804,9 @@ section#quiz{
         <div class="pip reveal" data-tag="warm" data-delay="2"><div class="pip-num">03</div><div class="pip-title">Догрев</div><div class="pip-sla">SLA · 14 дней</div></div>
         <div class="pip reveal" data-tag="active" data-delay="3"><div class="pip-num">04</div><div class="pip-title">Счёт выставлен</div><div class="pip-sla">SLA · 14 дней</div></div>
         <div class="pip reveal" data-tag="active" data-delay="4"><div class="pip-num">05</div><div class="pip-title">Дожим</div><div class="pip-sla">SLA · 14 дней</div></div>
-        <div class="pip reveal" data-tag="mute"><div class="pip-num">06</div><div class="pip-title">Отложен</div><div class="pip-sla">SLA · до 60 дней</div></div>
-        <div class="pip reveal" data-tag="gold" data-delay="1"><div class="pip-num">07</div><div class="pip-title">Договор оплачен</div><div class="pip-sla">SLA · 24 часа</div></div>
-        <div class="pip reveal" data-tag="bad" data-delay="2"><div class="pip-num">08</div><div class="pip-title">Возврат трипваера</div><div class="pip-sla">SLA · 24 часа</div></div>
+        <div class="pip reveal" data-tag="gold"><div class="pip-num">06</div><div class="pip-title">Договор оплачен</div><div class="pip-sla">SLA · 24 часа</div></div>
+        <div class="pip reveal" data-tag="bad" data-delay="1"><div class="pip-num">07</div><div class="pip-title">Возврат трипваера</div><div class="pip-sla">SLA · 24 часа</div></div>
+        <div class="pip reveal" data-tag="mute" data-delay="2"><div class="pip-num">08</div><div class="pip-title">Отложенный · реактивация</div><div class="pip-sla">SLA · до 90 дней</div></div>
       </div>
 
       <div class="flow-line"></div>
@@ -1894,7 +1894,7 @@ section#quiz{
             <div class="results-row">
               <div class="results-icon bad">×</div>
               <div class="results-text">Встреча прошла, <strong>отказался</strong></div>
-              <div class="results-target bad"><span>закрыто и не реализовано</span></div>
+              <div class="results-target"><span>→ этап 08 отложенный (Savi прогревает)</span></div>
             </div>
           </div>
         </div>
@@ -1983,12 +1983,12 @@ section#quiz{
             <div class="results-row">
               <div class="results-icon bad">↩</div>
               <div class="results-text">Клиент просит вернуть деньги</div>
-              <div class="results-target warm"><span>→ этап 08 возврат</span></div>
+              <div class="results-target warm"><span>→ этап 07 возврат</span></div>
             </div>
             <div class="results-row">
               <div class="results-icon mute">∅</div>
               <div class="results-text">7 дней без ответа</div>
-              <div class="results-target bad"><span>закрыто · «не пришёл»</span></div>
+              <div class="results-target"><span>→ этап 08 отложенный (Savi прогревает)</span></div>
             </div>
           </div>
         </div>
@@ -2079,18 +2079,23 @@ section#quiz{
             </div>
             <div class="results-row">
               <div class="results-icon wait">~</div>
-              <div class="results-text">Назвал конкретную дату возврата</div>
-              <div class="results-target"><span>→ этап 06 отложен</span></div>
+              <div class="results-text">Назвал близкую дату <em>≤ 14 дней</em> (после зарплаты, отпуска)</div>
+              <div class="results-target"><span>остаётся в Догреве, ставишь напоминание</span></div>
+            </div>
+            <div class="results-row">
+              <div class="results-icon mute">~</div>
+              <div class="results-text">Назвал дату <em>&gt; 14 дней</em> или «не сейчас»</div>
+              <div class="results-target"><span>→ этап 08 отложенный (Savi прогревает)</span></div>
             </div>
             <div class="results-row">
               <div class="results-icon bad">×</div>
-              <div class="results-text">Отказался</div>
-              <div class="results-target bad"><span>закрыто и не реализовано</span></div>
+              <div class="results-text">Отказался полностью</div>
+              <div class="results-target"><span>→ этап 08 отложенный (Savi прогревает)</span></div>
             </div>
             <div class="results-row">
               <div class="results-icon mute">∅</div>
               <div class="results-text">Нет ответа 14 дней</div>
-              <div class="results-target bad"><span>закрыто · «неактивен»</span></div>
+              <div class="results-target"><span>→ этап 08 отложенный (Savi прогревает)</span></div>
             </div>
           </div>
         </div>
@@ -2131,7 +2136,7 @@ section#quiz{
             <li>Сразу после выставления счёта — клиент получает <em>авто-сообщение в MaxBot/VK</em> с договором и ссылкой на оплату.</li>
             <li>Дальше клоузер ведёт клиента сам, выбирая <strong>темп и углы разговора</strong> — точная логика касаний пока в работе, будет дополнена.</li>
             <li><strong>Касание не реже чем каждые 72 часа</strong>. Если связь есть (клиент отвечает) — сделка остаётся твоей до конца SLA. Если 72 часа тишины — сделка уходит в «Общий котёл».</li>
-            <li>На день 14 — авто-сообщение от MaxBot и финальный звонок РОПа. Без результата — автозакрытие или перевод в «Отложен».</li>
+            <li>На день 14 — авто-сообщение от MaxBot и финальный звонок РОПа. Без результата — автозакрытие → этап 08 отложенный.</li>
           </ol>
         </div>
 
@@ -2141,7 +2146,7 @@ section#quiz{
             <div class="results-row">
               <div class="results-icon gold">₽</div>
               <div class="results-text"><strong>Оплатил полностью</strong></div>
-              <div class="results-target gold"><span>→ этап 07 договор оплачен</span></div>
+              <div class="results-target gold"><span>→ этап 06 договор оплачен</span></div>
             </div>
             <div class="results-row">
               <div class="results-icon ok">~</div>
@@ -2150,23 +2155,28 @@ section#quiz{
             </div>
             <div class="results-row">
               <div class="results-icon wait">!</div>
-              <div class="results-text">Назвал конкретную дату оплаты</div>
-              <div class="results-target"><span>→ этап 06 отложен</span></div>
+              <div class="results-text">Назвал близкую дату оплаты <em>≤ 14 дней</em></div>
+              <div class="results-target"><span>остаётся на Счёте, ставишь напоминание</span></div>
+            </div>
+            <div class="results-row">
+              <div class="results-icon mute">~</div>
+              <div class="results-text">Назвал дату <em>&gt; 14 дней</em> или «не сейчас»</div>
+              <div class="results-target"><span>→ этап 08 отложенный (Savi прогревает)</span></div>
             </div>
             <div class="results-row">
               <div class="results-icon bad">×</div>
               <div class="results-text">Отказался</div>
-              <div class="results-target bad"><span>закрыто и не реализовано</span></div>
+              <div class="results-target"><span>→ этап 08 отложенный (Savi прогревает)</span></div>
             </div>
             <div class="results-row">
               <div class="results-icon bad">↩</div>
               <div class="results-text">Просит вернуть трипваер</div>
-              <div class="results-target warm"><span>→ этап 08 возврат</span></div>
+              <div class="results-target warm"><span>→ этап 07 возврат</span></div>
             </div>
             <div class="results-row">
               <div class="results-icon mute">∅</div>
               <div class="results-text">Нет ответа 14 дней</div>
-              <div class="results-target bad"><span>закрыто или → этап 06 отложен</span></div>
+              <div class="results-target"><span>→ этап 08 отложенный (Savi прогревает)</span></div>
             </div>
           </div>
         </div>
@@ -2175,7 +2185,7 @@ section#quiz{
           <div class="escalation-mark">!</div>
           <div>
             <span class="upper">Эскалация</span>
-            <p><strong>72 часа без связи</strong> — сделка автоматически уходит в «Общий котёл» к другому клоузеру. <strong>День 14</strong> — звонок РОПа, потом автозакрытие или «Отложен».</p>
+            <p><strong>72 часа без связи</strong> — сделка автоматически уходит в «Общий котёл» к другому клоузеру. <strong>День 14</strong> — звонок РОПа, потом автозакрытие → этап 08 отложенный.</p>
           </div>
         </div>
       </div>
@@ -2258,7 +2268,7 @@ section#quiz{
             <div class="t-row">
               <div class="t-when">день 14</div>
               <div class="t-channel boss">РОП</div>
-              <div class="t-text">Финальная попытка → если без доплаты → автозакрытие или перевод в «Отложен».</div>
+              <div class="t-text">Финальная попытка → если без доплаты → автозакрытие → этап 08 отложенный.</div>
             </div>
           </div>
         </div>
@@ -2269,17 +2279,17 @@ section#quiz{
             <div class="results-row">
               <div class="results-icon gold">₽</div>
               <div class="results-text"><strong>Доплатил полностью</strong></div>
-              <div class="results-target gold"><span>→ этап 07 договор оплачен</span></div>
+              <div class="results-target gold"><span>→ этап 06 договор оплачен</span></div>
             </div>
             <div class="results-row">
               <div class="results-icon bad">↩</div>
               <div class="results-text">Хочет вернуть предоплату</div>
-              <div class="results-target warm"><span>→ этап 08 возврат</span></div>
+              <div class="results-target warm"><span>→ этап 07 возврат</span></div>
             </div>
             <div class="results-row">
               <div class="results-icon mute">∅</div>
-              <div class="results-text">Нет ответа 14 дней</div>
-              <div class="results-target bad"><span>закрыто или → этап 06 отложен</span></div>
+              <div class="results-text">Нет ответа 14 дней / отказался</div>
+              <div class="results-target"><span>→ этап 08 отложенный (Savi прогревает)</span></div>
             </div>
           </div>
         </div>
@@ -2295,74 +2305,10 @@ section#quiz{
     </article>
 
     <!-- ============ STAGE 06 ============ -->
-    <article class="stage" id="s6">
+    <article class="stage" id="s6" data-accent="gold">
       <div class="stage-side">
-        <span class="stage-tag" data-tag="mute">этап 06 · отложен</span>
+        <span class="stage-tag" data-tag="gold">этап 06 · оплачен ✓</span>
         <div class="stage-num">06</div>
-        <div class="stage-icon">
-          <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="16"/><path d="M24 14 V24 L31 28"/><path d="M14 8 L8 14"/><path d="M34 8 L40 14"/></svg>
-        </div>
-        <span class="upper">SLA</span>
-        <div style="font-family:var(--font-mono);font-size:.95rem;font-weight:700;margin-top:4px">до 60 дней</div>
-      </div>
-      <div class="stage-body">
-        <h3 class="stage-name">От<em>ложен</em></h3>
-        <p class="stage-headline">Клиент назвал конкретную дату возврата к диалогу. До этой даты не трогаем: пауза тут — норма, а не провал.</p>
-        <div class="stage-meta">
-          <span class="meta-pill">обязательно · «дата возврата к диалогу»</span>
-          <span class="meta-pill">источник · 03 / 04 / 05</span>
-        </div>
-
-        <div class="block">
-          <div class="block-label">Что делать</div>
-          <ol>
-            <li>Заполни поле <strong>«Дата возврата к диалогу»</strong> — без неё этап не работает.</li>
-            <li>В день, который клиент назвал — задача «Перезвонить, как договаривались» прилетит автоматически.</li>
-            <li>Не закрыл задачу за 24 часа после назначенного дня → автоматическая задача РОПу.</li>
-          </ol>
-        </div>
-
-        <div class="block">
-          <div class="block-label">Куда уйдёт сделка по результату</div>
-          <div class="results">
-            <div class="results-row">
-              <div class="results-icon ok">✓</div>
-              <div class="results-text">Готов — выставляю счёт</div>
-              <div class="results-target"><span>→ этап 04</span></div>
-            </div>
-            <div class="results-row">
-              <div class="results-icon wait">~</div>
-              <div class="results-text">Снова перенёс, новая дата</div>
-              <div class="results-target"><span>остаётся в 06 (новая дата)</span></div>
-            </div>
-            <div class="results-row">
-              <div class="results-icon bad">×</div>
-              <div class="results-text">Отказался</div>
-              <div class="results-target bad"><span>закрыто и не реализовано</span></div>
-            </div>
-            <div class="results-row">
-              <div class="results-icon mute">∅</div>
-              <div class="results-text">Нет ответа</div>
-              <div class="results-target bad"><span>закрыто и не реализовано</span></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="escalation">
-          <div class="escalation-mark">!</div>
-          <div>
-            <span class="upper">Эскалация</span>
-            <p>Если в день возврата задача <strong>не закрыта в течение 24 часов</strong> и клиент не перешёл в другой статус — РОПу прилетает задача «Проверить сделку».</p>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <!-- ============ STAGE 07 ============ -->
-    <article class="stage" id="s7" data-accent="gold">
-      <div class="stage-side">
-        <span class="stage-tag" data-tag="gold">этап 07 · оплачен ✓</span>
-        <div class="stage-num">07</div>
         <div class="stage-icon">
           <svg viewBox="0 0 48 48"><path d="M10 24 L20 34 L38 14"/></svg>
         </div>
@@ -2396,11 +2342,11 @@ section#quiz{
       </div>
     </article>
 
-    <!-- ============ STAGE 08 ============ -->
-    <article class="stage" id="s8" data-accent="bad">
+    <!-- ============ STAGE 07 ============ -->
+    <article class="stage" id="s7" data-accent="bad">
       <div class="stage-side">
-        <span class="stage-tag" data-tag="bad">этап 08 · возврат ↩</span>
-        <div class="stage-num">08</div>
+        <span class="stage-tag" data-tag="bad">этап 07 · возврат ↩</span>
+        <div class="stage-num">07</div>
         <div class="stage-icon">
           <svg viewBox="0 0 48 48"><path d="M10 24 L24 10 V20 H38 V28 H24 V38 Z"/></svg>
         </div>
@@ -2445,6 +2391,104 @@ section#quiz{
           <div>
             <span class="upper">Эскалация</span>
             <p>Просрочка возврата на <strong>3+ дня</strong> — задача ответственному за возвраты + РОП. Каждый день просрочки — это негатив, отзывы, претензии.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ STAGE 08 ============ -->
+    <article class="stage" id="s8" data-accent="bad">
+      <div class="stage-side">
+        <span class="stage-tag" data-tag="mute">этап 08 · отложенный · реактивация</span>
+        <div class="stage-num">08</div>
+        <div class="stage-icon">
+          <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="16"/><path d="M24 14 V24 L31 28"/><path d="M14 8 L8 14"/><path d="M34 8 L40 14"/></svg>
+        </div>
+        <span class="upper">SLA</span>
+        <div style="font-family:var(--font-mono);font-size:.95rem;font-weight:700;margin-top:4px">до 90 дней</div>
+      </div>
+      <div class="stage-body">
+        <h3 class="stage-name">От<em>ложенный</em> · реактивация</h3>
+        <p class="stage-headline">Конец воронки. Сюда уходят все клиенты, которые отказались / не дозрели / пропали из связи. Это и есть наш «закрыто, не реализовано» — но <strong>не выкидываем</strong>: бот Savi прогревает их 3 месяца и возвращает живых.</p>
+        <div class="stage-meta">
+          <span class="meta-pill warn">источник · этапы 02 / 03 / 04 / 05</span>
+          <span class="meta-pill gold">работает Savi Bot · клоузер не лезет</span>
+          <span class="meta-pill">обязательно · тег причины ухода</span>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Откуда сюда приходят сделки</div>
+          <ul>
+            <li><strong>Отказался</strong> — на любом активном этапе (Догрев, Счёт, Дожим)</li>
+            <li><strong>Назвал дату &gt; 14 дней</strong> («после зарплаты», «после отпуска», «через месяц»)</li>
+            <li><strong>Тишина 14 дней</strong> на активном этапе → автозакрытие сюда</li>
+            <li><strong>7 дней без ответа</strong> в Реанимации (Savi не дозвонился)</li>
+          </ul>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Что здесь делает Savi Bot — без участия клоузера</div>
+          <div class="timeline">
+            <div class="t-row">
+              <div class="t-when">сразу при входе</div>
+              <div class="t-channel bot">MaxBot · авто</div>
+              <div class="t-text">«Иван, понимаем — сейчас не время. Когда будет готовы — мы рядом». Закрываем чисто, без давления.</div>
+            </div>
+            <div class="t-row">
+              <div class="t-when">+ 14 дней</div>
+              <div class="t-channel bot">MaxBot · авто</div>
+              <div class="t-text">Первый ping: «Прошло две недели — долг тем временем растёт. Готовы вернуться к разговору?»</div>
+            </div>
+            <div class="t-row">
+              <div class="t-when">+ 1 месяц</div>
+              <div class="t-channel bot">MaxBot · авто</div>
+              <div class="t-text">Кейс клиента: «Иван, вот история похожего на вас человека — списал N млн через нашу процедуру».</div>
+            </div>
+            <div class="t-row">
+              <div class="t-when">+ 2 месяца</div>
+              <div class="t-channel bot">MaxBot · авто</div>
+              <div class="t-text">Расчёт: «За 2 месяца ваш долг вырос на X ₽. Кредиторы зарабатывают на ожидании».</div>
+            </div>
+            <div class="t-row">
+              <div class="t-when">+ 3 месяца</div>
+              <div class="t-channel bot">MaxBot · авто</div>
+              <div class="t-text">Финал: «Иван, последняя возможность — спишите долг сейчас, пока он не вырос ещё больше».</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Что происходит, если клиент отвечает</div>
+          <ol>
+            <li>Savi Bot ловит ответ клиента (положительный или вопрос).</li>
+            <li>Бот <strong>создаёт новую сделку</strong> с тегом <em>«повторная заявка»</em>.</li>
+            <li>Новая сделка попадает на этап 01 «Встреча назначена».</li>
+            <li>Назначается <strong>новый клоузер</strong> (не тот, кто работал в первый раз) — для свежего голоса и чистой аналитики.</li>
+            <li>Старая сделка остаётся в этапе 08 как <em>«реактивирована»</em> — для отчётности.</li>
+          </ol>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Куда уйдёт сделка по результату</div>
+          <div class="results">
+            <div class="results-row">
+              <div class="results-icon ok">✓</div>
+              <div class="results-text"><strong>Клиент откликнулся за 90 дней</strong> — Savi создаёт новую сделку</div>
+              <div class="results-target"><span>→ новый этап 01 · тег «повторная заявка»</span></div>
+            </div>
+            <div class="results-row">
+              <div class="results-icon mute">∅</div>
+              <div class="results-text">90 дней без ответа</div>
+              <div class="results-target bad"><span>финальное закрытие · тег «холодный»</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="escalation">
+          <div class="escalation-mark">i</div>
+          <div>
+            <span class="upper">Важно для клоузера</span>
+            <p>В этап 08 ты <strong>не лезешь</strong> — здесь работает только Savi. Если получил <em>«повторную заявку»</em> от клиента, с которым работал коллега раньше — посмотри в карточке тег <strong>«повторная заявка»</strong> и историю. Это <em>тёплый</em> лид, у нас уже есть контекст.</p>
           </div>
         </div>
       </div>
@@ -2571,27 +2615,9 @@ section#quiz{
         </div>
       </div>
 
-      <div class="ab-stage" data-tag="mute">
-        <div class="ab-head">
-          <span class="ab-num">06</span>
-          <div class="ab-title">Отложен</div>
-          <span class="ab-count">2 шаблона</span>
-        </div>
-        <div class="ab-list">
-          <div class="ab-row">
-            <div class="ab-when now">сразу</div>
-            <div class="ab-text">Подтверждение даты возврата к диалогу<small class="ab-id">delayed_start</small></div>
-          </div>
-          <div class="ab-row">
-            <div class="ab-when before">−24 часа</div>
-            <div class="ab-text">«Завтра позвоним, как договаривались»<small class="ab-id">delayed_day_before</small></div>
-          </div>
-        </div>
-      </div>
-
       <div class="ab-stage" data-tag="gold">
         <div class="ab-head">
-          <span class="ab-num">07</span>
+          <span class="ab-num">06</span>
           <div class="ab-title">Договор оплачен</div>
           <span class="ab-count">— нет автосообщений</span>
         </div>
@@ -2600,7 +2626,7 @@ section#quiz{
 
       <div class="ab-stage" data-tag="bad">
         <div class="ab-head">
-          <span class="ab-num">08</span>
+          <span class="ab-num">07</span>
           <div class="ab-title">Возврат трипваера</div>
           <span class="ab-count">2 шаблона</span>
         </div>
@@ -2612,6 +2638,40 @@ section#quiz{
           <div class="ab-row">
             <div class="ab-when event">возврат проведён</div>
             <div class="ab-text">«Деньги поступят на карту за 1–3 банковских дня»<small class="ab-id">refund_done</small></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ab-stage" data-tag="mute">
+        <div class="ab-head">
+          <span class="ab-num">08</span>
+          <div class="ab-title">Отложенный · реактивация</div>
+          <span class="ab-count">5 шаблонов</span>
+        </div>
+        <div class="ab-list">
+          <div class="ab-row">
+            <div class="ab-when now">сразу</div>
+            <div class="ab-text">«Понимаем — сейчас не время. Когда будете готовы — мы рядом»<small class="ab-id">deferred_start</small></div>
+          </div>
+          <div class="ab-row">
+            <div class="ab-when">+14 дней</div>
+            <div class="ab-text">Первый ping: «Прошло две недели — долг растёт»<small class="ab-id">deferred_d14</small></div>
+          </div>
+          <div class="ab-row">
+            <div class="ab-when">+1 месяц</div>
+            <div class="ab-text">Кейс клиента: история похожего профиля, списавшего N млн<small class="ab-id">deferred_m1</small></div>
+          </div>
+          <div class="ab-row">
+            <div class="ab-when">+2 месяца</div>
+            <div class="ab-text">Расчёт: «За 2 месяца ваш долг вырос на X ₽»<small class="ab-id">deferred_m2</small></div>
+          </div>
+          <div class="ab-row">
+            <div class="ab-when">+3 месяца</div>
+            <div class="ab-text">Финал реактивации<small class="ab-id">deferred_m3_final</small></div>
+          </div>
+          <div class="ab-row">
+            <div class="ab-when event">клиент ответил</div>
+            <div class="ab-text"><strong>Создаётся новая сделка</strong> с тегом «повторная заявка», назначается новый клоузер<small class="ab-id">reactivation_new_lead</small></div>
           </div>
         </div>
       </div>
@@ -2657,16 +2717,16 @@ section#quiz{
           <td>Без этого CRM не передвинет сделку в догрев.</td>
         </tr>
         <tr>
-          <td class="field-name">Дата возврата к диалогу</td>
+          <td class="field-name">Дата запланированного звонка</td>
           <td class="field-type">date</td>
-          <td class="field-where">этап 06</td>
-          <td>Дата автозадачи «Перезвонить, как договаривались».</td>
+          <td class="field-where">этапы 03 / 04 / 05 (если клиент назвал близкую дату ≤ 14 дней)</td>
+          <td>Дата автозадачи «Перезвонить, как договаривались». Сделка остаётся на текущем этапе, не уходит в Отложенный.</td>
         </tr>
         <tr>
-          <td class="field-name">Дата оплаты обещанная</td>
-          <td class="field-type">date</td>
-          <td class="field-where">этап 06 (если оплата)</td>
-          <td>Когда клиент обещал заплатить — для контроля.</td>
+          <td class="field-name">Тег причины ухода</td>
+          <td class="field-type">select</td>
+          <td class="field-where">этап 08 отложенный</td>
+          <td>Откуда пришла сделка и почему: <em>«отказ», «дата &gt; 14 дней», «тишина», «финансы», «не время»</em>. Для аналитики и сегментации Savi-нурче.</td>
         </tr>
         <tr>
           <td class="field-name">Сумма предоплаты</td>
@@ -2677,7 +2737,7 @@ section#quiz{
         <tr>
           <td class="field-name">Этап-источник возврата</td>
           <td class="field-type">select</td>
-          <td class="field-where">этап 08</td>
+          <td class="field-where">этап 07 (возврат)</td>
           <td>Откуда ушёл клиент — нужно для отчёта по возвратам.</td>
         </tr>
       </tbody>
@@ -2715,7 +2775,7 @@ section#quiz{
           <li>Игнорировать <strong>уведомления 48ч / 60ч / 70ч</strong> — система предупредила трижды, четвёртое — изъятие сделки.</li>
           <li>«Слить» сделку (формально работать, не дожимать) — ОКК выявит, <strong>штраф 2 000 ₽</strong> за каждый случай.</li>
           <li>Закрыть касание <strong>без примечания в карточке</strong> — касание не засчитывается, аудит = штраф.</li>
-          <li>Зависать на этапе 07 больше 3 часов без передачи документов.</li>
+          <li>Зависать на этапе 06 (оплачен) больше 3 часов без передачи документов.</li>
           <li>Закрыть рабочий день без чистого дашборда в чате с РОПом.</li>
           <li>Пропустить звонок через 2 часа на этапе 03 (Догрев) и 04 (Счёт).</li>
         </ul>
@@ -2853,7 +2913,7 @@ section#quiz{
   <div class="footer-inner">
     <div class="footer-mark">Дону<span>ля</span> · отдел продаж</div>
     <div class="footer-meta">
-      <div>версия 2.4 · апрель 2026</div>
+      <div>версия 3.0 · апрель 2026</div>
       <div>воронка МПП2 · amocrm</div>
       <div>вопросы по инструкции — РОПу МПП2</div>
     </div>
