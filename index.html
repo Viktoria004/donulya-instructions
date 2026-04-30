@@ -340,6 +340,114 @@ section.alt-bg{
   .pool::before{font-size:9rem}
 }
 
+/* escalation timeline (warnings 48 / 60 / 70 / 72) */
+.escalation-timeline{
+  margin-top:20px;
+  background:linear-gradient(180deg,var(--paper-warm) 0%,var(--paper-light) 100%);
+  border:1px solid var(--line);
+  padding:32px 36px;
+  border-left:4px solid var(--copper);
+}
+.esc-head{margin-bottom:30px}
+.esc-head .upper{color:var(--copper);font-size:.7rem;display:block;margin-bottom:6px;font-weight:700}
+.esc-head h3{
+  font-family:var(--font-display);font-weight:400;
+  font-size:1.4rem;letter-spacing:-.012em;line-height:1.15;
+}
+.esc-head h3 em{font-style:italic;color:var(--copper)}
+.esc-track{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  position:relative;padding-top:8px;
+}
+.esc-track::before{
+  content:"";position:absolute;left:8%;right:8%;top:46px;height:3px;
+  background:linear-gradient(90deg,var(--gold) 0%,var(--copper) 33%,var(--burgundy) 66%,var(--ink) 100%);
+  z-index:0;
+}
+.esc-step{
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  position:relative;z-index:1;padding:0 8px;
+}
+.esc-time{
+  font-family:var(--font-display);font-weight:300;font-size:1.85rem;
+  letter-spacing:-.025em;margin-bottom:8px;line-height:1;
+  font-variation-settings:"opsz" 144,"SOFT" 100;
+}
+.esc-step.yellow .esc-time{color:var(--gold-deep)}
+.esc-step.orange .esc-time{color:var(--copper-deep)}
+.esc-step.red .esc-time{color:var(--burgundy-deep)}
+.esc-step.black .esc-time{color:var(--ink)}
+.esc-dot{
+  width:38px;height:38px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--paper);border:3px solid var(--ink);
+  font-family:var(--font-display);font-weight:700;font-size:.95rem;
+  margin-bottom:14px;
+}
+.esc-step.yellow .esc-dot{border-color:var(--gold);background:var(--gold-tint);color:var(--gold-deep)}
+.esc-step.orange .esc-dot{border-color:var(--copper);background:var(--copper-tint);color:var(--copper-deep)}
+.esc-step.red .esc-dot{border-color:var(--burgundy);background:var(--burgundy-tint);color:var(--burgundy-deep)}
+.esc-step.black .esc-dot{border-color:var(--ink);background:var(--ink);color:var(--gold)}
+.esc-text{
+  font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+}
+.esc-text strong{color:var(--ink);font-weight:600;display:block;margin-top:4px;font-size:.84rem;font-style:italic;font-family:var(--font-display);font-weight:400}
+.esc-step.yellow .esc-text strong{color:var(--gold-deep)}
+.esc-step.orange .esc-text strong{color:var(--copper-deep)}
+.esc-step.red .esc-text strong{color:var(--burgundy-deep)}
+.esc-step.black .esc-text strong{color:var(--ink)}
+
+@media (max-width:980px){
+  .escalation-timeline{padding:24px 22px}
+  .esc-track{grid-template-columns:1fr;gap:0}
+  .esc-track::before{
+    left:24px;right:auto;top:0;bottom:0;width:3px;height:auto;
+    background:linear-gradient(180deg,var(--gold) 0%,var(--copper) 33%,var(--burgundy) 66%,var(--ink) 100%);
+  }
+  .esc-step{flex-direction:row;align-items:center;text-align:left;padding:14px 0;gap:18px}
+  .esc-time{margin-bottom:0;flex-shrink:0;font-size:1.4rem;width:60px}
+  .esc-dot{margin-bottom:0;flex-shrink:0;width:34px;height:34px}
+  .esc-text{flex:1;font-size:.92rem}
+}
+
+/* bonus / sanction split cards */
+.bonus-sanctions{
+  margin-top:18px;
+  display:grid;grid-template-columns:1fr 1fr;gap:14px;
+}
+.bs-card{
+  background:var(--paper-light);border:1px solid var(--line);
+  padding:26px 28px;
+  position:relative;overflow:hidden;
+  transition:transform .25s ease,box-shadow .25s ease;
+}
+.bs-card:hover{transform:translateY(-3px);box-shadow:0 18px 36px -22px rgba(20,16,12,.3)}
+.bs-card.bonus{border-left:5px solid var(--sage);background:linear-gradient(135deg,var(--sage-tint) 0%,var(--paper-light) 70%)}
+.bs-card.sanction{border-left:5px solid var(--burgundy);background:linear-gradient(135deg,var(--burgundy-tint) 0%,var(--paper-light) 70%)}
+.bs-tag{
+  display:inline-block;font-family:var(--font-mono);font-size:.66rem;
+  letter-spacing:.22em;text-transform:uppercase;font-weight:700;
+  padding:5px 11px;margin-bottom:14px;
+}
+.bs-card.bonus .bs-tag{background:var(--sage);color:var(--paper-light)}
+.bs-card.sanction .bs-tag{background:var(--burgundy);color:var(--paper-light)}
+.bs-card h4{
+  font-family:var(--font-display);font-weight:500;font-size:1.32rem;
+  letter-spacing:-.012em;line-height:1.15;margin-bottom:10px;
+}
+.bs-card.bonus h4{color:var(--sage-deep)}
+.bs-card.sanction h4{color:var(--burgundy-deep)}
+.bs-card p{font-size:.95rem;line-height:1.5;color:var(--ink-soft)}
+.bs-card strong{color:var(--ink);font-weight:700}
+.bs-card em{font-style:normal;font-weight:600}
+.bs-card.bonus em{background:var(--gold-tint);padding:1px 6px;border-radius:2px}
+.bs-card.sanction em{background:rgba(168,42,64,.15);padding:1px 6px;border-radius:2px;color:var(--burgundy-deep)}
+
+@media (max-width:680px){
+  .bonus-sanctions{grid-template-columns:1fr}
+  .bs-card{padding:22px 22px}
+}
+
 /* terms / mini glossary in section 02 */
 .terms{
   background:var(--paper-light);border:1px solid var(--line);
@@ -1291,7 +1399,7 @@ section#quiz{
 <!-- ─────────────── HERO ─────────────── -->
 <header class="hero">
   <div class="hero-inner">
-    <div class="ribbon">внутренний документ · v 1.6</div>
+    <div class="ribbon">внутренний документ · v 1.7</div>
 
     <div class="hero-top">
       <div class="brandmark">
@@ -1399,7 +1507,8 @@ section#quiz{
 
     <div class="glossary">
       <span class="upper">ключевое слово</span>
-      <p><strong>Подтверждённое касание</strong> — это исходящий <em>звонок клиенту длительностью ≥ 30 секунд</em> (через рабочий телефон или Контур.Толк) ИЛИ <em>ответ клиента в MaxBot/VK Bot</em>. Звонки короче 30 секунд, недозвоны, отбитые — <strong>не касание</strong>. Входящие от клиента сами по себе касанием тоже не считаются — на них клоузер просто обязан ответить (через рабочий канал).</p>
+      <p><strong>Касание</strong> — это <em>двусторонний контакт</em> с клиентом. Клиент <strong>ответил</strong> тебе на звонок и говорил ≥ 30 секунд, или <strong>ответил</strong> в MaxBot/VK Bot. Не важно, кто инициировал контакт — твой исходящий звонок, на который клиент взял трубку, или входящий звонок клиента, на который ответил ты. Главное — клиент в эфире, связь есть.</p>
+      <p style="margin-top:10px"><strong>Что НЕ касание:</strong> исходящий звонок без ответа (недозвон, отбитый, разговор &lt; 30 сек), отправленное сообщение в бот, на которое клиент не ответил, любой контакт через личные мессенджеры (без записи).</p>
     </div>
 
     <div class="zd reveal">
@@ -1421,11 +1530,54 @@ section#quiz{
       <div class="pool-text">
         <span class="upper">общий котёл · автоматическое снятие сделки</span>
         <h3>72 часа тишины — и сделка больше не твоя.</h3>
-        <p>Если по сделке в активных статусах (<strong>Догрев, Счёт, Дожим</strong>) нет подтверждённого касания <em>более 72 часов</em> — система автоматически:</p>
+        <p>Если по сделке в активных статусах (<strong>Догрев, Счёт, Дожим</strong>) нет двустороннего касания <em>более 72 часов</em> — система автоматически:</p>
         <p>① снимает тебя с ответственности · ② перекидывает сделку в воронку <strong>«Общий котёл»</strong> · ③ <strong>автоматически назначает её другому клоузеру</strong> по правилам распределения.</p>
-        <p>Сделка уже у другого клоузера — её не вернуть. Поэтому правило простое: коснулся клиента в эфире <em>каждые 72 часа</em> — сделка остаётся твоей.</p>
+        <p>Триггер срабатывает <strong>в обе стороны</strong>: и если ты молчал, и если <strong>клиент в загасе</strong> — не отвечает на звонки и сообщения. Идея простая: один не дозвонился — второй дозвонится. <em>Свежий голос</em> даёт +20–30% реанимации.</p>
+        <p>Сделка уже у другого клоузера — её не вернуть. Правило: коснулся клиента <em>каждые 72 часа</em> — сделка остаётся твоей.</p>
       </div>
       <div class="pool-counter">72<small>часа</small></div>
+    </div>
+
+    <div class="escalation-timeline reveal">
+      <div class="esc-head">
+        <span class="upper">эскалация уведомлений · до автопередачи</span>
+        <h3>Система предупредит тебя <em>три раза</em>, прежде чем забрать сделку.</h3>
+      </div>
+      <div class="esc-track">
+        <div class="esc-step yellow">
+          <div class="esc-time">+ 48 ч</div>
+          <div class="esc-dot">🟡</div>
+          <div class="esc-text">Мягкое напоминание<strong>«Сделка #12345, Иванов И. — 24 часа до автопередачи. Касание не зафиксировано».</strong></div>
+        </div>
+        <div class="esc-step orange">
+          <div class="esc-time">+ 60 ч</div>
+          <div class="esc-dot">🟠</div>
+          <div class="esc-text">Срочное<strong>«⚠️ Сделка #12345 — осталось 12 часов. Без касания будет передана другому».</strong></div>
+        </div>
+        <div class="esc-step red">
+          <div class="esc-time">+ 70 ч</div>
+          <div class="esc-dot">🔴</div>
+          <div class="esc-text">Финальное<strong>«🚨 Срочно: 2 часа до автопередачи. Позвони клиенту сейчас».</strong></div>
+        </div>
+        <div class="esc-step black">
+          <div class="esc-time">+ 72 ч</div>
+          <div class="esc-dot">⚫</div>
+          <div class="esc-text">Автопередача<strong>«❌ Сделка #12345 передана другому клоузеру. Бывший ответственный: ты».</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bonus-sanctions reveal">
+      <div class="bs-card bonus">
+        <span class="bs-tag">бонус подобравшему</span>
+        <h4>Сделка из «Котла» стоит дороже.</h4>
+        <p>Тот клоузер, который примет сделку из «Общего котла» и закроет её, получает <strong>повышенный процент</strong> по сравнению со стандартной сделкой. Это <em>премия за реанимацию</em> — клиента уже один раз чуть не потеряли, второй заход сложнее.</p>
+      </div>
+      <div class="bs-card sanction">
+        <span class="bs-tag">санкции</span>
+        <h4>&gt; 20% сделок в Котёл — штраф.</h4>
+        <p>Если у клоузера <strong>больше 20% сделок</strong> за период уходит в «Общий котёл» — это сигнал, что он не справляется. Начисляются <em>санкции к бонусу</em>. Раз — предупреждение, систематически — пересмотр позиции.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -2203,13 +2355,15 @@ section#quiz{
         </div>
         <ul class="cheat-list">
           <li><strong>Звонить с личного телефона</strong> или принимать важный разговор в WhatsApp / личном Telegram — записи нет, разговор не считается.</li>
-          <li>Засчитывать звонок <strong>короче 30 секунд</strong> как касание.</li>
+          <li>Засчитывать звонок <strong>короче 30 секунд</strong> как касание. Касание = <strong>клиент ответил</strong>, не «я попытался».</li>
           <li>Двигать сделки руками между этапами. Только закрытие задачи с результатом.</li>
           <li>Касание без повода («просто напомнить про оплату»).</li>
           <li>На +72 ч на этапе «Счёт» звонить самому — нужен <strong>свежий голос</strong> (старший / другой клоузер).</li>
           <li>Писать тексты для MaxBot/VK самому — их готовит копирайтер.</li>
           <li>Третий перенос встречи на этапе 01 без эскалации РОПу.</li>
           <li><strong>Тишина более 72 часов на активных этапах (Догрев, Счёт, Дожим)</strong> — сделка автоматически снимается с тебя, уходит в «Общий котёл» и система сразу назначает её другому клоузеру. Не вернёшь.</li>
+          <li>Допускать <strong>больше 20% сделок в Общий котёл</strong> за период — начисляются санкции к бонусу.</li>
+          <li>Игнорировать <strong>уведомления 48ч / 60ч / 70ч</strong> — система предупредила трижды, четвёртое — изъятие сделки.</li>
           <li>Зависать на этапе 07 больше 3 часов без передачи документов.</li>
           <li>Закрыть рабочий день без чистого дашборда в чате с РОПом.</li>
           <li>Пропустить звонок через 2 часа на этапе 03 (Догрев) и 04 (Счёт).</li>
@@ -2229,6 +2383,8 @@ section#quiz{
           <li>Звонить через 2 часа после встречи (Догрев) и после выставления счёта.</li>
           <li>На этапе 04 идти по протоколу <strong>2 — 24 — 72</strong>: горячо → рассрочка → дедлайн от свежего голоса.</li>
           <li>На +72 ч (день 3 после счёта) звонит <strong>другой клоузер или старший</strong>, не ты.</li>
+          <li>Реагировать на уведомления системы (48ч / 60ч / 70ч) — это твой шанс сохранить сделку.</li>
+          <li>Подбирать сделки из «Общего котла» — за их закрытие <strong>платят больше</strong>, чем за обычную.</li>
           <li>На этапе 05 позвонить сразу при получении предоплаты.</li>
           <li>Передавать документы в сопровождение в первые 24 часа после оплаты.</li>
           <li>К концу смены (18:00 / 21:00) — скрин чистой воронки в группу с РОПом.</li>
@@ -2345,7 +2501,7 @@ section#quiz{
   <div class="footer-inner">
     <div class="footer-mark">Дону<span>ля</span> · отдел продаж</div>
     <div class="footer-meta">
-      <div>версия 1.6 · апрель 2026</div>
+      <div>версия 1.7 · апрель 2026</div>
       <div>воронка МПП2 · amocrm</div>
       <div>вопросы по инструкции — РОПу МПП2</div>
     </div>
