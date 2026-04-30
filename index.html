@@ -1231,11 +1231,16 @@ section#quiz{
   background:linear-gradient(90deg,var(--sage) 0%,var(--gold) 100%);
   transition:width .5s ease;
 }
-.quiz-wrap[data-progress="1"]::before{width:20%}
-.quiz-wrap[data-progress="2"]::before{width:40%}
-.quiz-wrap[data-progress="3"]::before{width:60%}
-.quiz-wrap[data-progress="4"]::before{width:80%}
-.quiz-wrap[data-progress="5"]::before{width:100%}
+.quiz-wrap[data-progress="1"]::before{width:10%}
+.quiz-wrap[data-progress="2"]::before{width:20%}
+.quiz-wrap[data-progress="3"]::before{width:30%}
+.quiz-wrap[data-progress="4"]::before{width:40%}
+.quiz-wrap[data-progress="5"]::before{width:50%}
+.quiz-wrap[data-progress="6"]::before{width:60%}
+.quiz-wrap[data-progress="7"]::before{width:70%}
+.quiz-wrap[data-progress="8"]::before{width:80%}
+.quiz-wrap[data-progress="9"]::before{width:90%}
+.quiz-wrap[data-progress="10"]::before{width:100%}
 .quiz-wrap[data-progress="done"]::before{width:100%}
 
 .quiz-dots{
@@ -1565,7 +1570,7 @@ section#quiz{
 <!-- ─────────────── HERO ─────────────── -->
 <header class="hero">
   <div class="hero-inner">
-    <div class="ribbon">внутренний документ · v 3.1</div>
+    <div class="ribbon">внутренний документ · v 3.2</div>
 
     <div class="hero-top">
       <div class="brandmark">
@@ -1618,9 +1623,8 @@ section#quiz{
       <a href="#s7"><span>09</span> возврат</a>
       <a href="#s8"><span>10</span> отложенный · реактивация</a>
       <a href="#autobot"><span>11</span> автосообщения</a>
-      <a href="#fields"><span>12</span> поля сделки</a>
-      <a href="#cheat"><span>13</span> шпаргалка</a>
-      <a href="#quiz"><span>14</span> экзамен 5/5</a>
+      <a href="#cheat"><span>12</span> шпаргалка</a>
+      <a href="#quiz"><span>13</span> экзамен 10/10</a>
     </nav>
   </div>
 </header>
@@ -2681,74 +2685,17 @@ section#quiz{
       <div>
         <span class="upper">что важно помнить</span>
         <p>Все эти сообщения отправляет <strong>MaxBot</strong> сам — ты не пишешь их вручную. Если клиент <em>ответил</em> на любое из них — это <strong>входящее касание</strong>, ты обязан ответить с рабочего канала.</p>
-        <p>Тексты для контентных сообщений (кейсы, расчёт долга, FAQ на этапе «Счёт») готовит <strong>копирайтер</strong>, не клоузер.</p>
+        <p>В MaxBot в AmoCRM у тебя <strong>все готовые шаблоны</strong> — выбираешь нужный, при необходимости правишь под себя и под ситуацию клиента, и отправляешь.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─────────────── 5. CUSTOM FIELDS ─────────────── -->
-<section id="fields" class="alt-bg">
+<!-- ─────────────── 5. CHEAT SHEET ─────────────── -->
+<section id="cheat" class="alt-bg">
   <div class="shell">
     <div class="section-head">
-      <div class="section-num">05<small>поля</small></div>
-      <div>
-        <h2 class="section-title">Кастомные <em>поля</em> сделки.</h2>
-        <p class="section-kicker">Без этих полей CRM не передвинет сделку. Если поле обязательное на этапе — заполни, иначе автоматизация встанет.</p>
-      </div>
-    </div>
-
-    <table class="fields-table">
-      <thead>
-        <tr><th>Поле</th><th>Тип</th><th>Где обязательно</th><th>Зачем</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="field-name">Формат встречи</td>
-          <td class="field-type">select · видео / телефон</td>
-          <td class="field-where">этап 01 · ставит охотник</td>
-          <td>От значения зависят сообщения и автозвонки. Видео = Контур.Толк.</td>
-        </tr>
-        <tr>
-          <td class="field-name">Причина не готов</td>
-          <td class="field-type">select</td>
-          <td class="field-where">этап 03</td>
-          <td>Без этого CRM не передвинет сделку в догрев.</td>
-        </tr>
-        <tr>
-          <td class="field-name">Дата запланированного звонка</td>
-          <td class="field-type">date</td>
-          <td class="field-where">этапы 03 / 04 / 05 (если клиент назвал близкую дату ≤ 14 дней)</td>
-          <td>Дата автозадачи «Перезвонить, как договаривались». Сделка остаётся на текущем этапе, не уходит в Отложенный.</td>
-        </tr>
-        <tr>
-          <td class="field-name">Тег причины ухода</td>
-          <td class="field-type">select</td>
-          <td class="field-where">этап 08 отложенный</td>
-          <td>Откуда пришла сделка и почему: <em>«отказ», «дата &gt; 14 дней», «тишина», «финансы», «не время»</em>. Для аналитики и сегментации Savi-нурче.</td>
-        </tr>
-        <tr>
-          <td class="field-name">Сумма предоплаты</td>
-          <td class="field-type">numeric</td>
-          <td class="field-where">этап 05</td>
-          <td><strong>Минимум 2 000 ₽</strong> — открывает этап 05. Меньше — сделка остаётся на этапе «Счёт выставлен».</td>
-        </tr>
-        <tr>
-          <td class="field-name">Этап-источник возврата</td>
-          <td class="field-type">select</td>
-          <td class="field-where">этап 07 (возврат)</td>
-          <td>Откуда ушёл клиент — нужно для отчёта по возвратам.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<!-- ─────────────── 6. CHEAT SHEET ─────────────── -->
-<section id="cheat">
-  <div class="shell">
-    <div class="section-head">
-      <div class="section-num">06<small>шпаргалка</small></div>
+      <div class="section-num">05<small>шпаргалка</small></div>
       <div>
         <h2 class="section-title">Что <em>запрещено</em> и что <em>обязательно</em>.</h2>
         <p class="section-kicker">Распечатай и повесь рядом с монитором. Если не помнишь правило — посмотри сюда.</p>
@@ -2765,7 +2712,6 @@ section#quiz{
           <li><strong>Звонить с личного телефона</strong> или принимать важный разговор в WhatsApp / личном Telegram — записи нет, разговор не считается.</li>
           <li>Засчитывать звонок <strong>короче 30 секунд</strong> как касание. Касание = <strong>клиент ответил</strong>, не «я попытался».</li>
           <li>Двигать сделки руками между этапами. Только закрытие задачи с результатом.</li>
-          <li>Писать тексты для MaxBot/VK самому — их готовит копирайтер.</li>
           <li>Третий перенос встречи на этапе 01 без эскалации РОПу.</li>
           <li><strong>Тишина более 72 часов на активных этапах (Догрев, Счёт, Дожим)</strong> — сделка автоматически снимается с тебя, уходит в «Общий котёл» и система сразу назначает её другому клоузеру. Не вернёшь.</li>
           <li>Допускать <strong>больше 20% сделок в Общий котёл</strong> за период — начисляются санкции к бонусу.</li>
@@ -2800,11 +2746,11 @@ section#quiz{
   </div>
 </section>
 
-<!-- ─────────────── 7. QUIZ ─────────────── -->
+<!-- ─────────────── 6. QUIZ ─────────────── -->
 <section id="quiz">
   <div class="shell">
     <div class="section-head">
-      <div class="section-num">07<small>экзамен</small></div>
+      <div class="section-num">06<small>экзамен</small></div>
       <div>
         <h2 class="section-title">Тест на знание <em>воронки</em>.</h2>
         <p class="section-kicker">5 вопросов по самым важным правилам. Сдашь (4+ из 5) — можно работать. Ниже 4 — перечитай инструкцию и пройди заново.</p>
@@ -2818,11 +2764,16 @@ section#quiz{
         <div class="quiz-dot"></div>
         <div class="quiz-dot"></div>
         <div class="quiz-dot"></div>
+        <div class="quiz-dot"></div>
+        <div class="quiz-dot"></div>
+        <div class="quiz-dot"></div>
+        <div class="quiz-dot"></div>
+        <div class="quiz-dot"></div>
       </div>
 
       <!-- Q1 -->
       <div class="q-card active" data-q="1">
-        <div class="q-num">Вопрос 01 из 05 · правило №1</div>
+        <div class="q-num">Вопрос 01 из 10 · правило №1</div>
         <h3 class="q-text">Ты провёл встречу — клиент сказал «готов к договору». Какой <em>результат задачи</em> ты выбираешь?</h3>
         <div class="q-answers">
           <button class="q-answer" data-letter="A" data-correct="false">Перетаскиваю сделку на этап «Счёт выставлен» вручную в CRM</button>
@@ -2836,7 +2787,7 @@ section#quiz{
 
       <!-- Q2 -->
       <div class="q-card" data-q="2">
-        <div class="q-num">Вопрос 02 из 05 · этап «Догрев»</div>
+        <div class="q-num">Вопрос 02 из 10 · этап «Догрев»</div>
         <h3 class="q-text">Через сколько времени после встречи на этапе <em>Догрев</em> обязателен звонок клиенту?</h3>
         <div class="q-answers">
           <button class="q-answer" data-letter="A" data-correct="false">Сразу после встречи, в ту же минуту</button>
@@ -2850,7 +2801,7 @@ section#quiz{
 
       <!-- Q3 -->
       <div class="q-card" data-q="3">
-        <div class="q-num">Вопрос 03 из 05 · правило №3</div>
+        <div class="q-num">Вопрос 03 из 10 · правило №3</div>
         <h3 class="q-text">Что произойдёт, если по сделке в активном статусе <em>нет подтверждённого касания более 72 часов</em>?</h3>
         <div class="q-answers">
           <button class="q-answer" data-letter="A" data-correct="false">Ничего, можно продолжать работать</button>
@@ -2864,7 +2815,7 @@ section#quiz{
 
       <!-- Q4 -->
       <div class="q-card" data-q="4">
-        <div class="q-num">Вопрос 04 из 05 · конец дня</div>
+        <div class="q-num">Вопрос 04 из 10 · конец дня</div>
         <h3 class="q-text">Что такое <em>чистая воронка</em> (zero dashboard) и зачем она нужна?</h3>
         <div class="q-answers">
           <button class="q-answer" data-letter="A" data-correct="false">Аналитический дашборд с KPI клоузеров</button>
@@ -2878,13 +2829,83 @@ section#quiz{
 
       <!-- Q5 -->
       <div class="q-card" data-q="5">
-        <div class="q-num">Вопрос 05 из 05 · этап «Дожим»</div>
+        <div class="q-num">Вопрос 05 из 10 · этап «Дожим»</div>
         <h3 class="q-text">Какая <em>минимальная сумма предоплаты</em> для перехода с «Счёт выставлен» на «Дожим»?</h3>
         <div class="q-answers">
           <button class="q-answer" data-letter="A" data-correct="false">Минимум 50% от стоимости договора</button>
           <button class="q-answer" data-letter="B" data-correct="true">Не менее 2 000 ₽</button>
           <button class="q-answer" data-letter="C" data-correct="false">Любая сумма — даже 100 ₽ открывает «Дожим»</button>
           <button class="q-answer" data-letter="D" data-correct="false">Полная сумма договора</button>
+        </div>
+        <div class="q-feedback"></div>
+        <button class="q-next" disabled>Следующий вопрос →</button>
+      </div>
+
+      <!-- Q6 -->
+      <div class="q-card" data-q="6">
+        <div class="q-num">Вопрос 06 из 10 · главное правило</div>
+        <h3 class="q-text">С какого канала ты <em>имеешь право</em> звонить и писать клиенту?</h3>
+        <div class="q-answers">
+          <button class="q-answer" data-letter="A" data-correct="false">С личного мобильного — главное чтобы клиент взял трубку</button>
+          <button class="q-answer" data-letter="B" data-correct="false">Через WhatsApp или личный Telegram — там удобнее</button>
+          <button class="q-answer" data-letter="C" data-correct="true">Только с рабочего телефона или Контур.Толк (запись). Текстом — только MaxBot/VK Bot</button>
+          <button class="q-answer" data-letter="D" data-correct="false">С любого канала, где клиент комфортно общается</button>
+        </div>
+        <div class="q-feedback"></div>
+        <button class="q-next" disabled>Следующий вопрос →</button>
+      </div>
+
+      <!-- Q7 -->
+      <div class="q-card" data-q="7">
+        <div class="q-num">Вопрос 07 из 10 · что считается касанием</div>
+        <h3 class="q-text">Ты позвонил клиенту, он не взял трубку. Это <em>касание</em>?</h3>
+        <div class="q-answers">
+          <button class="q-answer" data-letter="A" data-correct="false">Да, я попытался — попытка считается касанием</button>
+          <button class="q-answer" data-letter="B" data-correct="false">Да, если звонок длился больше 10 секунд</button>
+          <button class="q-answer" data-letter="C" data-correct="true">Нет. Касание = клиент ответил на звонок (≥30 сек) или ответил в боте. Недозвон — не касание</button>
+          <button class="q-answer" data-letter="D" data-correct="false">Да, любая исходящая попытка фиксируется как касание</button>
+        </div>
+        <div class="q-feedback"></div>
+        <button class="q-next" disabled>Следующий вопрос →</button>
+      </div>
+
+      <!-- Q8 -->
+      <div class="q-card" data-q="8">
+        <div class="q-num">Вопрос 08 из 10 · этап «Договор оплачен»</div>
+        <h3 class="q-text">За сколько времени ты обязан <em>передать документы</em> в отдел сопровождения после полной оплаты?</h3>
+        <div class="q-answers">
+          <button class="q-answer" data-letter="A" data-correct="false">До конца рабочего дня</button>
+          <button class="q-answer" data-letter="B" data-correct="false">В течение 24 часов</button>
+          <button class="q-answer" data-letter="C" data-correct="true">3 рабочих часа — после этого алерт РОПу</button>
+          <button class="q-answer" data-letter="D" data-correct="false">До конца недели</button>
+        </div>
+        <div class="q-feedback"></div>
+        <button class="q-next" disabled>Следующий вопрос →</button>
+      </div>
+
+      <!-- Q9 -->
+      <div class="q-card" data-q="9">
+        <div class="q-num">Вопрос 09 из 10 · этап «Возврат»</div>
+        <h3 class="q-text">Клиент попросил вернуть трипваер. <em>Кто</em> принимает решение, согласован возврат или нет?</h3>
+        <div class="q-answers">
+          <button class="q-answer" data-letter="A" data-correct="false">Я сам — оформляю возврат и закрываю сделку</button>
+          <button class="q-answer" data-letter="B" data-correct="false">Финансист по моему запросу</button>
+          <button class="q-answer" data-letter="C" data-correct="true">ОКК — слушают записи, проверяют не слил ли я. Если слил — штраф 2 000 ₽ и сделка возвращается мне «доработать»</button>
+          <button class="q-answer" data-letter="D" data-correct="false">РОП единолично</button>
+        </div>
+        <div class="q-feedback"></div>
+        <button class="q-next" disabled>Следующий вопрос →</button>
+      </div>
+
+      <!-- Q10 -->
+      <div class="q-card" data-q="10">
+        <div class="q-num">Вопрос 10 из 10 · бонус из «Котла»</div>
+        <h3 class="q-text">Ты подобрал и закрыл сделку из «Общего котла». <em>Какой</em> бонус ты получаешь?</h3>
+        <div class="q-answers">
+          <button class="q-answer" data-letter="A" data-correct="false">Стандартный процент — как за обычную сделку</button>
+          <button class="q-answer" data-letter="B" data-correct="true">+ 2 000 ₽ к стандартному бонусу за закрытие — премия за реанимацию</button>
+          <button class="q-answer" data-letter="C" data-correct="false">Удвоенный процент</button>
+          <button class="q-answer" data-letter="D" data-correct="false">Никакого бонуса — это просто работа</button>
         </div>
         <div class="q-feedback"></div>
         <button class="q-next q-final" disabled>Узнать результат →</button>
@@ -2907,7 +2928,7 @@ section#quiz{
   <div class="footer-inner">
     <div class="footer-mark">Дону<span>ля</span> · отдел продаж</div>
     <div class="footer-meta">
-      <div>версия 3.1 · апрель 2026</div>
+      <div>версия 3.2 · апрель 2026</div>
       <div>воронка МПП2 · amocrm</div>
       <div>вопросы по инструкции — РОПу МПП2</div>
     </div>
@@ -2979,6 +3000,26 @@ if(quizWrap){
     5:{
       correct:'Точно. Минимум 2 000 ₽ — это порог, чтобы перейти на «Дожим». Меньше — сделка остаётся на «Счёт выставлен», дедлайн не ресетится.',
       wrong:'Минимум 2 000 ₽. Меньшая сумма не открывает «Дожим» — это защита от формальных «100 ₽ для галочки», которые ничего не двигают.'
+    },
+    6:{
+      correct:'Так и есть. Голосом — только рабочий телефон или Контур.Толк. Текстом — только MaxBot/VK Bot. Без записи разговор не считается, сделка штрафуется.',
+      wrong:'Только рабочий телефон или Контур.Толк (для голоса), MaxBot/VK Bot (для текста). Личные каналы запрещены — без записи разговор не считается.'
+    },
+    7:{
+      correct:'Да. Касание — это двусторонний контакт: клиент ответил, говорил ≥30 сек или ответил в боте. Недозвоны и попытки — не касание.',
+      wrong:'Недозвон — НЕ касание. Касание = клиент ответил (звонок ≥30 сек или ответ в боте). «Я попытался» не считается.'
+    },
+    8:{
+      correct:'Точно. 3 рабочих часа — и сделка передана в сопровождение. Здесь нельзя зависать: клиент уже в системе, юристу пора начинать.',
+      wrong:'3 рабочих часа. После — РОПу прилетает алерт. Это самый короткий SLA в воронке — здесь не зависают.'
+    },
+    9:{
+      correct:'Так и есть. Решает ОКК — слушают записи, проверяют примечания. Если слил — штраф 2 000 ₽ и сделка возвращается тебе с задачей «доработай».',
+      wrong:'Решение принимает ОКК, не ты и не финансист. Они слушают записи и проверяют, реально ли клиента нельзя было дожать. Слил — штраф 2 000 ₽.'
+    },
+    10:{
+      correct:'Точно. +2 000 ₽ к стандартному бонусу за каждую закрытую сделку из «Котла». Это премия за реанимацию — клиента уже один раз чуть не потеряли.',
+      wrong:'+2 000 ₽ к стандартному бонусу за закрытие. Подбирай сделки из «Котла» — это лёгкие деньги, если умеешь работать со сложными клиентами.'
     }
   };
 
@@ -3017,7 +3058,7 @@ if(quizWrap){
       const qNum = parseInt(card.dataset.q);
       card.classList.remove('active');
 
-      if(qNum < 5){
+      if(qNum < 10){
         const nextCard = quizWrap.querySelector('.q-card[data-q="'+(qNum+1)+'"]');
         nextCard.classList.add('active');
         const dots = quizWrap.querySelectorAll('.quiz-dot');
@@ -3026,18 +3067,18 @@ if(quizWrap){
         quizWrap.scrollIntoView({behavior:'smooth',block:'start'});
       } else {
         const result = quizWrap.querySelector('.q-result');
-        const passed = score >= 4;
+        const passed = score >= 8;
         result.classList.add('active', passed ? 'pass' : 'fail');
         result.querySelector('.q-result-mark').textContent = passed ? '✓' : '×';
-        result.querySelector('.q-result-score').textContent = 'Результат: '+score+' / 5';
+        result.querySelector('.q-result-score').textContent = 'Результат: '+score+' / 10';
         result.querySelector('.q-result-title').textContent = passed
-          ? (score === 5 ? 'Идеально. Экзамен сдан.' : 'Экзамен сдан!')
+          ? (score === 10 ? 'Идеально. Экзамен сдан.' : 'Экзамен сдан!')
           : 'Не сдан. Перечитай инструкцию.';
         result.querySelector('.q-result-text').textContent = passed
-          ? (score === 5
+          ? (score === 10
               ? 'Знаешь воронку наизусть — можно работать.'
-              : 'Можно работать в воронке. Сомневаешься в одном вопросе — перечитай нужный этап.')
-          : 'Меньше 4 правильных — ты ещё не готов. Вернись наверх, перечитай и попробуй заново.';
+              : 'Можно работать в воронке. Сомневаешься в каких-то правилах — перечитай нужные разделы.')
+          : 'Меньше 8 правильных из 10 — ты ещё не готов. Вернись наверх, перечитай и попробуй заново.';
         quizWrap.dataset.progress = 'done';
         quizWrap.scrollIntoView({behavior:'smooth',block:'start'});
       }
