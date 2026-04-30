@@ -18,21 +18,21 @@
   --line:#D6CDB8;
   --line-soft:#E5DCC7;
 
-  --sage:#1F6B47;
-  --sage-deep:#0E3D27;
-  --sage-light:#9FC4AC;
-  --sage-tint:#DFEDE3;
-  --copper:#D8632A;
-  --copper-deep:#7A2E0F;
-  --copper-tint:#F8DDC8;
-  --gold:#D8A22C;
-  --gold-deep:#7A5A0F;
-  --gold-tint:#F8E9C0;
-  --burgundy:#A82A40;
-  --burgundy-deep:#5A0F1E;
-  --burgundy-tint:#F2D6DC;
+  --sage:#0A7E50;
+  --sage-deep:#003820;
+  --sage-light:#7BCFA1;
+  --sage-tint:#C5E5D4;
+  --copper:#E0541D;
+  --copper-deep:#6E1F00;
+  --copper-tint:#FACDB2;
+  --gold:#E5A912;
+  --gold-deep:#6B4D00;
+  --gold-tint:#FFE39A;
+  --burgundy:#BA0F36;
+  --burgundy-deep:#52000E;
+  --burgundy-tint:#FFC8D2;
   --slate:#3F4A55;
-  --sand:#E1CFA6;
+  --sand:#F0DDA8;
 
   --font-display:"Fraunces",Georgia,serif;
   --font-body:"Manrope",-apple-system,sans-serif;
@@ -338,6 +338,79 @@ section.alt-bg{
   .pool-icon{margin:0 auto}
   .pool-counter{font-size:5rem}
   .pool::before{font-size:9rem}
+}
+
+/* PAIRED HERO — 72 часа + касание (главные понятия рядом) */
+.kasanie-hero{
+  display:grid;grid-template-columns:1fr 1fr;gap:18px;
+  margin-top:28px;margin-bottom:24px;
+}
+.kh-card{
+  padding:42px 44px;
+  position:relative;overflow:hidden;
+  display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:start;
+  box-shadow:0 32px 70px -36px rgba(20,16,12,.5);
+  transition:transform .35s ease;
+}
+.kh-card:hover{transform:translateY(-4px)}
+.kh-rule{
+  background:linear-gradient(135deg,var(--burgundy) 0%,var(--burgundy-deep) 100%);
+  color:var(--paper-light);
+  border-left:7px solid var(--gold);
+}
+.kh-rule::before{
+  content:"";position:absolute;right:-50px;bottom:-50px;
+  width:280px;height:280px;border-radius:50%;
+  background:radial-gradient(circle,var(--gold) 0%,transparent 60%);
+  opacity:.18;pointer-events:none;
+}
+.kh-def{
+  background:linear-gradient(135deg,var(--sage) 0%,var(--sage-deep) 100%);
+  color:var(--paper-light);
+  border-left:7px solid var(--gold);
+}
+.kh-def::before{
+  content:"";position:absolute;right:-50px;top:-50px;
+  width:260px;height:260px;border-radius:50%;
+  background:radial-gradient(circle,var(--gold) 0%,transparent 60%);
+  opacity:.18;pointer-events:none;
+}
+.kh-num{
+  font-family:var(--font-display);font-weight:200;font-size:7.5rem;
+  line-height:.85;letter-spacing:-.06em;color:var(--gold);
+  font-variation-settings:"opsz" 144,"SOFT" 100;
+  flex-shrink:0;position:relative;z-index:1;
+}
+.kh-num small{display:block;font-family:var(--font-mono);font-size:.72rem;
+  letter-spacing:.22em;text-transform:uppercase;font-weight:700;
+  color:var(--gold);margin-top:8px;
+}
+.kh-icon{
+  font-family:var(--font-display);font-weight:300;font-size:7.5rem;
+  line-height:.85;color:var(--gold);position:relative;z-index:1;
+  letter-spacing:-.04em;
+}
+.kh-content{position:relative;z-index:1}
+.kh-content .upper{color:var(--gold);font-size:.72rem;display:block;margin-bottom:12px;font-weight:700}
+.kh-content h3{
+  font-family:var(--font-display);font-weight:500;
+  font-size:clamp(1.6rem,2.6vw,2.05rem);line-height:1.05;letter-spacing:-.018em;
+  color:var(--paper-light);margin-bottom:14px;
+}
+.kh-content h3 em{font-style:italic;color:var(--gold);font-weight:600}
+.kh-content p{font-size:.97rem;line-height:1.55;color:rgba(255,255,255,.88);margin-bottom:10px}
+.kh-content p:last-child{margin-bottom:0}
+.kh-content strong{color:var(--paper-light);font-weight:700}
+.kh-content em{font-style:normal;background:rgba(229,169,18,.22);padding:1px 7px;border-radius:2px;color:var(--gold);font-weight:600}
+
+@media (max-width:1100px){
+  .kasanie-hero{grid-template-columns:1fr}
+}
+@media (max-width:680px){
+  .kh-card{grid-template-columns:1fr;padding:28px 24px;gap:18px}
+  .kh-num{font-size:5rem}
+  .kh-icon{font-size:5rem}
+  .kh-content h3{font-size:1.4rem}
 }
 
 /* escalation timeline (warnings 48 / 60 / 70 / 72) */
@@ -1399,7 +1472,7 @@ section#quiz{
 <!-- ─────────────── HERO ─────────────── -->
 <header class="hero">
   <div class="hero-inner">
-    <div class="ribbon">внутренний документ · v 1.7</div>
+    <div class="ribbon">внутренний документ · v 1.8</div>
 
     <div class="hero-top">
       <div class="brandmark">
@@ -1505,10 +1578,26 @@ section#quiz{
       </article>
     </div>
 
-    <div class="glossary">
-      <span class="upper">ключевое слово</span>
-      <p><strong>Касание</strong> — это <em>двусторонний контакт</em> с клиентом. Клиент <strong>ответил</strong> тебе на звонок и говорил ≥ 30 секунд, или <strong>ответил</strong> в MaxBot/VK Bot. Не важно, кто инициировал контакт — твой исходящий звонок, на который клиент взял трубку, или входящий звонок клиента, на который ответил ты. Главное — клиент в эфире, связь есть.</p>
-      <p style="margin-top:10px"><strong>Что НЕ касание:</strong> исходящий звонок без ответа (недозвон, отбитый, разговор &lt; 30 сек), отправленное сообщение в бот, на которое клиент не ответил, любой контакт через личные мессенджеры (без записи).</p>
+    <div class="kasanie-hero">
+      <div class="kh-card kh-rule reveal">
+        <div class="kh-num">72<small>часа</small></div>
+        <div class="kh-content">
+          <span class="upper">главное правило воронки</span>
+          <h3>Тишина — и сделка <em>больше не твоя</em>.</h3>
+          <p>На активных этапах (<strong>Догрев, Счёт, Дожим</strong>) если 72 часа нет двустороннего касания — система снимает тебя с ответственности и <strong>автоматически назначает сделку другому клоузеру</strong>. Не вернуть.</p>
+          <p>Триггер срабатывает <em>в обе стороны</em>: и если ты молчал, и если клиент в загасе. Один не дозвонился — второй дозвонится. Свежий голос даёт +20–30% реанимации.</p>
+        </div>
+      </div>
+
+      <div class="kh-card kh-def reveal" data-delay="1">
+        <div class="kh-icon">⇄</div>
+        <div class="kh-content">
+          <span class="upper">что такое касание</span>
+          <h3>Касание = клиент <em>ответил</em>.</h3>
+          <p><strong>Считается:</strong> исходящий звонок, на который клиент взял трубку и говорил ≥ 30 секунд. Входящий от клиента, на который ты ответил. Ответ клиента в MaxBot или VK Bot. Главное — связь двусторонняя.</p>
+          <p><strong>НЕ считается:</strong> недозвон, отбитый, разговор &lt; 30 сек, отправленное сообщение без ответа, любой контакт через личные мессенджеры. <em>«Я попытался» — не касание.</em></p>
+        </div>
+      </div>
     </div>
 
     <div class="zd reveal">
@@ -1521,21 +1610,6 @@ section#quiz{
         <p>За <strong>15 минут до конца смены</strong> (у кого 18:00, у кого 21:00) открываешь воронку, фильтруешь по своим сделкам, делаешь скрин: <strong>ни одной красной задачи</strong>. Скидываешь в группу с РОПом. Если есть просрочки — закрываешь, потом скрин. Без чистого дашборда рабочий день не считается закрытым.</p>
       </div>
       <div class="zd-zero">0</div>
-    </div>
-
-    <div class="pool reveal">
-      <div class="pool-icon">
-        <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><path d="M24 14 V24 L31 28"/><path d="M14 8 L8 14"/><path d="M34 8 L40 14"/></svg>
-      </div>
-      <div class="pool-text">
-        <span class="upper">общий котёл · автоматическое снятие сделки</span>
-        <h3>72 часа тишины — и сделка больше не твоя.</h3>
-        <p>Если по сделке в активных статусах (<strong>Догрев, Счёт, Дожим</strong>) нет двустороннего касания <em>более 72 часов</em> — система автоматически:</p>
-        <p>① снимает тебя с ответственности · ② перекидывает сделку в воронку <strong>«Общий котёл»</strong> · ③ <strong>автоматически назначает её другому клоузеру</strong> по правилам распределения.</p>
-        <p>Триггер срабатывает <strong>в обе стороны</strong>: и если ты молчал, и если <strong>клиент в загасе</strong> — не отвечает на звонки и сообщения. Идея простая: один не дозвонился — второй дозвонится. <em>Свежий голос</em> даёт +20–30% реанимации.</p>
-        <p>Сделка уже у другого клоузера — её не вернуть. Правило: коснулся клиента <em>каждые 72 часа</em> — сделка остаётся твоей.</p>
-      </div>
-      <div class="pool-counter">72<small>часа</small></div>
     </div>
 
     <div class="escalation-timeline reveal">
@@ -2501,7 +2575,7 @@ section#quiz{
   <div class="footer-inner">
     <div class="footer-mark">Дону<span>ля</span> · отдел продаж</div>
     <div class="footer-meta">
-      <div>версия 1.7 · апрель 2026</div>
+      <div>версия 1.8 · апрель 2026</div>
       <div>воронка МПП2 · amocrm</div>
       <div>вопросы по инструкции — РОПу МПП2</div>
     </div>
