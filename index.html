@@ -340,6 +340,96 @@ section.alt-bg{
   .pool::before{font-size:9rem}
 }
 
+/* AUTOBOT — что делает MaxBot параллельно с клоузером */
+.autobot-grid{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;
+}
+.ab-stage{
+  background:var(--paper-light);border:1px solid var(--line);
+  padding:26px 28px;
+  border-top:4px solid var(--ink);
+  transition:transform .25s ease,box-shadow .25s ease;
+}
+.ab-stage:hover{transform:translateY(-3px);box-shadow:0 18px 36px -22px rgba(20,16,12,.28)}
+.ab-stage[data-tag="active"]{border-top-color:var(--sage);background:linear-gradient(180deg,var(--sage-tint) 0%,var(--paper-light) 35%)}
+.ab-stage[data-tag="warm"]{border-top-color:var(--copper);background:linear-gradient(180deg,var(--copper-tint) 0%,var(--paper-light) 35%)}
+.ab-stage[data-tag="gold"]{border-top-color:var(--gold);background:linear-gradient(180deg,var(--gold-tint) 0%,var(--paper-light) 35%)}
+.ab-stage[data-tag="bad"]{border-top-color:var(--burgundy);background:linear-gradient(180deg,var(--burgundy-tint) 0%,var(--paper-light) 35%)}
+.ab-stage[data-tag="mute"]{border-top-color:var(--slate)}
+.ab-head{
+  display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:baseline;
+  margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--line);
+}
+.ab-num{
+  font-family:var(--font-display);font-weight:300;font-size:2.6rem;
+  letter-spacing:-.04em;color:var(--ink);line-height:1;
+  font-variation-settings:"opsz" 144,"SOFT" 100;
+}
+.ab-title{
+  font-family:var(--font-display);font-weight:500;font-size:1.3rem;
+  letter-spacing:-.012em;line-height:1.1;
+}
+.ab-count{
+  font-family:var(--font-mono);font-size:.7rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-mute);font-weight:700;
+  background:var(--paper-warm);padding:5px 10px;
+}
+.ab-list{display:flex;flex-direction:column;gap:0}
+.ab-row{
+  display:grid;grid-template-columns:96px 1fr;gap:16px;
+  padding:12px 0;border-bottom:1px dashed var(--line-soft);
+  align-items:start;
+}
+.ab-row:last-child{border-bottom:none}
+.ab-when{
+  font-family:var(--font-mono);font-size:.74rem;letter-spacing:.08em;
+  text-transform:uppercase;font-weight:700;color:var(--copper);
+  padding-top:2px;
+}
+.ab-when.now{color:var(--sage)}
+.ab-when.before{color:var(--gold-deep)}
+.ab-when.event{color:var(--burgundy)}
+.ab-text{font-size:.94rem;line-height:1.4}
+.ab-text strong{font-weight:600;color:var(--ink)}
+.ab-id{
+  display:block;font-family:var(--font-mono);font-size:.7rem;
+  color:var(--ink-mute);letter-spacing:.04em;margin-top:3px;
+}
+.ab-empty{
+  background:var(--paper-warm);
+  padding:18px 20px;font-size:.92rem;color:var(--ink-soft);
+  font-family:var(--font-display);font-style:italic;font-weight:300;
+  text-align:center;border:1px dashed var(--line);
+}
+.ab-foot{
+  margin-top:24px;
+  background:var(--ink);color:var(--paper-light);
+  padding:24px 28px;
+  display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:start;
+  border-left:5px solid var(--gold);
+}
+.ab-foot-mark{
+  width:42px;height:42px;background:var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-weight:700;font-size:1.4rem;color:var(--ink);flex-shrink:0;
+}
+.ab-foot .upper{color:var(--gold);font-size:.7rem;display:block;margin-bottom:6px}
+.ab-foot p{font-size:.97rem;line-height:1.55;color:var(--sand);margin-bottom:6px}
+.ab-foot p:last-child{margin-bottom:0}
+.ab-foot strong{color:var(--paper-light);font-weight:700}
+.ab-foot em{font-style:normal;background:rgba(229,169,18,.22);padding:1px 6px;border-radius:2px;color:var(--gold);font-weight:600}
+
+@media (max-width:980px){
+  .autobot-grid{grid-template-columns:1fr}
+}
+@media (max-width:680px){
+  .ab-stage{padding:20px 22px}
+  .ab-num{font-size:2rem}
+  .ab-title{font-size:1.1rem}
+  .ab-row{grid-template-columns:80px 1fr;gap:12px}
+  .ab-foot{padding:20px 22px;grid-template-columns:1fr;gap:14px}
+}
+
 /* PAIRED HERO — 72 часа + касание (главные понятия рядом) */
 .kasanie-hero{
   display:grid;grid-template-columns:1fr 1fr;gap:18px;
@@ -1472,7 +1562,7 @@ section#quiz{
 <!-- ─────────────── HERO ─────────────── -->
 <header class="hero">
   <div class="hero-inner">
-    <div class="ribbon">внутренний документ · v 1.9</div>
+    <div class="ribbon">внутренний документ · v 2.0</div>
 
     <div class="hero-top">
       <div class="brandmark">
@@ -1485,7 +1575,7 @@ section#quiz{
       <div class="hero-meta">
         <div class="v">N° 01 / 2026</div>
         <div>апрель · санкт-петербург</div>
-        <div>для клоузеров и старших</div>
+        <div>для клоузеров и РОПов</div>
       </div>
     </div>
 
@@ -1524,9 +1614,10 @@ section#quiz{
       <a href="#s6"><span>08</span> отложен</a>
       <a href="#s7"><span>09</span> договор оплачен</a>
       <a href="#s8"><span>10</span> возврат</a>
-      <a href="#fields"><span>11</span> поля сделки</a>
-      <a href="#cheat"><span>12</span> шпаргалка</a>
-      <a href="#quiz"><span>13</span> экзамен 5/5</a>
+      <a href="#autobot"><span>11</span> автосообщения</a>
+      <a href="#fields"><span>12</span> поля сделки</a>
+      <a href="#cheat"><span>13</span> шпаргалка</a>
+      <a href="#quiz"><span>14</span> экзамен 5/5</a>
     </nav>
   </div>
 </header>
@@ -1891,7 +1982,7 @@ section#quiz{
             <li>Дальше клоузер сам выбирает день и время следующего касания, ориентируясь на пожелание клиента.</li>
             <li><strong>Касание не реже чем каждые 72 часа</strong> — иначе сделка уходит в «Общий котёл».</li>
             <li>Если не дозвон — система переставит задачу автоматически (см. график ниже).</li>
-            <li>День 7 — задача упадёт старшему клоузеру: «Попробуй вывести клиента на диалог».</li>
+            <li>День 7 — задача упадёт другому клоузеру (свежий голос): «Попробуй вывести клиента на диалог».</li>
             <li>День 14 — финальная попытка. Без результата — автозакрытие с пометкой «неактивен».</li>
           </ol>
         </div>
@@ -1916,13 +2007,13 @@ section#quiz{
             </div>
             <div class="t-row">
               <div class="t-when">день 7</div>
-              <div class="t-channel boss">старший</div>
-              <div class="t-text">Старший клоузер: «попробуй вывести на диалог».</div>
+              <div class="t-channel boss">другой клоузер</div>
+              <div class="t-text">Свежий голос: «попробуй вывести на диалог». Свой клоузер уже «выгорел» в глазах клиента.</div>
             </div>
             <div class="t-row">
               <div class="t-when">день 10</div>
               <div class="t-channel call">звонок / MaxBot</div>
-              <div class="t-text">Касание с поводом. Не пропускаем — иначе нарушим правило «3 дня тишины».</div>
+              <div class="t-text">Касание с поводом. Не пропускаем — иначе нарушим правило «72 часа».</div>
             </div>
             <div class="t-row">
               <div class="t-when">день 13</div>
@@ -1931,7 +2022,7 @@ section#quiz{
             </div>
             <div class="t-row">
               <div class="t-when">день 14</div>
-              <div class="t-channel boss">старший / РОП</div>
+              <div class="t-channel boss">РОП</div>
               <div class="t-text">Финал. Если без результата — закрытие «неактивен».</div>
             </div>
           </div>
@@ -1967,7 +2058,7 @@ section#quiz{
           <div class="escalation-mark">!</div>
           <div>
             <span class="upper">Эскалация</span>
-            <p><strong>День 7</strong> — задача старшему клоузеру. <strong>День 14</strong> — задача РОПу «Проверить работу со сделкой». Не пропускай контрольные точки.</p>
+            <p><strong>День 7</strong> — задача другому клоузеру (свежий голос). <strong>День 14</strong> — задача РОПу «Проверить работу со сделкой». Не пропускай контрольные точки.</p>
           </div>
         </div>
       </div>
@@ -1996,7 +2087,7 @@ section#quiz{
 
         <div class="block">
           <div class="block-label">Протокол 2 — 24 — 72: первые трое суток после счёта</div>
-          <p style="margin-bottom:18px;color:var(--ink-soft)">Самые горячие 72 часа — три контрольные точки, мимо которых пройти физически нельзя. На каждой <strong>свой угол разговора</strong>, на третьей — <strong>свежий голос</strong> (не ты, а старший или другой клоузер). Свой клоузер к 72 часам уже «выгорел» в глазах клиента.</p>
+          <p style="margin-bottom:18px;color:var(--ink-soft)">Самые горячие 72 часа — три контрольные точки, мимо которых пройти физически нельзя. На каждой <strong>свой угол разговора</strong>, на третьей — <strong>свежий голос</strong> (не ты, а другой клоузер). Свой клоузер к 72 часам уже «выгорел» в глазах клиента.</p>
           <div class="timeline">
             <div class="t-row">
               <div class="t-when">сразу при выставлении</div>
@@ -2015,8 +2106,8 @@ section#quiz{
             </div>
             <div class="t-row">
               <div class="t-when"><strong>+ 72 часа</strong></div>
-              <div class="t-channel boss">старший / другой клоузер</div>
-              <div class="t-text">УГОЛ <em>«дедлайн от свежего голоса»</em>. <strong>Звонит другой человек</strong> — старший клоузер или соседний клоузер. «Счёт сгорает, бронь снимается, юрист освобождается». Свежий голос даёт +20–30% реанимации. Свой клоузер на этой точке не звонит.</div>
+              <div class="t-channel boss">другой клоузер</div>
+              <div class="t-text">УГОЛ <em>«дедлайн от свежего голоса»</em>. <strong>Звонит другой клоузер</strong>, не ты. «Счёт сгорает, бронь снимается, юрист освобождается». Свежий голос даёт +20–30% реанимации.</div>
             </div>
             <div class="t-row">
               <div class="t-when">день 5</div>
@@ -2081,7 +2172,7 @@ section#quiz{
           <div class="escalation-mark">!</div>
           <div>
             <span class="upper">Эскалация</span>
-            <p><strong>+72 часа (день 3)</strong> — звонит старший / другой клоузер, не ты. <strong>День 14</strong> — РОП. Тексты MaxBot/VK для дней 5, 7, 11 готовит копирайтер — не пиши их сам.</p>
+            <p><strong>+72 часа (день 3)</strong> — звонит другой клоузер, не ты. <strong>День 14</strong> — РОП. Тексты MaxBot/VK для дней 5, 7, 11 готовит копирайтер — не пиши их сам.</p>
           </div>
         </div>
       </div>
@@ -2142,8 +2233,8 @@ section#quiz{
             </div>
             <div class="t-row">
               <div class="t-when">день 7</div>
-              <div class="t-channel boss">старший менеджер</div>
-              <div class="t-text">Подключается старший: личный разбор оставшихся сомнений.</div>
+              <div class="t-channel boss">другой клоузер</div>
+              <div class="t-text">Подключается другой клоузер (свежий голос): личный разбор оставшихся сомнений.</div>
             </div>
             <div class="t-row">
               <div class="t-when">день 9</div>
@@ -2188,7 +2279,7 @@ section#quiz{
           <div class="escalation-mark">!</div>
           <div>
             <span class="upper">Эскалация</span>
-            <p><strong>День 7</strong> — задача старшему менеджеру. <strong>День 14</strong> — РОП. Не выпускай клиента в тишину после предоплаты — это самое больное место воронки.</p>
+            <p><strong>День 7</strong> — задача другому клоузеру (свежий голос). <strong>День 14</strong> — РОП. Не выпускай клиента в тишину после предоплаты — это самое больное место воронки.</p>
           </div>
         </div>
       </div>
@@ -2353,11 +2444,186 @@ section#quiz{
   </div>
 </section>
 
-<!-- ─────────────── 4. CUSTOM FIELDS ─────────────── -->
+<!-- ─────────────── 4. AUTOBOT (auto-messages) ─────────────── -->
+<section id="autobot">
+  <div class="shell">
+    <div class="section-head">
+      <div class="section-num">04<small>автосообщения</small></div>
+      <div>
+        <h2 class="section-title">Что бот отправляет <em>без тебя</em>.</h2>
+        <p class="section-kicker">Параллельно с твоей работой <strong>MaxBot отправляет клиенту служебные сообщения</strong>: подтверждения встреч, напоминания, поздравления с предоплатой, финальные дёрги перед закрытием. Тебе их писать не нужно — ты только реагируешь на ответы клиента. Всего 21 шаблон, прошитый в воронку.</p>
+      </div>
+    </div>
+
+    <div class="autobot-grid">
+      <div class="ab-stage" data-tag="active">
+        <div class="ab-head">
+          <span class="ab-num">01</span>
+          <div class="ab-title">Встреча назначена</div>
+          <span class="ab-count">7 шаблонов</span>
+        </div>
+        <div class="ab-list">
+          <div class="ab-row">
+            <div class="ab-when now">сразу</div>
+            <div class="ab-text">Подтверждение записи (видео + аудио версии)<small class="ab-id">meeting_scheduled_video / meeting_scheduled_audio</small></div>
+          </div>
+          <div class="ab-row">
+            <div class="ab-when before">−1 час</div>
+            <div class="ab-text">Напоминание перед встречей с ссылкой / номером<small class="ab-id">meeting_1h_video / meeting_1h_audio</small></div>
+          </div>
+          <div class="ab-row">
+            <div class="ab-when before">−15 мин</div>
+            <div class="ab-text">Финальное напоминание + параллельный Sipuni-автозвонок (видео)<small class="ab-id">meeting_15min_video / meeting_15min_audio</small></div>
+          </div>
+          <div class="ab-row">
+            <div class="ab-when event">при переносе</div>
+            <div class="ab-text">Уведомление о новой дате<small class="ab-id">meeting_rescheduled</small></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ab-stage" data-tag="warm">
+        <div class="ab-head">
+          <span class="ab-num">02</span>
+          <div class="ab-title">Реанимация (Savi Bot)</div>
+          <span class="ab-count">5 шаблонов</span>
+        </div>
+        <div class="ab-list">
+          <div class="ab-row">
+            <div class="ab-when">+24 часа</div>
+            <div class="ab-text">«Котик грустит» — мягкий заход, мем<small class="ab-id">savi_d1</small></div>
+          </div>
+          <div class="ab-row">
+            <div class="ab-when">+72 часа</div>
+            <div class="ab-text">Личный заход: «когда готовы выйти на связь?»<small class="ab-id">savi_d3</small></div>
+          </div>
+          <div class="ab-row">
+            <div class="ab-when">+5 дней</div>
+            <div class="ab-text">«Не сдаёмся» с мемом + вопрос о намерении<small class="ab-id">savi_d5</small></div>
+          </div>
+          <div class="ab-row">
+            <div class="ab-when">+6 дней</div>
+            <div class="ab-text">Финал: «завтра автозакрытие, у вас 24 часа»<small class="ab-id">savi_d6_final</small></div>
+          </div>
+          <div class="ab-row">
+            <div class="ab-when event">по триггеру</div>
+            <div class="ab-text">Если клиент написал про возврат — оформление<small class="ab-id">savi_refund_request</small></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ab-stage" data-tag="warm">
+        <div class="ab-head">
+          <span class="ab-num">03</span>
+          <div class="ab-title">Догрев</div>
+          <span class="ab-count">1 шаблон</span>
+        </div>
+        <div class="ab-list">
+          <div class="ab-row">
+            <div class="ab-when">+13 дней</div>
+            <div class="ab-text">«Поезд уходит» — финал перед автозакрытием<small class="ab-id">warm_d13_final</small></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ab-stage" data-tag="active">
+        <div class="ab-head">
+          <span class="ab-num">04</span>
+          <div class="ab-title">Счёт выставлен</div>
+          <span class="ab-count">2 шаблона</span>
+        </div>
+        <div class="ab-list">
+          <div class="ab-row">
+            <div class="ab-when now">сразу</div>
+            <div class="ab-text">Счёт + договор + ссылка на оплату + «юрист уже выделен»<small class="ab-id">invoice_sent</small></div>
+          </div>
+          <div class="ab-row">
+            <div class="ab-when">+14 дней</div>
+            <div class="ab-text">Финал: «две недели прошло, два варианта — оплатить или назвать дату»<small class="ab-id">invoice_d14_final</small></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ab-stage" data-tag="active">
+        <div class="ab-head">
+          <span class="ab-num">05</span>
+          <div class="ab-title">Дожим</div>
+          <span class="ab-count">2 шаблона</span>
+        </div>
+        <div class="ab-list">
+          <div class="ab-row">
+            <div class="ab-when now">сразу</div>
+            <div class="ab-text">«Предоплата получена» + остаток + ссылка<small class="ab-id">push_start</small></div>
+          </div>
+          <div class="ab-row">
+            <div class="ab-when">+14 дней</div>
+            <div class="ab-text">Финал: «две недели прошло, доплата или возврат»<small class="ab-id">push_d14_final</small></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ab-stage" data-tag="mute">
+        <div class="ab-head">
+          <span class="ab-num">06</span>
+          <div class="ab-title">Отложен</div>
+          <span class="ab-count">2 шаблона</span>
+        </div>
+        <div class="ab-list">
+          <div class="ab-row">
+            <div class="ab-when now">сразу</div>
+            <div class="ab-text">Подтверждение даты возврата к диалогу<small class="ab-id">delayed_start</small></div>
+          </div>
+          <div class="ab-row">
+            <div class="ab-when before">−24 часа</div>
+            <div class="ab-text">«Завтра позвоним, как договаривались»<small class="ab-id">delayed_day_before</small></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ab-stage" data-tag="gold">
+        <div class="ab-head">
+          <span class="ab-num">07</span>
+          <div class="ab-title">Договор оплачен</div>
+          <span class="ab-count">— нет автосообщений</span>
+        </div>
+        <div class="ab-empty">Передача в отдел сопровождения происходит вручную клоузером — автосообщения не нужны.</div>
+      </div>
+
+      <div class="ab-stage" data-tag="bad">
+        <div class="ab-head">
+          <span class="ab-num">08</span>
+          <div class="ab-title">Возврат трипваера</div>
+          <span class="ab-count">2 шаблона</span>
+        </div>
+        <div class="ab-list">
+          <div class="ab-row">
+            <div class="ab-when now">сразу</div>
+            <div class="ab-text">Заявка на возврат принята, деньги придут за 3 дня<small class="ab-id">refund_received</small></div>
+          </div>
+          <div class="ab-row">
+            <div class="ab-when event">возврат проведён</div>
+            <div class="ab-text">«Деньги поступят на карту за 1–3 банковских дня»<small class="ab-id">refund_done</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ab-foot">
+      <div class="ab-foot-mark">i</div>
+      <div>
+        <span class="upper">что важно помнить</span>
+        <p>Все эти сообщения отправляет <strong>MaxBot</strong> сам — ты не пишешь их вручную. Если клиент <em>ответил</em> на любое из них — это <strong>входящее касание</strong>, ты обязан ответить с рабочего канала.</p>
+        <p>Тексты для контентных сообщений (кейсы, расчёт долга, FAQ на этапе «Счёт») готовит <strong>копирайтер</strong>, не клоузер.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── 5. CUSTOM FIELDS ─────────────── -->
 <section id="fields" class="alt-bg">
   <div class="shell">
     <div class="section-head">
-      <div class="section-num">04<small>поля</small></div>
+      <div class="section-num">05<small>поля</small></div>
       <div>
         <h2 class="section-title">Кастомные <em>поля</em> сделки.</h2>
         <p class="section-kicker">Без этих полей CRM не передвинет сделку. Если поле обязательное на этапе — заполни, иначе автоматизация встанет.</p>
@@ -2410,11 +2676,11 @@ section#quiz{
   </div>
 </section>
 
-<!-- ─────────────── 5. CHEAT SHEET ─────────────── -->
+<!-- ─────────────── 6. CHEAT SHEET ─────────────── -->
 <section id="cheat">
   <div class="shell">
     <div class="section-head">
-      <div class="section-num">05<small>шпаргалка</small></div>
+      <div class="section-num">06<small>шпаргалка</small></div>
       <div>
         <h2 class="section-title">Что <em>запрещено</em> и что <em>обязательно</em>.</h2>
         <p class="section-kicker">Распечатай и повесь рядом с монитором. Если не помнишь правило — посмотри сюда.</p>
@@ -2432,7 +2698,7 @@ section#quiz{
           <li>Засчитывать звонок <strong>короче 30 секунд</strong> как касание. Касание = <strong>клиент ответил</strong>, не «я попытался».</li>
           <li>Двигать сделки руками между этапами. Только закрытие задачи с результатом.</li>
           <li>Касание без повода («просто напомнить про оплату»).</li>
-          <li>На +72 ч на этапе «Счёт» звонить самому — нужен <strong>свежий голос</strong> (старший / другой клоузер).</li>
+          <li>На +72 ч на этапе «Счёт» звонить самому — нужен <strong>свежий голос</strong> (другой клоузер).</li>
           <li>Писать тексты для MaxBot/VK самому — их готовит копирайтер.</li>
           <li>Третий перенос встречи на этапе 01 без эскалации РОПу.</li>
           <li><strong>Тишина более 72 часов на активных этапах (Догрев, Счёт, Дожим)</strong> — сделка автоматически снимается с тебя, уходит в «Общий котёл» и система сразу назначает её другому клоузеру. Не вернёшь.</li>
@@ -2456,7 +2722,7 @@ section#quiz{
           <li>Касаться клиента <strong>не реже чем каждые 72 часа</strong> на активных этапах — иначе сделка уходит в «Общий котёл».</li>
           <li>Звонить через 2 часа после встречи (Догрев) и после выставления счёта.</li>
           <li>На этапе 04 идти по протоколу <strong>2 — 24 — 72</strong>: горячо → рассрочка → дедлайн от свежего голоса.</li>
-          <li>На +72 ч (день 3 после счёта) звонит <strong>другой клоузер или старший</strong>, не ты.</li>
+          <li>На +72 ч (день 3 после счёта) звонит <strong>другой клоузер</strong>, не ты.</li>
           <li>Реагировать на уведомления системы (48ч / 60ч / 70ч) — это твой шанс сохранить сделку.</li>
           <li>Подбирать сделки из «Общего котла» — за их закрытие <strong>платят больше</strong>, чем за обычную.</li>
           <li>На этапе 05 позвонить сразу при получении предоплаты.</li>
@@ -2468,11 +2734,11 @@ section#quiz{
   </div>
 </section>
 
-<!-- ─────────────── 6. QUIZ ─────────────── -->
+<!-- ─────────────── 7. QUIZ ─────────────── -->
 <section id="quiz">
   <div class="shell">
     <div class="section-head">
-      <div class="section-num">06<small>экзамен</small></div>
+      <div class="section-num">07<small>экзамен</small></div>
       <div>
         <h2 class="section-title">Тест на знание <em>воронки</em>.</h2>
         <p class="section-kicker">5 вопросов по самым важным правилам. Сдашь (4+ из 5) — можно работать. Ниже 4 — перечитай инструкцию и пройди заново.</p>
@@ -2575,7 +2841,7 @@ section#quiz{
   <div class="footer-inner">
     <div class="footer-mark">Дону<span>ля</span> · отдел продаж</div>
     <div class="footer-meta">
-      <div>версия 1.9 · апрель 2026</div>
+      <div>версия 2.0 · апрель 2026</div>
       <div>воронка МПП2 · amocrm</div>
       <div>вопросы по инструкции — РОПу МПП2</div>
     </div>
