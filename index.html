@@ -1008,6 +1008,8 @@ section.alt-bg{
 .t-channel.bot::before{background:var(--copper)}
 .t-channel.call::before{background:var(--sage)}
 .t-channel.boss::before{background:var(--gold)}
+.t-channel.template::before{background:var(--slate)}
+.t-channel.template{color:var(--slate)}
 .t-text{font-size:.98rem;line-height:1.5}
 .t-text strong{font-weight:700;color:var(--ink)}
 .t-text em{font-style:normal;background:var(--copper-tint);padding:1px 5px;border-radius:2px;font-weight:600}
@@ -1562,7 +1564,7 @@ section#quiz{
 <!-- ─────────────── HERO ─────────────── -->
 <header class="hero">
   <div class="hero-inner">
-    <div class="ribbon">внутренний документ · v 2.1</div>
+    <div class="ribbon">внутренний документ · v 2.2</div>
 
     <div class="hero-top">
       <div class="brandmark">
@@ -1926,9 +1928,40 @@ section#quiz{
         <div class="block">
           <div class="block-label">Что делать</div>
           <ul>
-            <li>После 2 не-дозвонов клоузеру задач здесь не приходит — общение ведёт <strong>Savi Bot</strong>.</li>
+            <li>После 2 не-дозвонов клоузеру задач здесь не приходит — общение ведёт <strong>Savi Bot</strong> автоматически.</li>
             <li>Если клиент сам ответит — проверь, что Savi корректно вернул сделку в нужный этап.</li>
           </ul>
+        </div>
+
+        <div class="block">
+          <div class="block-label">График Savi Bot — без участия клоузера</div>
+          <div class="timeline">
+            <div class="t-row">
+              <div class="t-when">+ 24 часа</div>
+              <div class="t-channel bot">MaxBot · авто</div>
+              <div class="t-text"><strong>«Котик грустит»</strong> — мягкий заход с мемом: «не получилось встретиться вчера, всё ли в порядке?»</div>
+            </div>
+            <div class="t-row">
+              <div class="t-when">+ 72 часа</div>
+              <div class="t-channel bot">MaxBot · авто</div>
+              <div class="t-text">Личный заход: «понимаем — график бывает плотным. Когда вы готовы выйти на связь?»</div>
+            </div>
+            <div class="t-row">
+              <div class="t-when">+ 5 дней</div>
+              <div class="t-channel bot">MaxBot · авто</div>
+              <div class="t-text"><strong>«Не сдаёмся»</strong> с мемом + вопрос: «вы хотите уменьшить платежи или списать долг полностью?»</div>
+            </div>
+            <div class="t-row">
+              <div class="t-when">+ 6 дней</div>
+              <div class="t-channel bot">MaxBot · авто</div>
+              <div class="t-text"><strong>Финал</strong>: «завтра автоматически закроем заявку. Если передумаете — у вас 24 часа».</div>
+            </div>
+            <div class="t-row">
+              <div class="t-when">по триггеру</div>
+              <div class="t-channel bot">MaxBot · авто</div>
+              <div class="t-text">Если клиент в чате написал слово <em>«возврат» / «верните» / «не хочу»</em> — Savi сам запускает оформление возврата 99 ₽.</div>
+            </div>
+          </div>
         </div>
 
         <div class="block">
@@ -2012,13 +2045,13 @@ section#quiz{
             </div>
             <div class="t-row">
               <div class="t-when">день 10</div>
-              <div class="t-channel call">звонок / MaxBot</div>
+              <div class="t-channel call">твой звонок</div>
               <div class="t-text">Касание с поводом. Не пропускаем — иначе нарушим правило «72 часа».</div>
             </div>
             <div class="t-row">
               <div class="t-when">день 13</div>
-              <div class="t-channel call">звонок / MaxBot</div>
-              <div class="t-text">Предпоследнее касание перед финалом.</div>
+              <div class="t-channel bot">MaxBot · авто</div>
+              <div class="t-text"><strong>«Поезд уходит»</strong> — финал перед автозакрытием. «Завтра закроем заявку — скажите честно, вы планируете проходить процедуру?»</div>
             </div>
             <div class="t-row">
               <div class="t-when">день 14</div>
@@ -2088,10 +2121,11 @@ section#quiz{
         <div class="block">
           <div class="block-label">Протокол 2 — 24 — 72: первые трое суток после счёта</div>
           <p style="margin-bottom:18px;color:var(--ink-soft)">Самые горячие 72 часа — три контрольные точки, мимо которых пройти физически нельзя. На каждой <strong>свой угол разговора</strong>, на третьей — <strong>свежий голос</strong> (не ты, а другой клоузер). Свой клоузер к 72 часам уже «выгорел» в глазах клиента.</p>
+          <p style="margin-bottom:18px;color:var(--ink-soft);font-size:.9rem"><em>Расшифровка:</em> <strong>MaxBot · авто</strong> — система отправляет сама. <strong>MaxBot · шаблон</strong> — клоузер сам жмёт кнопку «отправить шаблон» в карточке сделки.</p>
           <div class="timeline">
             <div class="t-row">
               <div class="t-when">сразу при выставлении</div>
-              <div class="t-channel bot">MaxBot / VK Bot</div>
+              <div class="t-channel bot">MaxBot · авто</div>
               <div class="t-text">Договор + ссылка на оплату + <strong>«юрист уже выделен по вашему делу»</strong>.</div>
             </div>
             <div class="t-row">
@@ -2111,13 +2145,13 @@ section#quiz{
             </div>
             <div class="t-row">
               <div class="t-when">день 5</div>
-              <div class="t-channel bot">MaxBot / VK Bot</div>
-              <div class="t-text"><strong>Кейс клиента</strong>: реальная история похожего профиля, который списал долг N млн. Текст готовит копирайтер.</div>
+              <div class="t-channel template">MaxBot · шаблон</div>
+              <div class="t-text"><strong>Кейс клиента</strong>: реальная история похожего профиля, который списал долг N млн. Шаблон отправляешь ты, текст готовит копирайтер.</div>
             </div>
             <div class="t-row">
               <div class="t-when">день 7</div>
-              <div class="t-channel bot">MaxBot / VK Bot</div>
-              <div class="t-text"><strong>Расчёт роста долга</strong>: «За эту неделю ваш долг вырос на X ₽ из-за процентов».</div>
+              <div class="t-channel template">MaxBot · шаблон</div>
+              <div class="t-text"><strong>Расчёт роста долга</strong>: «За эту неделю ваш долг вырос на X ₽ из-за процентов». Отправляешь шаблон.</div>
             </div>
             <div class="t-row">
               <div class="t-when">день 9</div>
@@ -2126,8 +2160,13 @@ section#quiz{
             </div>
             <div class="t-row">
               <div class="t-when">день 11</div>
-              <div class="t-channel bot">MaxBot / VK Bot</div>
-              <div class="t-text"><strong>FAQ / разбор страха</strong>: «что говорят кредиторы», «как проходит суд».</div>
+              <div class="t-channel template">MaxBot · шаблон</div>
+              <div class="t-text"><strong>FAQ / разбор страха</strong>: «что говорят кредиторы», «как проходит суд». Отправляешь шаблон.</div>
+            </div>
+            <div class="t-row">
+              <div class="t-when">день 14</div>
+              <div class="t-channel bot">MaxBot · авто</div>
+              <div class="t-text">Финальное сообщение: «две недели прошло с момента счёта». Система отправляет сама.</div>
             </div>
             <div class="t-row">
               <div class="t-when">день 14</div>
@@ -2161,6 +2200,11 @@ section#quiz{
               <div class="results-target bad"><span>закрыто и не реализовано</span></div>
             </div>
             <div class="results-row">
+              <div class="results-icon bad">↩</div>
+              <div class="results-text">Просит вернуть трипваер</div>
+              <div class="results-target warm"><span>→ этап 08 возврат</span></div>
+            </div>
+            <div class="results-row">
               <div class="results-icon mute">∅</div>
               <div class="results-text">Нет ответа 14 дней</div>
               <div class="results-target bad"><span>закрыто или → этап 06 отложен</span></div>
@@ -2172,7 +2216,7 @@ section#quiz{
           <div class="escalation-mark">!</div>
           <div>
             <span class="upper">Эскалация</span>
-            <p><strong>+72 часа (день 3)</strong> — звонит другой клоузер, не ты. <strong>День 14</strong> — РОП. Тексты MaxBot/VK для дней 5, 7, 11 готовит копирайтер — не пиши их сам.</p>
+            <p><strong>+72 часа (день 3)</strong> — звонит другой клоузер, не ты. <strong>День 14</strong> — РОП. Тексты для шаблонов на дни 5, 7, 11 готовит копирайтер — не пиши их сам.</p>
           </div>
         </div>
       </div>
@@ -2210,10 +2254,11 @@ section#quiz{
 
         <div class="block">
           <div class="block-label">Цикл касаний — каждые 72 часа</div>
+          <p style="margin-bottom:18px;color:var(--ink-soft);font-size:.9rem"><em>Расшифровка:</em> <strong>MaxBot · авто</strong> — система отправляет сама. <strong>MaxBot · шаблон</strong> — клоузер сам жмёт кнопку «отправить шаблон».</p>
           <div class="timeline">
             <div class="t-row">
               <div class="t-when">сразу при входе</div>
-              <div class="t-channel bot">MaxBot</div>
+              <div class="t-channel bot">MaxBot · авто</div>
               <div class="t-text">«Предоплата получена! Осталось N ₽ — юрист сразу приступит к делу. Ссылка на доплату».</div>
             </div>
             <div class="t-row">
@@ -2223,8 +2268,8 @@ section#quiz{
             </div>
             <div class="t-row">
               <div class="t-when">день 3</div>
-              <div class="t-channel bot">MaxBot</div>
-              <div class="t-text">«Остаток N ₽. Как только закроете — юрист стартует сегодня же».</div>
+              <div class="t-channel template">MaxBot · шаблон</div>
+              <div class="t-text">«Остаток N ₽. Как только закроете — юрист стартует сегодня же». Отправляешь шаблон.</div>
             </div>
             <div class="t-row">
               <div class="t-when">день 6</div>
@@ -2238,13 +2283,18 @@ section#quiz{
             </div>
             <div class="t-row">
               <div class="t-when">день 9</div>
-              <div class="t-channel bot">MaxBot</div>
-              <div class="t-text">«Вы уже внесли X ₽. Осталось N ₽, чтобы запустить дело».</div>
+              <div class="t-channel template">MaxBot · шаблон</div>
+              <div class="t-text">«Вы уже внесли X ₽. Осталось N ₽, чтобы запустить дело». Отправляешь шаблон.</div>
             </div>
             <div class="t-row">
               <div class="t-when">день 12</div>
               <div class="t-channel call">твой звонок</div>
               <div class="t-text">Касание с поводом. Не пропускаем — правило «72 часа».</div>
+            </div>
+            <div class="t-row">
+              <div class="t-when">день 14</div>
+              <div class="t-channel bot">MaxBot · авто</div>
+              <div class="t-text">Финальное сообщение «две недели прошло с предоплаты». Система отправляет сама.</div>
             </div>
             <div class="t-row">
               <div class="t-when">день 14</div>
@@ -2451,7 +2501,7 @@ section#quiz{
       <div class="section-num">04<small>автосообщения</small></div>
       <div>
         <h2 class="section-title">Что бот отправляет <em>без тебя</em>.</h2>
-        <p class="section-kicker">Параллельно с твоей работой <strong>MaxBot отправляет клиенту служебные сообщения</strong>: подтверждения встреч, напоминания, поздравления с предоплатой, финальные дёрги перед закрытием. Тебе их писать не нужно — ты только реагируешь на ответы клиента. Всего 21 шаблон, прошитый в воронку.</p>
+        <p class="section-kicker">Параллельно с твоей работой <strong>MaxBot отправляет клиенту служебные сообщения</strong>: подтверждения встреч, напоминания, поздравления с предоплатой, финальные дёрги перед закрытием. Тебе их писать не нужно — ты только реагируешь на ответы клиента. <strong>Только 21 шаблон ниже отправляется автоматически.</strong> Контентные сообщения на этапах «Счёт» и «Дожим» (кейс, расчёт долга, FAQ) — это <em>ручные шаблоны</em>: клоузер сам выбирает их в карточке сделки.</p>
       </div>
     </div>
 
@@ -2841,7 +2891,7 @@ section#quiz{
   <div class="footer-inner">
     <div class="footer-mark">Дону<span>ля</span> · отдел продаж</div>
     <div class="footer-meta">
-      <div>версия 2.1 · апрель 2026</div>
+      <div>версия 2.2 · апрель 2026</div>
       <div>воронка МПП2 · amocrm</div>
       <div>вопросы по инструкции — РОПу МПП2</div>
     </div>
